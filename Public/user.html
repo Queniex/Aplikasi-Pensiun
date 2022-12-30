@@ -7,62 +7,82 @@
     <meta name="author" content="David Grzyb">
     <meta name="description" content="">
 
-    <!-- Tailwind -->
-    <link href="../dist/output.css" rel="stylesheet">
-    <style>
+    <!-- Link tailwind -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <script>
+        tailwind.config = {
+          theme: {
+            container: {
+              center: true,
+              padding: '16px'
+            },
+            extend: {
+              colors: {
+              },
+              screens: {
+                '2xl': '1320px',
+              },
+              keyframes:{
+              }
+            }
+          }
+        }
+      </script>
+    
+    <style type="text/tailwindcss">
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap');
         .font-family-inter{ font-family: 'Inter', sans-serif; }
-        .bg-sidebar { background: #3d68ff; }
+        /* .bg-sidebar { background: #0A161E; } */
         .cta-btn { color: #3d68ff; }
         .upgrade-btn { background: #1947ee; }
         .upgrade-btn:hover { background: #0038fd; }
         .active-nav-link { background: #1947ee; }
         .nav-item:hover { background: #1947ee; }
         .account-link:hover { background: #3d68ff; }
+        /* *{
+          border: 1px red solid;
+        } */
     </style>
 </head>
 <body class="bg-gray-100 font-family-inter flex">
 
-    <aside class="relative bg-sidebar h-screen w-64 hidden sm:block shadow-xl">
-        <div class="p-6">
+    <aside class="relative bg-[#152A38] h-screen w-64 hidden sm:block shadow-xl">
+        <div class="p-6 bg-[#0A161E]">
             <a href="index.html" class="text-white text-3xl font-semibold uppercase hover:text-gray-300">Admin</a>
             <button class="w-full bg-white cta-btn font-semibold py-2 mt-5 rounded-br-lg rounded-bl-lg rounded-tr-lg shadow-lg hover:shadow-xl hover:bg-gray-300 flex items-center justify-center">
                 <i class="fas fa-plus mr-3"></i> New Report
             </button>
         </div>
-        <nav class="text-white text-base font-semibold pt-3">
-            <a href="index.html" class="flex items-center text-white opacity-75 hover:opacity-100 py-4 pl-6 nav-item">
+        <nav class="text-white text-base font-semibold pt-0">
+            <a href="index.html" class="flex items-center text-white py-4 pl-6 nav-item">
                 <i class="fas fa-tachometer-alt mr-3"></i>
                 Dashboard
             </a>
-            <a href="blank.html" class="flex items-center text-white opacity-75 hover:opacity-100 py-4 pl-6 nav-item">
+            <a href="validasi.html" class="flex items-center text-white opacity-75 hover:opacity-100 py-4 pl-6 nav-item">
                 <i class="fas fa-sticky-note mr-3"></i>
-                Blank Page
+                Validasi Berkas
             </a>
-            <a href="tables.html" class="flex items-center text-white opacity-75 hover:opacity-100 py-4 pl-6 nav-item">
-                <i class="fas fa-table mr-3"></i>
-                Tables
+            <a href="datachart.html" class="flex items-center text-white opacity-75 hover:opacity-100 py-4 pl-6 nav-item">
+              <i class="fas fa-chart-bar mr-3"></i>
+                Data Chart
             </a>
-            <a href="forms.html" class="flex items-center active-nav-link text-white py-4 pl-6 nav-item">
-                <i class="fas fa-align-left mr-3"></i>
-                Forms
+            <a href="krip.html" class="flex items-center text-white opacity-75 hover:opacity-100 py-4 pl-6 nav-item">
+              <i class="fas fa-book-reader mr-3"></i>
+              KRIP
             </a>
-            <a href="tabs.html" class="flex items-center text-white opacity-75 hover:opacity-100 py-4 pl-6 nav-item">
-                <i class="fas fa-tablet-alt mr-3"></i>
-                Tabbed Content
-            </a>
-            <a href="calendar.html" class="flex items-center text-white opacity-75 hover:opacity-100 py-4 pl-6 nav-item">
-                <i class="fas fa-calendar mr-3"></i>
-                Calendar
+            <a href="user.html" class="flex items-center active-nav-link text-white opacity-75 hover:opacity-100 py-4 pl-6 nav-item">
+                <i class="fas fa-user-cog mr-3"></i>
+                Kelola User
             </a>
         </nav>
         <a href="#" class="absolute w-full upgrade-btn bottom-0 active-nav-link text-white flex items-center justify-center py-4">
-            <i class="fas fa-arrow-circle-up mr-3"></i>
-            Upgrade to Pro!
+            <i class="fas fa-arrow-alt-circle-left mr-3"></i>
+            Log Out
         </a>
     </aside>
 
-    <div class="relative w-full flex flex-col h-screen overflow-y-hidden">
+    <div class="w-full flex flex-col h-screen overflow-y-hidden">
         <!-- Desktop Header -->
         <header class="w-full items-center bg-white py-2 px-6 hidden sm:flex">
             <div class="w-1/2"></div>
@@ -73,14 +93,12 @@
                 <button x-show="isOpen" @click="isOpen = false" class="h-full w-full fixed inset-0 cursor-default"></button>
                 <div x-show="isOpen" class="absolute w-32 bg-white rounded-lg shadow-lg py-2 mt-16">
                     <a href="#" class="block px-4 py-2 account-link hover:text-white">Account</a>
-                    <a href="#" class="block px-4 py-2 account-link hover:text-white">Support</a>
-                    <a href="#" class="block px-4 py-2 account-link hover:text-white">Sign Out</a>
                 </div>
             </div>
         </header>
 
         <!-- Mobile Header & Nav -->
-        <header x-data="{ isOpen: false }" class="w-full bg-sidebar py-5 px-6 sm:hidden">
+        <header x-data="{ isOpen: false }" class="bg-[#152A38] w-full bg-sidebar py-5 px-6 sm:hidden">
             <div class="flex items-center justify-between">
                 <a href="index.html" class="text-white text-3xl font-semibold uppercase hover:text-gray-300">Admin</a>
                 <button @click="isOpen = !isOpen" class="text-white text-3xl focus:outline-none">
@@ -91,49 +109,31 @@
 
             <!-- Dropdown Nav -->
             <nav :class="isOpen ? 'flex': 'hidden'" class="flex flex-col pt-4">
-                <a href="index.html" class="flex items-center text-white opacity-75 hover:opacity-100 py-2 pl-4 nav-item">
+                <a href="index.html" class="flex items-center active-nav-link text-white py-2 pl-4 nav-item">
                     <i class="fas fa-tachometer-alt mr-3"></i>
                     Dashboard
                 </a>
                 <a href="blank.html" class="flex items-center text-white opacity-75 hover:opacity-100 py-2 pl-4 nav-item">
                     <i class="fas fa-sticky-note mr-3"></i>
-                    Blank Page
+                    Validasi Berkas
                 </a>
                 <a href="tables.html" class="flex items-center text-white opacity-75 hover:opacity-100 py-2 pl-4 nav-item">
-                    <i class="fas fa-table mr-3"></i>
-                    Tables
+                    <i class="fas fa-chart-bar mr-3"></i>
+                    Data Chart
                 </a>
-                <a href="forms.html" class="flex items-center active-nav-link text-white py-2 pl-4 nav-item">
-                    <i class="fas fa-align-left mr-3"></i>
-                    Forms
+                <a href="forms.html" class="flex items-center active-nav-link text-white opacity-75 hover:opacity-100 py-2 pl-4 nav-item">
+                    <i class="fas fa-book-reader mr-3"></i>
+                    KRIP
                 </a>
                 <a href="tabs.html" class="flex items-center text-white opacity-75 hover:opacity-100 py-2 pl-4 nav-item">
-                    <i class="fas fa-tablet-alt mr-3"></i>
-                    Tabbed Content
-                </a>
-                <a href="calendar.html" class="flex items-center text-white opacity-75 hover:opacity-100 py-2 pl-4 nav-item">
-                    <i class="fas fa-calendar mr-3"></i>
-                    Calendar
-                </a>
-                <a href="#" class="flex items-center text-white opacity-75 hover:opacity-100 py-2 pl-4 nav-item">
-                    <i class="fas fa-cogs mr-3"></i>
-                    Support
-                </a>
-                <a href="#" class="flex items-center text-white opacity-75 hover:opacity-100 py-2 pl-4 nav-item">
-                    <i class="fas fa-user mr-3"></i>
-                    My Account
-                </a>
-                <a href="#" class="flex items-center text-white opacity-75 hover:opacity-100 py-2 pl-4 nav-item">
-                    <i class="fas fa-sign-out-alt mr-3"></i>
-                    Sign Out
+                    <i class="fas fa-user-cog mr-3"></i>
+                    Kelola User
                 </a>
                 <button class="w-full bg-white cta-btn font-semibold py-2 mt-3 rounded-lg shadow-lg hover:shadow-xl hover:bg-gray-300 flex items-center justify-center">
-                    <i class="fas fa-arrow-circle-up mr-3"></i> Upgrade to Pro!
+                  <i class="fas fa-arrow-alt-circle-left mr-3"></i>
+                  Log Out
                 </button>
             </nav>
-            <!-- <button class="w-full bg-white cta-btn font-semibold py-2 mt-5 rounded-br-lg rounded-bl-lg rounded-tr-lg shadow-lg hover:shadow-xl hover:bg-gray-300 flex items-center justify-center">
-                <i class="fas fa-plus mr-3"></i> New Report
-            </button> -->
         </header>
     
         <div class="w-full h-screen overflow-x-hidden border-t flex flex-col">

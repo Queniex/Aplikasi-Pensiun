@@ -1,3 +1,24 @@
+<?php 
+  require_once("../Functions/function-krip.php");
+
+  if (insert($_POST) > 0) {
+    echo "
+    <script>
+        alert('Data Berhasil Ditambahkan');
+        
+    </script>
+    ";
+    } else {
+        echo "
+        <script>
+            alert('Data Gagal Ditambahkan');
+            
+        </script>
+        ";
+    }
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -190,11 +211,11 @@
                 <span class="text-slate-700">Golongan Pensiun</span>
                 <select name="golongan_pensiun" id="golongan_pensiun" class="block w-full p-2 rounded-md mt-1 mb-3 focus:outline-none focus:ring-2 ring-sky-500">
                   <option value="" disabled selected>Pilih Golongan</option>
-                  <option value="I">I</option>
-                  <option value="II">II</option>
-                  <option value="III">III</option>
-                  <option value="IV">IV</option>
-                  <option value="V">V</option>
+                  <option value="1">1</option>
+                  <option value="2">2</option>
+                  <option value="3">3</option>
+                  <option value="4">4</option>
+                  <option value="5">5</option>
                 </select>
               </label>
 

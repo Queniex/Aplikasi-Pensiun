@@ -151,65 +151,24 @@
 
       <div class="w-full h-screen overflow-x-hidden border-t flex flex-col">
         <main class="w-full flex-grow p-6">
-          <div class="flex gap-3 items-center bg-gray-300 p-4 rounded">
-            <img src="../../dist/images/icon-peserta.png" alt="" width="40px" />
-            <h1 class="font-bold text-xl text-slate-700">Kartu Identitas Peserta</h1>
-          </div>
-          <div class="mt-4 bg-gray-300 p-4 rounded relative">
-            <form action="">
-              <label for="np">
-                <span class="text-slate-700">Nomor Pensiun</span>
-                <input type="number" name="np" id="np" class="block rounded-md w-full p-1 focus:outline-none focus:ring-2 ring-sky-500 mt-1 mb-3" />
-              </label>
+          <h1 class="text-xl font-bold">Karip</h1>
 
-              <label for="nama_lengkap">
-                <span class="text-slate-700">Nama Lengkap</span>
-                <input type="text" name="nama_lengkap" id="nama_lengkap" class="block rounded-md p-1 w-full focus:outline-none focus:ring-2 ring-sky-500 mt-1 mb-3" />
-              </label>
-
-              <label for="jenis_kelamin">
-                <span class="text-slate-700">Jenis Kelamin</span>
-                <select name="jenis_kelamin" id="jenis_kelamin" class="block w-full p-2 rounded-md mt-1 mb-3 focus:outline-none focus:ring-2 ring-sky-500">
-                  <option value="" disabled selected>Pilih Jenis Kelamin</option>
-                  <option value="Laki-Laki">Laki-Laki</option>
-                  <option value="Perempuan">Perempuan</option>
-                </select>
-              </label>
-
-              <label for="alamat">
-                <span class="text-slate-700">Alamat</span>
-                <textarea name="alamat" id="alamat" class="block resize-none p-1 w-full rounded-md h-40 focus:outline-none focus:ring-2 ring-sky-500 mt-1 mb-3"></textarea>
-              </label>
-
-              <label for="masa_pensiun">
-                <span class="text-slate-700">Masa Pensiun</span>
-                <input type="number" name="masa_pensiun" id="masa_pensiun" class="block p-1 rounded-md w-full focus:outline-none focus:ring-2 ring-sky-500 mt-1 mb-3" />
-              </label>
-
-              <label for="golongan_pensiun">
-                <span class="text-slate-700">Golongan Pensiun</span>
-                <select name="golongan_pensiun" id="golongan_pensiun" class="block w-full p-2 rounded-md mt-1 mb-3 focus:outline-none focus:ring-2 ring-sky-500">
-                  <option value="" disabled selected>Pilih Golongan</option>
-                  <option value="I">I</option>
-                  <option value="II">II</option>
-                  <option value="III">III</option>
-                  <option value="IV">IV</option>
-                  <option value="V">V</option>
-                </select>
-              </label>
-
-              <br />
-              <label for="total_dana_pencairan">
-                <span class="text-slate-700">Total Dana Pencairan</span>
-                <input type="number" name="masa_pensiun" id="masa_pensiun" class="block p-1 rounded-md w-full focus:outline-none focus:ring-2 ring-sky-500 mt-1 mb-3" />
-              </label>
-              </label>
-
-              <section class="absolute left-5 bottom-17">[Nama PT]</section>
-              <section class="absolute right-5 bottom-17">(nama pt nya ges)</section>
-              <br /><br /><br /><br /><br />
-              <button class="absolute right-2 bottom-2 py-2 px-4 bg-cyan-700 rounded-md hover:bg-cyan-800 text-white">Simpan</button>
-            </form>
+          <div class="w-full h-16 rounded bg-slate-300 mt-5 p-3 pl-5 relative">
+            <div class="absolute">
+              <h2 class="font-bold">Nama</h2>
+              <p>Nomor Pensiun</p>
+            </div>
+            <div class="absolute right-0 flex gap-6 mr-12">
+              <a href="#" class="bg-blue-500 p-1 rounded hover:bg-blue-700">
+                <img src="../../dist/images/icon-read.png" alt="read" />
+              </a>
+              <a href="#" class="bg-yellow-500 p-1 rounded hover:bg-yellow-700">
+                <img src="../../dist/images/icon-edit.png" alt="edit" />
+              </a>
+              <a href="#" class="bg-red-500 p-1 rounded hover:bg-red-700">
+                <img src="../../dist/images/icon-remove.png" alt="remove" />
+              </a>
+            </div>
           </div>
         </main>
 

@@ -42,4 +42,13 @@
 
         return mysqli_affected_rows($conn);
     }
+
+    function delete($id)
+    {
+        global $conn;
+
+        $query = "DELETE FROM data_diri WHERE np = '$id'";
+        mysqli_query($conn, $query);
+        return mysqli_affected_rows($conn);
+    }
 ?>

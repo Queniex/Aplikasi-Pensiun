@@ -1,3 +1,11 @@
+<?php 
+  require_once('../Functions/function-krip.php');
+
+  $id = $_GET['np'];
+  $data = query("SELECT * FROM data_diri WHERE np = $id") [0];
+  
+?>
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -153,32 +161,32 @@
               <tr>
                 <td>Nomor Pensiun</td>
                 <td>:</td>
-                <td>nomor pensiun</td>
+                <td><?= $data['np'] ?></td>
               </tr>
               <tr>
                 <td>Nama Lengkap</td>
                 <td>:</td>
-                <td>nama lengkap</td>
+                <td class="capitalize"><?= $data['nama'] ?></td>
               </tr>
               <tr>
                 <td>Jenis Kelamin</td>
                 <td>:</td>
-                <td>jenis kelamin</td>
+                <td><?= $data['jenis_kelamin'] ?></td>
               </tr>
               <tr>
                 <td>Alamat</td>
                 <td>:</td>
-                <td>alamat</td>
+                <td><?= $data['alamat'] ?></td>
               </tr>
               <tr>
                 <td>Masa Pensiun</td>
                 <td>:</td>
-                <td>masa pensiun</td>
+                <td><?= $data['usia_pensiun'] ?></td>
               </tr>
               <tr>
                 <td>Golongan Pensiun</td>
                 <td>:</td>
-                <td>golongan pensiun</td>
+                <td><?= $data['golongan'] ?></td>
               </tr>
               <tr>
                 <td>Total Dana Pencairan</td>

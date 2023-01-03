@@ -2,6 +2,13 @@
 require_once("../Functions/function-krip.php");
 
 $data = query("SELECT * FROM data_diri WHERE status_berkas = 'approved'");
+
+// if ($data < [0]){
+//   echo"nothing";
+// } else{
+//   echo"ada";
+// }
+
 ?>
 
 <!DOCTYPE html>
@@ -159,25 +166,29 @@ $data = query("SELECT * FROM data_diri WHERE status_berkas = 'approved'");
         <main class="w-full flex-grow p-6">
           <h1 class="text-xl font-bold">Karip</h1>
 
-          <?php foreach ($data as $row) : ?>
-          <div class="w-full h-16 rounded bg-slate-300 mt-5 p-3 pl-5 relative">
-            <div class="absolute">
-              <h2 class="font-bold"><?= $row['nama'] ?></h2>
-              <p><?= $row['np'] ?></p>
+          <?php if($data < [0]) : ?>
+            <h1 class="italic text-3xl mt-5 text-red-700 text-center">Unknown data Available</h1>
+          <?php else : ?>
+            <?php foreach ($data as $row) : ?>
+            <div class="w-full h-16 rounded bg-slate-300 mt-5 p-3 pl-5 relative">
+              <div class="absolute">
+                <h2 class="font-bold capitalize"><?= $row['nama'] ?></h2>
+                <p><?= $row['np'] ?></p>
+              </div>
+              <div class="absolute right-0 flex gap-6 mr-12">
+                <a href="krip read.php?np=<?= $row['np'] ?>" class="bg-blue-500 p-1 rounded hover:bg-blue-700">
+                  <img src="../../dist/images/icon-read.png" alt="read" />
+                </a>
+                <a href="krip-edit.php?np=<?= $row['np'] ?>" class="bg-yellow-500 p-1 rounded hover:bg-yellow-700">
+                  <img src="../../dist/images/icon-edit.png" alt="edit" />
+                </a>
+                <a href="krip-delete.php?np=<?= $row['np']; ?>" onclick="return confirm('Yakin ingin menghapus?')" class="bg-red-500 p-1 rounded hover:bg-red-700">
+                  <img src="../../dist/images/icon-remove.png" alt="remove" />
+                </a>
+              </div>
             </div>
-            <div class="absolute right-0 flex gap-6 mr-12">
-              <a href="krip read.html" class="bg-blue-500 p-1 rounded hover:bg-blue-700">
-                <img src="../../dist/images/icon-read.png" alt="read" />
-              </a>
-              <a href="#" class="bg-yellow-500 p-1 rounded hover:bg-yellow-700">
-                <img src="../../dist/images/icon-edit.png" alt="edit" />
-              </a>
-              <a href="#" class="bg-red-500 p-1 rounded hover:bg-red-700">
-                <img src="../../dist/images/icon-remove.png" alt="remove" />
-              </a>
-            </div>
-          </div>
-          <?php endforeach; ?>
+            <?php endforeach; ?>
+          <?php endif ?>
         </main>
 
         <footer class="w-full bg-white text-right p-4">&#169; Copyright to <a target="_blank" href="https://github.com/Queniex/Aplikasi-Pensiun" class="underline text-[#152A38] hover:text-blue-500">Kelompok 3</a></footer>

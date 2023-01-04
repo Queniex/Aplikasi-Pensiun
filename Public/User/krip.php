@@ -1,8 +1,12 @@
 <?php 
   require_once('../Functions/function-krip.php');
 
-  $id = 1;
-  $data = query("SELECT np, nama, nip, tempat_lahir, tanggal_lahir, agama, jenis_kelamin, alamat, no_telp, email, status_keluarga, instansi, tgl_pegawai, data_diri.golongan, dana.total_dana, jabatan, usia_pensiun, iuran_perbulan, status_berkas FROM data_diri JOIN dana ON data_diri.golongan = dana.golongan WHERE data_diri.id_user = $id")[0];
+  $id = 8;
+  $data = query("SELECT np, nama, nip, tempat_lahir, tanggal_lahir, agama, jenis_kelamin, alamat, no_telp, email, status_keluarga, instansi, tgl_pegawai, data_diri.golongan, dana.total_dana, jabatan, usia_pensiun, iuran_perbulan, status_berkas FROM data_diri JOIN dana ON data_diri.golongan = dana.golongan WHERE data_diri.id_user = $id AND status_berkas = 'approved'");
+
+  // var_dump(query("SELECT np, nama, nip, tempat_lahir, tanggal_lahir, agama, jenis_kelamin, alamat, no_telp, email, status_keluarga, instansi, tgl_pegawai, data_diri.golongan, dana.total_dana, jabatan, usia_pensiun, iuran_perbulan, status_berkas FROM data_diri JOIN dana ON data_diri.golongan = dana.golongan WHERE data_diri.id_user = $id AND status_berkas = 'approved'"));
+  // die;
+
 ?>
 
 <!DOCTYPE html>
@@ -150,54 +154,68 @@
 
       <div class="w-full h-screen overflow-x-hidden border-t flex flex-col">
         <main class="w-full flex-grow p-6">
-          <div class="flex gap-3 items-center bg-gray-300 p-4 rounded">
-            <img src="../../dist/images/icon-peserta.png" alt="" width="40px" />
-            <h1 class="font-bold text-xl text-slate-700">Kartu Identitas Peserta</h1>
-          </div>
 
-          <div class="mt-4 bg-gray-300 p-4 rounded">
-            <table cellpadding="9">
-              <tr>
-                <td>Nomor Pensiun</td>
-                <td>:</td>
-                <td><?= $data['np'] ?></td>
-              </tr>
-              <tr>
-                <td>Nama Lengkap</td>
-                <td>:</td>
-                <td><?= $data['nama'] ?></td>
-              </tr>
-              <tr>
-                <td>Jenis Kelamin</td>
-                <td>:</td>
-                <td><?= $data['jenis_kelamin'] ?></td>
-              </tr>
-              <tr>
-                <td>Alamat</td>
-                <td>:</td>
-                <td><?= $data['alamat'] ?></td>
-              </tr>
-              <tr>
-                <td>Masa Pensiun</td>
-                <td>:</td>
-                <td><?= $data['usia_pensiun'] ?></td>
-              </tr>
-              <tr>
-                <td>Golongan Pensiun</td>
-                <td>:</td>
-                <td><?= $data['golongan'] ?></td>
-              </tr>
-              <tr>
-                <td>Total Dana Pencairan</td>
-                <td>:</td>
-                <td>Rp. <?= number_format($data['total_dana'])?></td>
-              </tr>
-            </table>
-          </div>
-          <div class="relative h-10 mt-7 flex items-center gap-4">
+          <?php if($data < [0]): ?>
+            <div class="bg-red-700 w-80 p-2 rounded">
+              <h1 class="font-bold text-2xl text-white text-center">KRIP Belum bisa diakses</h1>
+            </div>
+            <div class="relative w-full h-64 mt-12">
+              <div class="">
+                <img src="../../dist/images/decline.png" alt="decline" width="320px" class="mx-auto">
+                <h1 class="font-light italic text-center text-xl">Admin kami akan segera memproses berkas anda</h1>
+              </div>
+            </div>
+
+
+          <?php else: ?>
+            <div class="flex gap-3 items-center bg-gray-300 p-4 rounded">
+              <img src="../../dist/images/icon-peserta.png" alt="" width="40px" />
+              <h1 class="font-bold text-xl text-slate-700">Kartu Identitas Peserta</h1>
+            </div>
+            <div class="mt-4 bg-gray-300 p-4 rounded">
+              <table cellpadding="9">
+                <tr>
+                  <td>Nomor Pensiun</td>
+                  <td>:</td>
+                  <td><?= $data[0]['np'] ?></td>
+                </tr>
+                <tr>
+                  <td>Nama Lengkap</td>
+                  <td>:</td>
+                  <td class="capitalize"><?= $data[0]['nama'] ?></td>
+                </tr>
+                <tr>
+                  <td>Jenis Kelamin</td>
+                  <td>:</td>
+                  <td><?= $data[0]['jenis_kelamin'] ?></td>
+                </tr>
+                <tr>
+                  <td>Alamat</td>
+                  <td>:</td>
+                  <td><?= $data[0]['alamat'] ?></td>
+                </tr>
+                <tr>
+                  <td>Masa Pensiun</td>
+                  <td>:</td>
+                  <td><?= $data[0]['usia_pensiun'] ?></td>
+                </tr>
+                <tr>
+                  <td>Golongan Pensiun</td>
+                  <td>:</td>
+                  <td><?= $data[0]['golongan'] ?></td>
+                </tr>
+                <tr>
+                  <td>Total Dana Pencairan</td>
+                  <td>:</td>
+                  <td>Rp. <?= number_format($data[0]['total_dana'])?></td>
+                </tr>
+              </table>
+            </div>
+            <div class="relative h-10 mt-7 flex items-center gap-4">
             <h1 class="font-bold text-sm">Kartu ini harus dicetak untuk melakukan pencairan dana*</h1>
             <button type="submit" value="submit" class="right-0 bottom-1 bg-cyan-700 hover:bg-cyan-800 px-4 py-1 text-white rounded">Cetak</button>
           </div>
+          <?php endif; ?>
         </main>
 
         <footer class="w-full bg-white text-right p-4">&#169; Copyright to <a target="_blank" href="https://github.com/Queniex/Aplikasi-Pensiun" class="underline text-[#152A38] hover:text-blue-500">Kelompok 3</a>.</footer>

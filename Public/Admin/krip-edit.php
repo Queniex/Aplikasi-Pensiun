@@ -2,7 +2,7 @@
   require_once("../Functions/function-krip.php");
 
   $id = $_GET['np'];
-  $data = query("SELECT np, nama, nip, tempat_lahir, tanggal_lahir, agama, jenis_kelamin, alamat, no_telp, email, status_keluarga, instansi, tgl_pegawai, dana.total_dana, jabatan, usia_pensiun, iuran_perbulan, status_berkas FROM data_diri JOIN dana ON data_diri.golongan = dana.golongan WHERE data_diri.np = $id")[0];
+  $data = query("SELECT np, nama, nip, tempat_lahir, tanggal_lahir, agama, jenis_kelamin, alamat, no_telp, email, status_keluarga, instansi, tgl_pegawai, data_diri.golongan, dana.total_dana, jabatan, usia_pensiun, iuran_perbulan, status_berkas FROM data_diri JOIN dana ON data_diri.golongan = dana.golongan WHERE data_diri.np = $id")[0];
 
   if (isset($_POST['submit'])) {
     if (update($_POST) > 0) {
@@ -195,8 +195,8 @@
                 <span class="text-slate-700">Jenis Kelamin</span>
                 <select name="jenis_kelamin" id="jenis_kelamin" class="block w-full p-2 rounded-md mt-1 mb-3 focus:outline-none focus:ring-2 ring-sky-500">
                   <option value="" disabled selected>Pilih Jenis Kelamin</option>
-                  <option value="Laki-Laki">Laki-Laki</option>
-                  <option value="Perempuan">Perempuan</option>
+                  <option value="Laki-Laki" selected=<?php if( $data['jenis_kelamin'] == 'Laki-laki' ){echo"selected";} ?>>Laki-Laki</option>
+                  <option value="Perempuan" selected=<?php if( $data['jenis_kelamin'] == 'Perempuan' ){echo"selected";} ?>>Perempuan</option>
                 </select>
               </label>
 
@@ -214,10 +214,10 @@
                 <span class="text-slate-700">Golongan Pensiun</span>
                 <select name="golongan_pensiun" id="golongan_pensiun" class="block w-full p-2 rounded-md mt-1 mb-3 focus:outline-none focus:ring-2 ring-sky-500">
                   <option value="" disabled selected>Pilih Golongan</option>
-                  <option value="1">1</option>
-                  <option value="2">2</option>
-                  <option value="3">3</option>
-                  <option value="4">4</option>
+                  <option value="1" selected=<?php if( $data['golongan'] == '1' ){echo"selected";} ?>>1</option>
+                  <option value="2" selected=<?php if( $data['golongan'] == '2' ){echo"selected";} ?>>2</option>
+                  <option value="3" selected=<?php if( $data['golongan'] == '3' ){echo"selected";} ?>>3</option>
+                  <option value="4" selected=<?php if( $data['golongan'] == '4' ){echo"selected";} ?>>4</option>
                 </select>
               </label>
 

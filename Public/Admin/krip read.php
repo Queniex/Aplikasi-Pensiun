@@ -2,8 +2,7 @@
   require_once('../Functions/function-krip.php');
 
   $id = $_GET['np'];
-  $data = query("SELECT * FROM data_diri WHERE np = $id") [0];
-  
+  $data = query("SELECT np, nama, nip, tempat_lahir, tanggal_lahir, agama, jenis_kelamin, alamat, no_telp, email, status_keluarga, instansi, tgl_pegawai, data_diri.golongan, dana.total_dana, jabatan, usia_pensiun, iuran_perbulan, status_berkas FROM data_diri JOIN dana ON data_diri.golongan = dana.golongan WHERE data_diri.np = $id")[0];
 ?>
 
 <!DOCTYPE html>
@@ -191,7 +190,7 @@
               <tr>
                 <td>Total Dana Pencairan</td>
                 <td>:</td>
-                <td>total dana pencairan</td>
+                <td>Rp. <?=number_format( $data['total_dana'])?></td>
               </tr>
             </table>
           </div>

@@ -1,21 +1,24 @@
 <?php 
   require_once("../Functions/function-krip.php");
 
-  if (insert($_POST) > 0) {
-    echo "
-    <script>
-        alert('Data Berhasil Ditambahkan');
-        
-    </script>
-    ";
+  $id = $_GET['np'];
+  $data = query("SELECT np, nama, nip, tempat_lahir, tanggal_lahir, agama, jenis_kelamin, alamat, no_telp, email, status_keluarga, instansi, tgl_pegawai, dana.total_dana, jabatan, usia_pensiun, iuran_perbulan, status_berkas FROM data_diri JOIN dana ON data_diri.golongan = dana.golongan WHERE data_diri.np = $id")[0];
+
+  if (isset($_POST['submit'])) {
+    if (update($_POST) > 0) {
+        echo "<script>
+            alert('Input Success')
+            document.location.href = 'krip.php';
+        </script>";
     } else {
-        echo "
-        <script>
-            alert('Data Gagal Ditambahkan');
-            
-        </script>
-        ";
+        echo "<script>
+            alert('Input Failed')
+            document.location.href = 'krip.php';
+        </script>";
     }
+}
+
+
 ?>
 
 
@@ -177,15 +180,15 @@
             <h1 class="font-bold text-xl text-slate-700">Kartu Identitas Peserta</h1>
           </div>
           <div class="mt-4 bg-gray-300 p-4 rounded relative">
-            <form action="">
+            <form action="" method="post">
               <label for="np">
                 <span class="text-slate-700">Nomor Pensiun</span>
-                <input type="number" name="np" id="np" class="block rounded-md w-full p-1 focus:outline-none focus:ring-2 ring-sky-500 mt-1 mb-3" />
+                <input type="number" name="np" id="np" disabled class="block rounded-md w-full p-1 focus:outline-none focus:ring-2 ring-sky-500 mt-1 mb-3 bg-slate-50" value="<?= $data['np']; ?>">
               </label>
 
               <label for="nama_lengkap">
                 <span class="text-slate-700">Nama Lengkap</span>
-                <input type="text" name="nama_lengkap" id="nama_lengkap" class="block rounded-md p-1 w-full focus:outline-none focus:ring-2 ring-sky-500 mt-1 mb-3" />
+                <input type="text" name="nama_lengkap" id="nama_lengkap" class="block rounded-md p-1 w-full focus:outline-none focus:ring-2 ring-sky-500 mt-1 mb-3" value="<?= $data['nama']; ?>"/>
               </label>
 
               <label for="jenis_kelamin">
@@ -199,12 +202,12 @@
 
               <label for="alamat">
                 <span class="text-slate-700">Alamat</span>
-                <textarea name="alamat" id="alamat" class="block resize-none p-1 w-full rounded-md h-40 focus:outline-none focus:ring-2 ring-sky-500 mt-1 mb-3"></textarea>
+                <textarea name="alamat" id="alamat" class="block resize-none p-1 w-full rounded-md h-40 focus:outline-none focus:ring-2 ring-sky-500 mt-1 mb-3"><?= $data['alamat'] ?></textarea>
               </label>
 
               <label for="masa_pensiun">
                 <span class="text-slate-700">Masa Pensiun</span>
-                <input type="number" name="masa_pensiun" id="masa_pensiun" class="block p-1 rounded-md w-full focus:outline-none focus:ring-2 ring-sky-500 mt-1 mb-3" />
+                <input type="number" name="masa_pensiun" id="masa_pensiun" class="block p-1 rounded-md w-full focus:outline-none focus:ring-2 ring-sky-500 mt-1 mb-3" value="<?= $data['usia_pensiun']; ?>" />
               </label>
 
               <label for="golongan_pensiun">
@@ -215,21 +218,19 @@
                   <option value="2">2</option>
                   <option value="3">3</option>
                   <option value="4">4</option>
-                  <option value="5">5</option>
                 </select>
               </label>
 
               <br />
               <label for="total_dana_pencairan">
                 <span class="text-slate-700">Total Dana Pencairan</span>
-                <input type="number" name="masa_pensiun" id="masa_pensiun" class="block p-1 rounded-md w-full focus:outline-none focus:ring-2 ring-sky-500 mt-1 mb-3" />
+                <input type="number" name="total_dana_pencairan" id="total_dana_pencairan" disabled value="<?= $data['total_dana']?>" class="block p-1 rounded-md w-full focus:outline-none focus:ring-2 ring-sky-500 mt-1 mb-3 bg-slate-50" />
               </label>
-              </label>
+              <input type="hidden" name="np" value="<?= $data['np']; ?>">
 
-              <section class="absolute left-5 bottom-17">[Nama PT]</section>
-              <section class="absolute right-5 bottom-17">(nama pt nya ges)</section>
+              <section class="absolute left-5 bottom-17 text-lg font-bold">[ <?= $data['instansi'] ?> ]</section>
               <br /><br /><br /><br /><br />
-              <button class="absolute right-2 bottom-2 py-2 px-4 bg-cyan-700 rounded-md hover:bg-cyan-800 text-white">Simpan</button>
+              <button value="submit" name="submit" id="submit" class="absolute right-2 bottom-2 py-2 px-4 bg-cyan-700 rounded-md hover:bg-cyan-800 text-white">Simpan</button>
             </form>
           </div>
         </main>

@@ -1,3 +1,10 @@
+<?php 
+  require_once('../Functions/function-krip.php');
+
+  $id = 1;
+  $data = query("SELECT np, nama, nip, tempat_lahir, tanggal_lahir, agama, jenis_kelamin, alamat, no_telp, email, status_keluarga, instansi, tgl_pegawai, data_diri.golongan, dana.total_dana, jabatan, usia_pensiun, iuran_perbulan, status_berkas FROM data_diri JOIN dana ON data_diri.golongan = dana.golongan WHERE data_diri.id_user = $id")[0];
+?>
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -74,7 +81,7 @@
           <i class="fas fa-sticky-note mr-3"></i>
           Daftar Berkas
         </a>
-        <a href="krip.html" class="flex items-center active-nav-link text-white opacity-75 hover:opacity-100 py-4 pl-6 nav-item">
+        <a href="krip.php" class="flex items-center active-nav-link text-white opacity-75 hover:opacity-100 py-4 pl-6 nav-item">
           <i class="fas fa-book-reader mr-3"></i>
           KRIP
         </a>
@@ -124,7 +131,7 @@
             <i class="fas fa-sticky-note mr-3"></i>
             Daftar Berkas
           </a>
-          <a href="krip.html" class="flex items-center active-nav-link text-white opacity-75 hover:opacity-100 py-2 pl-4 nav-item">
+          <a href="krip.php" class="flex items-center active-nav-link text-white opacity-75 hover:opacity-100 py-2 pl-4 nav-item">
             <i class="fas fa-book-reader mr-3"></i>
             KRIP
           </a>
@@ -153,37 +160,37 @@
               <tr>
                 <td>Nomor Pensiun</td>
                 <td>:</td>
-                <td>nomor pensiun</td>
+                <td><?= $data['np'] ?></td>
               </tr>
               <tr>
                 <td>Nama Lengkap</td>
                 <td>:</td>
-                <td>nama lengkap</td>
+                <td><?= $data['nama'] ?></td>
               </tr>
               <tr>
                 <td>Jenis Kelamin</td>
                 <td>:</td>
-                <td>jenis kelamin</td>
+                <td><?= $data['jenis_kelamin'] ?></td>
               </tr>
               <tr>
                 <td>Alamat</td>
                 <td>:</td>
-                <td>alamat</td>
+                <td><?= $data['alamat'] ?></td>
               </tr>
               <tr>
                 <td>Masa Pensiun</td>
                 <td>:</td>
-                <td>masa pensiun</td>
+                <td><?= $data['usia_pensiun'] ?></td>
               </tr>
               <tr>
                 <td>Golongan Pensiun</td>
                 <td>:</td>
-                <td>golongan pensiun</td>
+                <td><?= $data['golongan'] ?></td>
               </tr>
               <tr>
                 <td>Total Dana Pencairan</td>
                 <td>:</td>
-                <td>total dana pencairan</td>
+                <td>Rp. <?= number_format($data['total_dana'])?></td>
               </tr>
             </table>
           </div>

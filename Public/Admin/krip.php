@@ -3,11 +3,26 @@ require_once("../Functions/function-krip.php");
 
 $data = query("SELECT * FROM data_diri WHERE status_berkas = 'approved'");
 
-// if ($data < [0]){
-//   echo"nothing";
-// } else{
-//   echo"ada";
-// }
+$jumlahdata = count($data);
+$batas = 2;
+$banyaknyahalaman = ceil($jumlahdata / $batas);
+
+$halaman = 1;
+if (isset($_GET['halaman'])) {
+    $halaman = $_GET['halaman'];
+}
+$posisi = ($halaman - 1) * $batas;
+
+if (isset($_POST['search'])) {
+  if (search($_POST['keyword']) > 0) {
+      $data = search($_POST['keyword']);
+  } else {
+      $data = query("SELECT * FROM data_diri WHERE status_berkas = 'approved' LIMIT $posisi,$batas");
+  }
+} else {
+  $data = query("SELECT * FROM data_diri WHERE status_berkas = 'approved' LIMIT $posisi,$batas");
+}
+
 
 ?>
 
@@ -109,7 +124,14 @@ $data = query("SELECT * FROM data_diri WHERE status_berkas = 'approved'");
     <div class="w-full flex flex-col h-screen overflow-y-hidden">
       <!-- Desktop Header -->
       <header class="w-full items-center bg-white py-2 px-6 hidden sm:flex">
-        <div class="w-1/2"></div>
+        <div class="w-1/2">
+          <form action="" method="post" class="flex gap-2">
+            <input type="text" id="keyword" name="keyword" autofocus autocomplete="off" placeholder="Cari disini !!" class="rounded-lg bg-slate-100 block px-3 py-1 w-96 outline-none">
+            <button type="submit" name="search">
+              <img src="../../dist/images/search.png" alt="cari" width="30px">
+            </button>
+          </form>
+        </div>
         <div x-data="{ isOpen: false }" class="relative w-1/2 flex justify-end">
           <button @click="isOpen = !isOpen" class="realtive z-10 w-12 h-12 rounded-full overflow-hidden border-4 border-gray-400 hover:border-gray-300 focus:border-gray-300 focus:outline-none">
             <img src="../../dist/images/Profile.png" />
@@ -163,7 +185,7 @@ $data = query("SELECT * FROM data_diri WHERE status_berkas = 'approved'");
       <!-- -------------------------------------------------------------------------------------------------------------------- -->
 
       <div class="w-full h-screen overflow-x-hidden border-t flex flex-col">
-        <main class="w-full flex-grow p-6">
+        <main class="w-full flex-grow p-6 relative">
           <h1 class="text-xl font-bold">Karip</h1>
 
           <?php if($data < [0]) : ?>
@@ -189,6 +211,20 @@ $data = query("SELECT * FROM data_diri WHERE status_berkas = 'approved'");
             </div>
             <?php endforeach; ?>
           <?php endif ?>
+
+          <div class="h-32 relative">
+            <ul class="text-center absolute bottom-2 right-1/2">
+              <?php for($i = 1; $i <= $banyaknyahalaman; $i++): ?>
+                <?php if($i == $halaman): ?>
+                  <li class="inline-block"><a href="?halaman=<?= $i ?>" class="bg-cyan-800 p-2 text-white rounded"><?= $i ?></a></li>
+                <?php else: ?>
+                  <li class="inline-block"><a href="?halaman=<?= $i ?>" class="border border-cyan-800 p-2 text-cyan-800 rounded"><?= $i ?></a></li>
+                <?php endif; ?>
+              <?php endfor; ?>
+            </ul>
+          </div>
+
+
         </main>
 
         <footer class="w-full bg-white text-right p-4">&#169; Copyright to <a target="_blank" href="https://github.com/Queniex/Aplikasi-Pensiun" class="underline text-[#152A38] hover:text-blue-500">Kelompok 3</a></footer>

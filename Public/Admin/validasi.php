@@ -1,3 +1,50 @@
+<?php
+
+require '../Functions/function-daftar.php';
+
+
+// pagination configuration
+$totalDataPage = 5;
+$totalData = count(query("SELECT np, nama, nip, instansi, status_berkas FROM data_diri WHERE status_berkas = 'checked'"));
+$totalPage = ceil($totalData / $totalDataPage);
+$activePage = ( isset($_GET["page"]) ) ? $_GET["page"] : 1;
+$data = ($totalDataPage * $activePage ) - $totalDataPage;
+$datas = query("SELECT np, nama, nip, instansi, status_berkas FROM data_diri WHERE status_berkas = 'checked' LIMIT $data, $totalDataPage ");
+
+if ( isset($_POST["cari"]) ){
+  $datas = find($_POST["keyword"]);
+}
+
+if ( isset($_POST["approved"]) ){
+    if( approve($_POST) > 0){
+      echo "
+          <script>
+              document.location.href = 'validasi.php'
+          </script>
+     "; 
+    }
+    else {
+      die('invalid Query : ' . mysqli_error($conn));
+      echo mysqli_error($conn);
+    }
+}
+
+if ( isset($_POST["refused"]) ){
+  if( refuse($_POST) > 0){
+    echo "
+        <script>
+            document.location.href = 'validasi.php'
+        </script>
+   "; 
+  }
+  else {
+    die('invalid Query : ' . mysqli_error($conn));
+    echo mysqli_error($conn);
+  }
+}
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -46,9 +93,9 @@
         .active-nav-link { background: #1947ee; }
         .nav-item:hover { background: #1947ee; }
         .account-link:hover { background: #3d68ff; }
-        *{
+        /* *{
           border: 1px red solid;
-        }
+        } */
     </style>
 </head>
 <body class="bg-gray-100 font-family-inter flex">
@@ -144,7 +191,23 @@
     
         <div class="w-full h-screen overflow-x-hidden border-t flex flex-col">
             <main class="w-full flex-grow p-6">
-                <h1 class="text-3xl text-black underline underline-offset-4">Validasi Berkas Dana Pensiun</h1>
+              <div class="lg:flex lg:flex-row">
+                <h1 class="sm:mb-3 lg:text-3xl w-1/2 lg:mt-3 lg:mb-3 text-black underline underline-offset-4">Validasi Berkas Dana Pensiun</h1>
+                <span class="justify-end w-1/2 ">
+                  
+                  <form method="POST">   
+                      <label for="default-search" class="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">Search</label>
+                      <div class="relative">
+                          <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                              <svg aria-hidden="true" class="w-5 h-5 text-gray-500 dark:text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+                          </div>
+                          <input type="search" name="keyword" id="default-search" class="block w-full p-4 pl-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Cari Data..." required>
+                          <button type="submit" name="cari" class="text-white absolute right-2.5 bottom-2.5 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Search</button>
+                      </div>
+                  </form>
+
+                </span>
+              </div>
                 <div class="flex flex-wrap mt-4 mb-8">
                     <div class="overflow-x-auto w-full">
                         <table class="table w-full">
@@ -158,22 +221,23 @@
                             </tr>
                           </thead>
                           <tbody>
-                            <!-- row 1 -->
+                            
+                          <?php foreach( $datas as $data ) : ?>
                             <tr>
                                <td class="text-center">   
                                   <div>
-                                    <div class="font-bold">(Nama Lengkap)</div>
-                                    <div class="text-sm opacity-50">(NIP)</div>
+                                    <div class="font-bold"><?= $data["nama"]; ?></div>
+                                    <div class="text-sm opacity-50"><?= $data["nip"]; ?></div>
                                   </div>
                               </td>
                               <td class="text-center">
-                                (Asal Instansi)
+                              <?= $data["instansi"]; ?>
                                 <br/>
-                                <span class="badge badge-ghost badge-sm">(Golongan)</span>
+                                <span class="badge badge-ghost badge-sm"><?= $data["status_berkas"]; ?></span>
                               </td>
                               <td class="text-center">
                                 <span>
-                                  <a href="daftar_read.php" class="font-bold text-blue-400 hover:text-white">Lihat</a> | <a href="daftar_edit.php" class="font-bold text-lime-500 hover:text-white">Edit</a>
+                                  <a href="daftar_read.php?id=<?= $data["np"]; ?>" class="font-bold text-blue-400 hover:text-white">Lihat</a> | <a href="daftar_edit.php?id=<?= $data["np"]; ?>" class="font-bold text-lime-500 hover:text-white">Edit</a>
                                 </span>
                               </td>
                               <th>
@@ -184,6 +248,7 @@
                                 </div>
                               </th>
                             </tr>
+                          <?php endforeach; ?> 
 
                           </tbody>
                         </table>
@@ -191,12 +256,26 @@
                     </div>
                 </div>
 
-                <div class="w-full flex justify-end">
-                  <div class="btn-group">
-                    <button class="btn">«</button>
-                    <button class="btn">»</button>
-                  </div>
-                </div>
+                <!-- Navigation -->
+                <div class="btn-group flex justify-center">
+                    <?php if( $activePage > 1 ) : ?>
+                        <a class="btn bg-[#152A38] text-white hover:text-black hover:bg-white" href="?page=<?= $activePage - 1; ?>">«</a>
+                    <?php endif; ?> 
+                    
+                    <?php for( $i = 1; $i <= $totalPage; $i++ ) : ?>
+                        <?php if( $i == $activePage ) : ?>
+                            <a class="btn bg-[#152A38] text-white hover:text-black hover:bg-white" href="?page=<?= $i; ?>"><?= $i; ?></a>
+                        <?php else : ?>
+                            <a class="btn bg-[#152A38] text-white hover:text-black hover:bg-white" href="?page=<?= $i; ?>"><?= $i; ?></a>
+                        <?php endif; ?>
+                    <?php endfor; ?>
+
+                    <?php if( $activePage < $totalPage ) : ?>
+                        <a class="btn bg-[#152A38] text-white hover:text-black hover:bg-white" href="?page=<?= $activePage + 1; ?>">»</a>
+                    <?php endif; ?>
+                </div>         
+            <!-- End Navigation -->            
+
             </main>
 
     
@@ -207,6 +286,7 @@
         
     </div>
 
+    <form method="POST">
     <!-- Delete Modal -->
     <div id="popup-modal" tabindex="-1" class="fixed top-0 left-0 right-0 z-50 hidden p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-modal md:h-full">
         <div class="relative w-full h-full max-w-md md:h-auto">
@@ -216,12 +296,13 @@
                     <span class="sr-only">Close modal</span>
                 </button>
                 <div class="p-6 text-center">
+                    <input type="hidden" name="np" value="<?= $data["np"]; ?>">  
                     <svg aria-hidden="true" class="mx-auto mb-4 text-gray-400 w-14 h-14 dark:text-gray-200" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
                     <h3 class="mb-5 text-lg font-normal text-gray-500 dark:text-gray-400">Anda yakin ingin menghapus data ini?</h3>
-                    <button data-modal-hide="popup-modal" type="button" class="text-white bg-red-600 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center mr-2">
-                        Yes, I'm sure
+                    <button data-modal-hide="popup-modal" name="refused" type="submit" class="text-white bg-red-600 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center mr-2">
+                        IYA
                     </button>
-                    <button data-modal-hide="popup-modal" type="button" class="text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-200 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600">No, cancel</button>
+                    <button data-modal-hide="popup-modal" type="button" class="text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-200 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600">Tidak</button>
                 </div>
             </div>
         </div>
@@ -237,9 +318,10 @@
                   <span class="sr-only">Close modal</span>
               </button>
               <div class="p-6 text-center">
+                  <input type="hidden" name="np" value="<?= $data["np"]; ?>">  
                   <center><svg fill="#1fcf07" class="w-20 h-20" height="200px" width="200px" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 472.615 472.615" xml:space="preserve" stroke="#1fcf07"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_iconCarrier"> <g> <g> <path d="M236.308,0C105.799,0,0,105.798,0,236.308c0,130.507,105.799,236.308,236.308,236.308 c130.509,0,236.308-105.801,236.308-236.308C472.615,105.798,366.816,0,236.308,0z M189.676,343.493L89.455,243.272l13.923-13.923 l86.298,86.299l179.557-179.558l13.923,13.923L189.676,343.493z"></path> </g> </g> </g></svg></center>
                   <h3 class="mb-5 mt-1 text-lg font-normal text-gray-500 dark:text-gray-400">Anda yakin ingin mengapprove data ini?</h3>
-                  <button data-modal-hide="popup-approve" type="button" class="text-white bg-lime-600 hover:bg-lime-800 focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-lime-800 font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center mr-2">
+                  <button data-modal-hide="popup-approve" type="submit" name="approved" class="text-white bg-lime-600 hover:bg-lime-800 focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-lime-800 font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center mr-2">
                       Yes, I'm sure
                   </button>
                   <button data-modal-hide="popup-approve" type="button" class="text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-200 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600">No, cancel</button>
@@ -248,8 +330,7 @@
       </div>
     </div>
     <!-- End Accept Modal -->
-    
-
+    </form>
 
     <!-- AlpineJS -->
     <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script>

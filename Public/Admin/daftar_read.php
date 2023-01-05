@@ -1,3 +1,11 @@
+<?php
+
+require '../Functions/function-daftar.php';
+$id = $_GET["id"];
+$data = query("SELECT * FROM data_diri WHERE np = $id")[0]; //
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -146,49 +154,44 @@
                         <form method="POST" enctype="multipart/form-data">
                           <div class="form-control w-full">
                             <label class="label">
-                              <span class="label-text">NAMA LENGKAP*</span>
+                              <span class="label-text">NAMA LENGKAP :</span>
                             </label>
-                            <input name="nama" type="text" placeholder="Masukkan Disini" class="input input-bordered w-full" />
+                            <input name="nama" type="text" value="<?= $data["nama"]; ?>" placeholder="Masukkan Disini" class="input input-bordered w-full" readonly />
                           </div>   
                           
                           <div class="form-control w-full">
                             <label class="label">
-                              <span class="label-text">NIP*</span>
+                              <span class="label-text">NIP :</span>
                             </label>
-                            <input name="nip" type="text" placeholder="Masukkan Disini" class="input input-bordered w-full" />
+                            <input name="nip" type="text" value="<?= $data["nip"]; ?>" placeholder="Masukkan Disini" class="input input-bordered w-full" readonly />
                           </div>   
 
                           <div class="flex -mx-3">
                             <div class="md:w-1/2 px-3 md:mb-0">
                               <div class="form-control w-full">
                                 <label class="label">
-                                  <span class="label-text">TEMPAT LAHIR*</span>
+                                  <span class="label-text">TEMPAT LAHIR :</span>
                                 </label>
-                                <input name="tempat_lahir" type="text" placeholder="Masukkan Disini" class="input input-bordered w-full" />
+                                <input name="tempat_lahir" type="text" value="<?= $data["tempat_lahir"]; ?>" placeholder="Masukkan Disini" class="input input-bordered w-full" readonly/>
                               </div>   
                             </div>
                             <div class="md:w-1/2 md:px-3">
                               <div class="form-control w-full">
                                 <label class="label">
-                                  <span class="label-text">TANGGAL LAHIR*</span>
+                                  <span class="label-text">TANGGAL LAHIR :</span>
                                 </label>
-                                <input name="tanggal_lahir" type="date" class="input input-bordered w-full" />
+                                <input name="tanggal_lahir" type="date" value="<?= $data["tanggal_lahir"]; ?>" class="input input-bordered w-full" readonly/>
                               </div>   
                             </div>
                           </div>
 
                           <div class="form-control md:w-1/3">
                             <label class="label">
-                              <span class="label-text">AGAMA*</span>
+                              <span class="label-text">AGAMA :</span>
                             </label>
                             <div class="relative">
-                              <select name="agama" class="input input-bordered w-full" id="grid-state">
-                                <option value="islam">Islam</option>
-                                <option value="budha">Budha</option>
-                                <option value="kristen">Kristen</option>
-                                <option value="katolik">Katolik</option>
-                                <option value="hindu">Hindu</option>
-                                <option value="konghucu">Konghucu</option>
+                              <select name="agama" class="input input-bordered w-full" id="grid-state" readonly>
+                                <option><?= $data["agama"]; ?></option>
                               </select>
                               <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-1 text-gray-700">
                                 <svg class="fill-current h-2 w-3" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/></svg>
@@ -198,12 +201,11 @@
 
                           <div class="form-control md:w-1/3">
                             <label class="label">
-                              <span class="label-text">JENIS KELAMIN*</span>
+                              <span class="label-text">JENIS KELAMIN :</span>
                             </label>
                             <div class="relative">
-                              <select name="jenis_kelamin" class="input input-bordered w-full" id="grid-state">
-                                <option value="laki-laki">Laki-Laki</option>
-                                <option value="perempuan">Perempuan</option>
+                              <select name="jenis_kelamin" class="input input-bordered w-full" id="grid-state" readonly>
+                                <option value=""><?= $data["jenis_kelamin"]; ?></option>
                               </select>
                               <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-1 text-gray-700">
                                 <svg class="fill-current h-2 w-3" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/></svg>
@@ -213,39 +215,37 @@
                           
                           <div class="form-control w-full">
                             <label class="label">
-                              <span class="label-text">ALAMAT*</span>
+                              <span class="label-text">ALAMAT :</span>
                             </label>
-                            <textarea name="alamat" class="textarea textarea-bordered" placeholder="Masukkan Disini"></textarea>
+                            <textarea name="alamat" value="" readonly class="textarea textarea-bordered" placeholder="<?= $data["alamat"]; ?>"></textarea>
                           </div>
                           
                           <div class="flex -mx-3">
                             <div class="md:w-1/2 px-3 md:mb-0">
                               <div class="form-control w-full">
                                 <label class="label">
-                                  <span class="label-text">NOMOR TELEPON*</span>
+                                  <span class="label-text">NOMOR TELEPON :</span>
                                 </label>
-                                <input name="no_telp" type="text" placeholder="Masukkan Disini" class="input input-bordered w-full" />
+                                <input name="no_telp" value="<?= $data["no_telp"]; ?>" type="text" placeholder="Masukkan Disini" class="input input-bordered w-full" readonly/>
                               </div>   
                             </div>
                             <div class="md:w-1/2 md:px-3">
                               <div class="form-control w-full">
                                 <label class="label">
-                                  <span class="label-text">EMAIL*</span>
+                                  <span class="label-text">EMAIL :</span>
                                 </label>
-                                <input name="email" type="email" placeholder="email@email" class="input input-bordered w-full" />
+                                <input name="email" type="email" value="<?= $data["email"]; ?>" placeholder="email@email" class="input input-bordered w-full" readonly/>
                               </div>   
                             </div>
                           </div>
 
                           <div class="form-control md:w-1/3">
                             <label class="label">
-                              <span class="label-text">STATUS KELUARGA*</span>
+                              <span class="label-text">STATUS KELUARGA :</span>
                             </label>
                             <div class="relative">
-                              <select name="status_keluarga" class="input input-bordered w-full" id="grid-state">
-                                <option value="Belum Nikah">Belum Menikah</option>
-                                <option value="Kawin">Kawin</option>
-                                <option value="Janda/Duda">Janda/Duda</option>
+                              <select name="status_keluarga" readonly class="input input-bordered w-full" id="grid-state">
+                                <option  value=""><?= $data["status_keluarga"]; ?></option>
                               </select>
                               <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-1 text-gray-700">
                                 <svg class="fill-current h-2 w-3" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/></svg>
@@ -268,30 +268,27 @@
                           
                           <div class="form-control w-full">
                             <label class="label">
-                              <span class="label-text">INSTANSI*</span>
+                              <span class="label-text">INSTANSI :</span>
                             </label>
-                            <input name="instansi" type="text" placeholder="Masukkan Disini" class="input input-bordered w-full" />
+                            <input name="instansi" type="text" value="<?= $data["instansi"]; ?>" placeholder="Masukkan Disini" class="input input-bordered w-full" readonly />
                           </div>   
                           
                           <div class="form-control w-full">
                             <label class="label">
-                              <span class="label-text">TANGGAL PEGAWAI*</span>
+                              <span class="label-text">TANGGAL PEGAWAI :</span>
                             </label>
-                            <input name="tgl_pegawai" type="date" class="input input-bordered w-full" />
+                            <input name="tgl_pegawai" value="<?= $data["tgl_pegawai"]; ?>" type="date" class="input input-bordered w-full" readonly/>
                           </div>   
 
                           <div class="flex -mx-3">
                             <div class="md:w-1/2 px-3 md:mb-0">
                               <div class="form-control w-full">
                                 <label class="label">
-                                  <span class="label-text">GOLONGAN*</span>
+                                  <span class="label-text">GOLONGAN :</span>
                                 </label>
                                 <div class="relative">
-                                  <select name="golongan" class="input input-bordered w-full" id="grid-state">
-                                    <option value="1">Golongan I</option>
-                                    <option value="2">Golongan II</option>
-                                    <option value="3">Golongan III</option>
-                                    <option value="4">Golongan IV</option>
+                                  <select name="golongan" class="input input-bordered w-full" readonly id="grid-state">
+                                    <option  value=""><?= $data["golongan"]; ?></option>
                                   </select>
                                   <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-1 text-gray-700">
                                     <svg class="fill-current h-2 w-3" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/></svg>
@@ -302,14 +299,11 @@
                             <div class="md:w-1/2 md:px-3">
                               <div class="form-control w-full">
                                 <label class="label">
-                                  <span class="label-text">JABATAN*</span>
+                                  <span class="label-text">JABATAN :</span>
                                 </label>
                                 <div class="relative">
-                                  <select name="jabatan" class="input input-bordered w-full" id="grid-state">
-                                    <option value="Pratama">Pratama</option>
-                                    <option value="Muda">Muda</option>
-                                    <option value="Madya">Madya</option>
-                                    <option value="Utama">Utama</option>
+                                  <select name="jabatan" readonly class="input input-bordered w-full" id="grid-state">
+                                    <option  value=""><?= $data["jabatan"]; ?></option>
                                   </select>
                                   <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-1 text-gray-700">
                                     <svg class="fill-current h-2 w-3" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/></svg>
@@ -321,13 +315,11 @@
 
                           <div class="form-control md:w-1/3">
                             <label class="label">
-                              <span class="label-text">USIA PENSIUN*</span>
+                              <span class="label-text">USIA PENSIUN :</span>
                             </label>
                             <div class="relative">
-                              <select name="usia_pensiun" class="input input-bordered w-full" id="grid-state">
-                                <option value="58">58 Tahun</option>
-                                <option value="60">60 Tahun</option>
-                                <option value="65">65 Tahun</option>
+                              <select name="usia_pensiun" class="input input-bordered w-full" readonly id="grid-state">
+                                <option  value=""><?= $data["usia_pensiun"]; ?></option>
                               </select>
                               <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-1 text-gray-700">
                                 <svg class="fill-current h-2 w-3" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/></svg>
@@ -337,9 +329,9 @@
 
                           <div class="form-control md:w-1/3">
                             <label class="label">
-                              <span class="label-text">IURAN PERBULAN* (Contoh : 2500000)</span>
+                              <span class="label-text">IURAN PERBULAN : </span>
                             </label>
-                            <input name="iuran_perbulan" type="text" placeholder="Masukkan Disini" class="input input-bordered w-full" />
+                            <input name="iuran_perbulan" value="<?= $data["iuran_perbulan"]; ?>" type="text" placeholder="Masukkan Disini" class="input input-bordered w-full" readonly/>
                           </div> 
 
                         </div>
@@ -367,6 +359,7 @@
                     </div>
                   </div>
                   <!-- End Berkas Pegawai -->
+                  <a href="validasi.php" name="submit" type="submit" class="btn btn-outline bg-[#152A38] mx-2">Kembali</a>
                 </form>
             </main>
     

@@ -147,52 +147,40 @@ function edit($data) {
 }
 
 function find($keyword) {
-    $query = "SELECT id_nama, nama, alamat, hp, jenis_barang, barang.id_barang, nama_barang, harga, jumlah, harga*jumlah as total FROM rusialdi INNER JOIN barang on rusialdi.id_barang=barang.id_barang
+    $query = "SELECT np, nama, nip, instansi, status_berkas FROM data_diri
                 WHERE
-                nama_barang LIKE '%$keyword%' OR
                 nama LIKE '%$keyword%' OR
-                id_nama LIKE '%$keyword%'";
+                nip LIKE '%$keyword%' OR
+                instansi LIKE '%$keyword%'";
                 
     return query($query);
 }
 
-function regist($data) {
+function approve($data) {
     global $conn;
 
-    $username = strtolower(stripslashes($data["username"]));
-    $password = mysqli_real_escape_string($conn, $data["password"]); // to make user possible add some string
-    $password2 = mysqli_real_escape_string($conn, $data["password2"]);
+    $np = $data["np"];
+    $status = "approve";
+    
+    $query = "UPDATE data_diri SET
+               status_berkas = '$status'
+               WHERE np = $np"; 
 
-    // does username exist
-    $result = mysqli_query($conn, "SELECT * FROM users WHERE username = '$username'" );
+    mysqli_query($conn, $query);
+    return mysqli_affected_rows($conn);
+}
 
-    if( mysqli_fetch_assoc($result) ) {
-        echo "
-            <script>
-                alert('Username already exist!')
-                document.location.href = 'regist.php'
-            </script>
-       "; 
-       return false;
-    }
+function refuse($data) {
+    global $conn;
 
-    // check confirm of the password
-    if( $password !== $password2 ) {
-        echo "
-            <script>
-                alert('Password do not match!')
-                document.location.href = 'regist.php'
-            </script>
-       "; 
-       return false;
-    }
+    $np = $data["np"];
+    $status = "refuse";
+    
+    $query = "UPDATE data_diri SET
+               status_berkas = '$status'
+               WHERE np = $np"; 
 
-    // encrypt the password
-    $password = password_hash($password, PASSWORD_DEFAULT);
-
-    // add password to db
-    mysqli_query($conn, "INSERT INTO users VALUES('', '$username', '$password')");
-
+    mysqli_query($conn, $query);
     return mysqli_affected_rows($conn);
 }
 

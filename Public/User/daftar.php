@@ -62,9 +62,9 @@ if (isset($_POST['submit']) ){
         .active-nav-link { background: #1947ee; }
         .nav-item:hover { background: #1947ee; }
         .account-link:hover { background: #3d68ff; }
-        *{
+        /* *{
           border: 1px red solid;
-        }
+        } */
     </style>
 </head>
 <body class="bg-gray-100 font-family-inter flex">

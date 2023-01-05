@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tailwind Admin Template</title>
+    <title>Validasi Berkas</title>
     <meta name="author" content="David Grzyb">
     <meta name="description" content="">
 
@@ -12,6 +12,9 @@
 
     <!-- Link Daisyui -->
     <link href="https://cdn.jsdelivr.net/npm/daisyui@2.46.1/dist/full.css" rel="stylesheet" type="text/css" />
+
+    <!-- Link Flowbite -->
+    <link rel="stylesheet" href="https://unpkg.com/flowbite@1.6.0/dist/flowbite.min.css" />
 
     <script>
         tailwind.config = {
@@ -43,9 +46,9 @@
         .active-nav-link { background: #1947ee; }
         .nav-item:hover { background: #1947ee; }
         .account-link:hover { background: #3d68ff; }
-        /* *{
+        *{
           border: 1px red solid;
-        } */
+        }
     </style>
 </head>
 <body class="bg-gray-100 font-family-inter flex">
@@ -141,16 +144,16 @@
     
         <div class="w-full h-screen overflow-x-hidden border-t flex flex-col">
             <main class="w-full flex-grow p-6">
-                <h1 class="text-3xl text-black ml-6 underline underline-offset-4">Validasi Berkas Dana Pensiun</h1>
-                <div class="flex flex-wrap mt-4 ml-6 mb-14">
+                <h1 class="text-3xl text-black underline underline-offset-4">Validasi Berkas Dana Pensiun</h1>
+                <div class="flex flex-wrap mt-4 mb-8">
                     <div class="overflow-x-auto w-full">
                         <table class="table w-full">
                           <!-- head -->
                           <thead>
                             <tr>
                               <th class="text-center">Nama</th>
-                              <th class="text-center">Job</th>
-                              <th class="text-center">Favorite Color</th>
+                              <th class="text-center">Keterangan</th>
+                              <th class="text-center">Kontrol</th>
                               <th class="text-center">Aksi</th>
                             </tr>
                           </thead>
@@ -159,113 +162,43 @@
                             <tr>
                                <td class="text-center">   
                                   <div>
-                                    <div class="font-bold">Hart Hagerty</div>
-                                    <div class="text-sm opacity-50">United States</div>
+                                    <div class="font-bold">(Nama Lengkap)</div>
+                                    <div class="text-sm opacity-50">(NIP)</div>
                                   </div>
                               </td>
                               <td class="text-center">
-                                Zemlak, Daniel and Leannon
+                                (Asal Instansi)
                                 <br/>
-                                <span class="badge badge-ghost badge-sm">Desktop Support Technician</span>
+                                <span class="badge badge-ghost badge-sm">(Golongan)</span>
                               </td>
-                              <td class="text-center">Purple</td>
+                              <td class="text-center">
+                                <span>
+                                  <a href="daftar_read.php" class="font-bold text-blue-400 hover:text-white">Lihat</a> | <a href="daftar_edit.php" class="font-bold text-lime-500 hover:text-white">Edit</a>
+                                </span>
+                              </td>
                               <th>
                                 <div class="grid justify-center">
-                                    <button class="btn btn-ghost btn-xs">details</button>
+                                    <span>
+                                      <button data-modal-target="popup-approve" data-modal-toggle="popup-approve" type="button" class="text-lime-600 hover:text-white">Terima</button> | <button data-modal-target="popup-modal" data-modal-toggle="popup-modal" type="button" class="text-red-500 hover:text-white">Tolak</button>
+                                    </span>
                                 </div>
                               </th>
                             </tr>
-
-                            <!-- row 2 -->
-                            <tr>
-                                 <td class="text-center">   
-                                    <div>
-                                      <div class="font-bold">Hart Hagerty</div>
-                                      <div class="text-sm opacity-50">United States</div>
-                                    </div>
-                                </td>
-                                <td class="text-center">
-                                  Zemlak, Daniel and Leannon
-                                  <br/>
-                                  <span class="badge badge-ghost badge-sm">Desktop Support Technician</span>
-                                </td>
-                                <td class="text-center">Purple</td>
-                                <th>
-                                    <div class="grid justify-center">
-                                        <button class="btn btn-ghost btn-xs">details</button>
-                                    </div>
-                                </th>
-                              </tr>
-
-                            <!-- row 2 -->
-                            <tr>
-                                <td class="text-center">   
-                                   <div>
-                                     <div class="font-bold">Hart Hagerty</div>
-                                     <div class="text-sm opacity-50">United States</div>
-                                   </div>
-                               </td>
-                               <td class="text-center">
-                                 Zemlak, Daniel and Leannon
-                                 <br/>
-                                 <span class="badge badge-ghost badge-sm">Desktop Support Technician</span>
-                               </td>
-                               <td class="text-center">Purple</td>
-                               <th>
-                                   <div class="grid justify-center">
-                                       <button class="btn btn-ghost btn-xs">details</button>
-                                   </div>
-                               </th>
-                             </tr>
-                             
-                            <!-- row 2 -->
-                            <tr>
-                                <td class="text-center">   
-                                   <div>
-                                     <div class="font-bold">Hart Hagerty</div>
-                                     <div class="text-sm opacity-50">United States</div>
-                                   </div>
-                               </td>
-                               <td class="text-center">
-                                 Zemlak, Daniel and Leannon
-                                 <br/>
-                                 <span class="badge badge-ghost badge-sm">Desktop Support Technician</span>
-                               </td>
-                               <td class="text-center">Purple</td>
-                               <th>
-                                   <div class="grid justify-center">
-                                       <button class="btn btn-ghost btn-xs">details</button>
-                                   </div>
-                               </th>
-                             </tr>
-                             
-                            <!-- row 2 -->
-                            <tr>
-                                <td class="text-center">   
-                                   <div>
-                                     <div class="font-bold">Hart Hagerty</div>
-                                     <div class="text-sm opacity-50">United States</div>
-                                   </div>
-                               </td>
-                               <td class="text-center">
-                                 Zemlak, Daniel and Leannon
-                                 <br/>
-                                 <span class="badge badge-ghost badge-sm">Desktop Support Technician</span>
-                               </td>
-                               <td class="text-center">Purple</td>
-                               <th>
-                                   <div class="grid justify-center">
-                                       <button class="btn btn-ghost btn-xs">details</button>
-                                   </div>
-                               </th>
-                             </tr> 
 
                           </tbody>
                         </table>
                       
                     </div>
                 </div>
+
+                <div class="w-full flex justify-end">
+                  <div class="btn-group">
+                    <button class="btn">«</button>
+                    <button class="btn">»</button>
+                  </div>
+                </div>
             </main>
+
     
             <footer class="w-full bg-white text-right p-4">
                 &#169; Copyright to <a target="_blank" href="https://github.com/Queniex/Aplikasi-Pensiun" class="underline text-[#152A38] hover:text-blue-500">Kelompok 3</a>.
@@ -274,9 +207,55 @@
         
     </div>
 
+    <!-- Delete Modal -->
+    <div id="popup-modal" tabindex="-1" class="fixed top-0 left-0 right-0 z-50 hidden p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-modal md:h-full">
+        <div class="relative w-full h-full max-w-md md:h-auto">
+            <div class="relative bg-white rounded-lg shadow dark:bg-black">
+                <button type="button" class="absolute top-3 right-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-800 dark:hover:text-white" data-modal-hide="popup-modal">
+                    <svg aria-hidden="true" class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
+                    <span class="sr-only">Close modal</span>
+                </button>
+                <div class="p-6 text-center">
+                    <svg aria-hidden="true" class="mx-auto mb-4 text-gray-400 w-14 h-14 dark:text-gray-200" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                    <h3 class="mb-5 text-lg font-normal text-gray-500 dark:text-gray-400">Anda yakin ingin menghapus data ini?</h3>
+                    <button data-modal-hide="popup-modal" type="button" class="text-white bg-red-600 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center mr-2">
+                        Yes, I'm sure
+                    </button>
+                    <button data-modal-hide="popup-modal" type="button" class="text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-200 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600">No, cancel</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End Delete Modal -->
+
+    <!-- Accept Modal -->
+    <div id="popup-approve" tabindex="-1" class="fixed top-0 left-0 right-0 z-50 hidden p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-modal md:h-full">
+      <div class="relative w-full h-full max-w-md md:h-auto">
+          <div class="relative bg-white rounded-lg shadow dark:bg-black">
+              <button type="button" class="absolute top-3 right-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-800 dark:hover:text-white" data-modal-hide="popup-approve">
+                  <svg aria-hidden="true" class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
+                  <span class="sr-only">Close modal</span>
+              </button>
+              <div class="p-6 text-center">
+                  <center><svg fill="#1fcf07" class="w-20 h-20" height="200px" width="200px" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 472.615 472.615" xml:space="preserve" stroke="#1fcf07"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_iconCarrier"> <g> <g> <path d="M236.308,0C105.799,0,0,105.798,0,236.308c0,130.507,105.799,236.308,236.308,236.308 c130.509,0,236.308-105.801,236.308-236.308C472.615,105.798,366.816,0,236.308,0z M189.676,343.493L89.455,243.272l13.923-13.923 l86.298,86.299l179.557-179.558l13.923,13.923L189.676,343.493z"></path> </g> </g> </g></svg></center>
+                  <h3 class="mb-5 mt-1 text-lg font-normal text-gray-500 dark:text-gray-400">Anda yakin ingin mengapprove data ini?</h3>
+                  <button data-modal-hide="popup-approve" type="button" class="text-white bg-lime-600 hover:bg-lime-800 focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-lime-800 font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center mr-2">
+                      Yes, I'm sure
+                  </button>
+                  <button data-modal-hide="popup-approve" type="button" class="text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-200 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600">No, cancel</button>
+              </div>
+          </div>
+      </div>
+    </div>
+    <!-- End Accept Modal -->
+    
+
+
     <!-- AlpineJS -->
     <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script>
     <!-- Font Awesome -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/js/all.min.js" integrity="sha256-KzZiKy0DWYsnwMF+X1DvQngQ2/FxF7MF3Ff72XcpuPs=" crossorigin="anonymous"></script>
+    <!-- Link Flowbite -->
+    <script src="https://unpkg.com/flowbite@1.6.0/dist/flowbite.min.js"></script>
 </body>
 </html>

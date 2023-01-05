@@ -1,22 +1,3 @@
-<?php
-
-require '../Functions/function-daftar.php';
-if (isset($_POST['submit']) ){
-    if( add($_POST) > 0 ){
-      if( add2($_POST) > 0){
-        echo "
-            <script>
-                document.location.href = 'daftarSucces.php'
-            </script>
-       "; 
-      }
-    } else {
-    die('invalid Query : ' . mysqli_error($conn));
-    echo mysqli_error($conn);
-    }
-}
-?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -62,9 +43,9 @@ if (isset($_POST['submit']) ){
         .active-nav-link { background: #1947ee; }
         .nav-item:hover { background: #1947ee; }
         .account-link:hover { background: #3d68ff; }
-        *{
+        /* *{
           border: 1px red solid;
-        }
+        } */
     </style>
 </head>
 <body class="bg-gray-100 font-family-inter flex">
@@ -152,8 +133,8 @@ if (isset($_POST['submit']) ){
     
         <div class="w-full h-screen overflow-x-hidden border-t flex flex-col">
             <main class="w-full flex-grow p-6">
-                <h1 class="text-3xl text-black ml-6">Klaim Dana Pensiun</h1>
-                <h3 class="pb-3 ml-6">Lengkapi form berikut untuk melakukan pengajuan permintaan klaim dana pensiun</h3>
+                <h1 class="text-3xl text-black ml-6">Data Dana Pensiun Pegawai</h1>
+                <h3 class="pb-3 ml-6">Form Pengajuan Permintan Dana Pensiun Pegawai</h3>
 
                 <!-- Start Data Diri -->
                 <div class="flex flex-wrap mt-4 pl-1 mb-14">
@@ -412,7 +393,7 @@ if (isset($_POST['submit']) ){
                   </div>
                   <!-- End Berkas Pegawai -->
 
-                  <button name="submit" type="submit" class="btn btn-outline bg-[#152A38] mx-2">Kirim</button>
+                  <button name="submit" type="submit" class="btn btn-outline bg-[#152A38] mx-2">Edit</button>
                 </form>
             </main>
     

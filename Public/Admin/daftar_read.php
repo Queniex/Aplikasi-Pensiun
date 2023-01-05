@@ -1,22 +1,3 @@
-<?php
-
-require '../Functions/function-daftar.php';
-if (isset($_POST['submit']) ){
-    if( add($_POST) > 0 ){
-      if( add2($_POST) > 0){
-        echo "
-            <script>
-                document.location.href = 'daftarSucces.php'
-            </script>
-       "; 
-      }
-    } else {
-    die('invalid Query : ' . mysqli_error($conn));
-    echo mysqli_error($conn);
-    }
-}
-?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -62,9 +43,9 @@ if (isset($_POST['submit']) ){
         .active-nav-link { background: #1947ee; }
         .nav-item:hover { background: #1947ee; }
         .account-link:hover { background: #3d68ff; }
-        *{
+        /* *{
           border: 1px red solid;
-        }
+        } */
     </style>
 </head>
 <body class="bg-gray-100 font-family-inter flex">
@@ -152,8 +133,8 @@ if (isset($_POST['submit']) ){
     
         <div class="w-full h-screen overflow-x-hidden border-t flex flex-col">
             <main class="w-full flex-grow p-6">
-                <h1 class="text-3xl text-black ml-6">Klaim Dana Pensiun</h1>
-                <h3 class="pb-3 ml-6">Lengkapi form berikut untuk melakukan pengajuan permintaan klaim dana pensiun</h3>
+                <h1 class="text-3xl text-black ml-6">Data Dana Pensiun Pegawai</h1>
+                <h3 class="pb-3 ml-6">Form Pengajuan Permintan Dana Pensiun Pegawai</h3>
 
                 <!-- Start Data Diri -->
                 <div class="flex flex-wrap mt-4 pl-1 mb-14">
@@ -372,38 +353,13 @@ if (isset($_POST['submit']) ){
                     <div class="w-full pr-0">
                       <div class="bg-blue-400 h-9 rounded-t-3xl"></div>
                       <div class="bg-gray-200 h-full rounded-b-3xl">
-                        <div class="pt-1 ml-6 mr-6">
+                        <div class="pt-6 ml-6 mr-6">
 
-                          <div class="flex -mx-3">
-                            <div class="form-control md:w-1/2 px-3">
-                              <label class="label">
-                                <span class="label-text">SKPL*</span>
-                              </label>
-                              <input name="skpl" type="file" class="file-input file-input-bordered w-full" />
-                            </div>
-
-                            <div class="form-control md:w-1/2 px-3">
-                              <label class="label">
-                                <span class="label-text">SKCP*</span>
-                              </label>
-                              <input name="skcp" type="file" class="file-input file-input-bordered w-full" />
-                            </div>
-                          </div>  
-
-                          <div class="flex -mx-3">
-                            <div class="form-control md:w-1/2 px-3">
-                              <label class="label">
-                                <span class="label-text">SKCLTN*</span>
-                              </label>
-                              <input name="skcltn" type="file" class="file-input file-input-bordered w-full" />
-                            </div>
-
-                            <div class="form-control md:w-1/2 px-3">
-                              <label class="label">
-                                <span class="label-text">SKPI*</span>
-                              </label>
-                              <input name="skpi" type="file" class="file-input file-input-bordered w-full" />
-                            </div>
+                          <div class="flex flex-col">
+                              <a class="text-slate-900 font-medium" href="../../dist/images/Profile.png" download>- File SKPL</a>
+                              <a class="text-slate-900 font-medium" href="../../dist/images/Profile.png" download>- File SKCP</a>
+                              <a class="text-slate-900 font-medium" href="../../dist/images/Profile.png" download>- File SKCLTN</a>
+                              <a class="text-slate-900 font-medium" href="../../dist/images/Profile.png" download>- File SKPI</a>
                           </div>  
                           
                         </div>
@@ -411,8 +367,6 @@ if (isset($_POST['submit']) ){
                     </div>
                   </div>
                   <!-- End Berkas Pegawai -->
-
-                  <button name="submit" type="submit" class="btn btn-outline bg-[#152A38] mx-2">Kirim</button>
                 </form>
             </main>
     

@@ -121,26 +121,67 @@ function deletes($id) {
 function edit($data) {
     global $conn;
 
-    $id = $data["id"];
-    $nama = htmlspecialchars($data["nama_pembeli"]);
-    $hp = htmlspecialchars($data["hp"]);
-    $id_barang = htmlspecialchars($data["id_barang"]);
-    $kuantitas = htmlspecialchars($data["jumlah"]);
-    $harga = htmlspecialchars($data["harga"]);
-    $jenisbarang = htmlspecialchars($data["jenis_barang"]);
+    $np = $data["np"];
+    $nama = htmlspecialchars($data["nama"]);
+    $nip = htmlspecialchars($data["nip"]);
+    $tempat_lahir = htmlspecialchars($data["tempat_lahir"]);
+    $tanggal_lahir = date('Y-m-d', strtotime($data["tanggal_lahir"]));
+    $agama = htmlspecialchars($data["agama"]);
+    $jenis_kelamin = htmlspecialchars($data["jenis_kelamin"]);
     $alamat = htmlspecialchars($data["alamat"]);
-    $tgl_transaksi = date('Y-m-d');
+    $no_telp = htmlspecialchars($data["no_telp"]);
+    $email = htmlspecialchars($data["email"]);
+    $status_keluarga = htmlspecialchars($data["status_keluarga"]);
+    $instansi = htmlspecialchars($data["instansi"]);
+    $tgl_pegawai = date('Y-m-d', strtotime($data["tgl_pegawai"]));
+    $golongan = htmlspecialchars($data["golongan"]);
+    $jabatan = htmlspecialchars($data["jabatan"]);
+    $usia_pensiun = htmlspecialchars($data["usia_pensiun"]);
+    $iuran_perbulan = htmlspecialchars($data["iuran_perbulan"]);
+    $status_berkas = "Checked";
     
-    $query = "UPDATE rusialdi SET
+    $query = "UPDATE data_diri SET
                nama = '$nama',
+               nip = '$nip',
+               tempat_lahir = '$tempat_lahir',
+               tanggal_lahir = '$tanggal_lahir',
+               agama = '$agama',
+               jenis_kelamin = '$jenis_kelamin',
                alamat = '$alamat',
-               hp = '$hp',
-               jenis_barang = '$jenisbarang',
-               id_barang = '$id_barang',
-               harga = '$harga',
-               jumlah = '$kuantitas',
-               tgl_transaksi = '$tgl_transaksi'
-               WHERE id_nama = $id"; 
+               no_telp = '$no_telp',
+               email = '$email',
+               status_keluarga = '$status_keluarga',
+               instansi = '$instansi',
+               tgl_pegawai = '$tgl_pegawai',
+               golongan = '$golongan',
+               jabatan = '$jabatan',
+               usia_pensiun = '$usia_pensiun',
+               iuran_perbulan = '$iuran_perbulan',
+               status_berkas = '$status_berkas'
+               WHERE np = $np"; 
+
+    mysqli_query($conn, $query);
+    return mysqli_affected_rows($conn);
+}
+
+function edit2($data) {
+    global $conn;
+
+    $np = $data["np"];
+    $skpl = upload("skpl");
+    $skcp = upload("skcp");
+    $skcltn = upload("skcltn");
+    $skpi = upload("skpi");
+    if( !$skpl && !$skcp && !$skcltn && !$skpi ) {
+        return false;
+    }
+    
+    $query = "UPDATE pelampiran_file SET
+               skpl = '$skpl',
+               skcp = '$skcp',
+               skcltn = '$skcltn',
+               skpi = '$skpi'
+               WHERE np = $np"; 
 
     mysqli_query($conn, $query);
     return mysqli_affected_rows($conn);

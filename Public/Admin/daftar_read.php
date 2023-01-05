@@ -348,10 +348,10 @@ $data = query("SELECT * FROM data_diri WHERE np = $id")[0]; //
                         <div class="pt-6 ml-6 mr-6">
 
                           <div class="flex flex-col">
-                              <a class="text-slate-900 font-medium" href="../../dist/images/Profile.png" download>- File SKPL</a>
-                              <a class="text-slate-900 font-medium" href="../../dist/images/Profile.png" download>- File SKCP</a>
-                              <a class="text-slate-900 font-medium" href="../../dist/images/Profile.png" download>- File SKCLTN</a>
-                              <a class="text-slate-900 font-medium" href="../../dist/images/Profile.png" download>- File SKPI</a>
+                              <a class="text-slate-900 font-medium" href="<?= $data["skpl"]; ?>" download>- File SKPL</a>
+                              <a class="text-slate-900 font-medium" href="<?= $data["skcp"]; ?>" download>- File SKCP</a>
+                              <a class="text-slate-900 font-medium" href="<?= $data["skcltn"]; ?>" download>- File SKCLTN</a>
+                              <a class="text-slate-900 font-medium" href="../../dist/files/<?= $data["skpi"]; ?>" download>- File SKPI</a>
                           </div>  
                           
                         </div>
@@ -359,7 +359,7 @@ $data = query("SELECT * FROM data_diri WHERE np = $id")[0]; //
                     </div>
                   </div>
                   <!-- End Berkas Pegawai -->
-                  <a href="validasi.php" name="submit" type="submit" class="btn btn-outline bg-[#152A38] mx-2">Kembali</a>
+                  <a href="validasi.php" name="submit" type="submit" class="btn btn-outline text-black bg-blue-400 hover:bg-blue-500 mx-2">Kembali</a>
                 </form>
             </main>
     

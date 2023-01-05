@@ -1,7 +1,28 @@
 <?php
 require '../Functions/function-daftar.php';
 $id = $_GET["id"];
-$data = query("SELECT * FROM data_diri WHERE np = $id")[0]; //
+$data = query("SELECT * FROM data_diri WHERE np = $id")[0]; 
+
+if ( isset($_POST["submit"]) ){
+  if( edit($_POST) > 0 ){
+    if( edit2($_POST) > 0){
+      echo "
+          <script>
+              document.location.href = 'validasi.php'
+          </script>
+     "; 
+    }
+    else {
+      die('invalid Query : ' . mysqli_error($conn));
+      echo mysqli_error($conn);
+      }
+  } else {
+  die('invalid Query : ' . mysqli_error($conn));
+  echo mysqli_error($conn);
+  }
+}
+
+
 ?>
 
 <!DOCTYPE html>
@@ -151,6 +172,7 @@ $data = query("SELECT * FROM data_diri WHERE np = $id")[0]; //
                         
                       <form method="POST" enctype="multipart/form-data">
                           <div class="form-control w-full">
+                          <input type="hidden" name="np" value="<?= $data["np"]; ?>">
                             <label class="label">
                               <span class="label-text">NAMA LENGKAP :</span>
                             </label>
@@ -189,7 +211,13 @@ $data = query("SELECT * FROM data_diri WHERE np = $id")[0]; //
                             </label>
                             <div class="relative">
                               <select name="agama" class="input input-bordered w-full" id="grid-state" >
-                                <option><?= $data["agama"]; ?></option>
+                                <?php $selected = $data["agama"]; ?>
+                                <option value="islam" <?php if($selected == 'Islam'){echo("selected");}?>>Islam</option>
+                                <option value="Budha" <?php if($selected == 'Budha'){echo("selected");}?>>Budha</option>
+                                <option value="Kristen" <?php if($selected == 'Kristen'){echo("selected");}?>>Kristen</option>
+                                <option value="Katolik" <?php if($selected == 'Katolik'){echo("selected");}?>>Katolik</option>
+                                <option value="Hindu" <?php if($selected == 'Hindu'){echo("selected");}?>>Hindu</option>
+                                <option value="Konghucu" <?php if($selected == 'Konghucu'){echo("selected");}?>>Konghucu</option>
                               </select>
                               <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-1 text-gray-700">
                                 <svg class="fill-current h-2 w-3" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/></svg>
@@ -203,7 +231,9 @@ $data = query("SELECT * FROM data_diri WHERE np = $id")[0]; //
                             </label>
                             <div class="relative">
                               <select name="jenis_kelamin" class="input input-bordered w-full" id="grid-state" >
-                                <option value=""><?= $data["jenis_kelamin"]; ?></option>
+                              <?php $selected = $data["jenis_kelamin"]; ?>
+                                <option value="laki-laki" <?php if($selected == 'laki-laki'){echo("selected");}?>>Laki-laki</option>
+                                <option value="perempuan" <?php if($selected == 'perempuan'){echo("selected");}?>>Perempuan</option>
                               </select>
                               <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-1 text-gray-700">
                                 <svg class="fill-current h-2 w-3" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/></svg>
@@ -243,7 +273,10 @@ $data = query("SELECT * FROM data_diri WHERE np = $id")[0]; //
                             </label>
                             <div class="relative">
                               <select name="status_keluarga"  class="input input-bordered w-full" id="grid-state">
-                                <option  value=""><?= $data["status_keluarga"]; ?></option>
+                              <?php $selected = $data["status_keluarga"]; ?>
+                                <option value="Belum Nikah" <?php if($selected == 'Belum Nikah'){echo("selected");}?>>Belum Nikah</option>
+                                <option value="Kawin" <?php if($selected == 'Kawin'){echo("selected");}?>>Kawin</option>
+                                <option value="Janda/Duda" <?php if($selected == 'Janda/Duda'){echo("selected");}?>>Janda/Duda</option>
                               </select>
                               <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-1 text-gray-700">
                                 <svg class="fill-current h-2 w-3" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/></svg>
@@ -286,7 +319,11 @@ $data = query("SELECT * FROM data_diri WHERE np = $id")[0]; //
                                 </label>
                                 <div class="relative">
                                   <select name="golongan" class="input input-bordered w-full"  id="grid-state">
-                                    <option  value=""><?= $data["golongan"]; ?></option>
+                                    <?php $selected = $data["golongan"]; ?>
+                                    <option value="1" <?php if($selected == '1'){echo("selected");}?>>Golongan I</option>
+                                    <option value="2" <?php if($selected == '2'){echo("selected");}?>>Golongan II</option>
+                                    <option value="3" <?php if($selected == '3'){echo("selected");}?>>Golongan III</option>
+                                    <option value="4" <?php if($selected == '4'){echo("selected");}?>>Golongan IV</option>
                                   </select>
                                   <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-1 text-gray-700">
                                     <svg class="fill-current h-2 w-3" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/></svg>
@@ -301,7 +338,11 @@ $data = query("SELECT * FROM data_diri WHERE np = $id")[0]; //
                                 </label>
                                 <div class="relative">
                                   <select name="jabatan"  class="input input-bordered w-full" id="grid-state">
-                                    <option  value=""><?= $data["jabatan"]; ?></option>
+                                  <?php $selected = $data["jabatan"]; ?>
+                                  <option value="Pratama" <?php if($selected == 'Pratama'){echo("selected");}?>>Pratama</option>
+                                  <option value="Madya" <?php if($selected == 'Madya'){echo("selected");}?>>Madya</option>
+                                  <option value="Muda" <?php if($selected == 'Muda'){echo("selected");}?>>Muda</option>
+                                  <option value="Utama" <?php if($selected == 'Utama'){echo("selected");}?>>Utama</option>
                                   </select>
                                   <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-1 text-gray-700">
                                     <svg class="fill-current h-2 w-3" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/></svg>
@@ -317,7 +358,10 @@ $data = query("SELECT * FROM data_diri WHERE np = $id")[0]; //
                             </label>
                             <div class="relative">
                               <select name="usia_pensiun" class="input input-bordered w-full"  id="grid-state">
-                                <option  value=""><?= $data["usia_pensiun"]; ?></option>
+                              <?php $selected = $data["usia_pensiun"]; ?>
+                                <option value="58" <?php if($selected == '58'){echo("selected");}?>>58</option>
+                                <option value="60" <?php if($selected == '60'){echo("selected");}?>>60</option>
+                                <option value="65" <?php if($selected == '65'){echo("selected");}?>>65</option>
                               </select>
                               <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-1 text-gray-700">
                                 <svg class="fill-current h-2 w-3" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/></svg>
@@ -383,8 +427,12 @@ $data = query("SELECT * FROM data_diri WHERE np = $id")[0]; //
                   </div>
                   <!-- End Berkas Pegawai -->
                   
-
-                  <a href="validasi.php" name="submit" type="submit" class="btn btn-outline bg-[#152A38] mx-2">Kembali</a>
+                  <div class="flex flex-row">
+                    <button name="submit" type="submit" class="btn btn-outline text-black bg-lime-500 hover:bg-lime-700 mx-2">
+                      KIRIM </button>
+                    <a href="validasi.php" class="btn btn-outline text-black bg-blue-400 hover:bg-blue-500 mx-2">
+                      Kembali </a>
+                  </div>
                 </form>
             </main>
     

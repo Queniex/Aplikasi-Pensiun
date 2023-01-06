@@ -66,7 +66,7 @@ $datas = query("SELECT * FROM pelampiran_file WHERE np = $id")[0];
             </button>
         </div>
         <nav class="text-white text-base font-semibold pt-0">
-            <a href="index.php" class="flex items-center active-nav-link text-white py-4 pl-6 nav-item">
+            <a href="index.php" class="flex items-center text-white py-4 pl-6 nav-item">
                 <i class="fas fa-tachometer-alt mr-3"></i>
                 Dashboard
             </a>
@@ -74,7 +74,7 @@ $datas = query("SELECT * FROM pelampiran_file WHERE np = $id")[0];
               <i class="fas fa-chart-bar mr-3"></i>
                 Data Chart
             </a>
-            <a href="validasi.php" class="flex items-center text-white opacity-75 hover:opacity-100 py-4 pl-6 nav-item">
+            <a href="validasi.php" class="flex items-center active-nav-link text-white opacity-75 hover:opacity-100 py-4 pl-6 nav-item">
                 <i class="fas fa-sticky-note mr-3"></i>
                 Validasi Berkas
             </a>
@@ -120,11 +120,11 @@ $datas = query("SELECT * FROM pelampiran_file WHERE np = $id")[0];
 
             <!-- Dropdown Nav -->
             <nav :class="isOpen ? 'flex': 'hidden'" class="flex flex-col pt-4">
-                <a href="index.php" class="flex items-center active-nav-link text-white py-2 pl-4 nav-item">
+                <a href="index.php" class="flex items-center text-white py-2 pl-4 nav-item">
                   <i class="fas fa-tachometer-alt mr-3"></i>
                   Dashboard
                 </a>
-                <a href="validasi.php" class="flex items-center text-white opacity-75 hover:opacity-100 py-2 pl-4 nav-item">
+                <a href="validasi.php" class="flex items-center active-nav-link text-white opacity-75 hover:opacity-100 py-2 pl-4 nav-item">
                   <i class="fas fa-sticky-note mr-3"></i>
                   Validasi Berkas
                 </a>

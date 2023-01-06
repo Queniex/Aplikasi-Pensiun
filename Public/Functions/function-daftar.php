@@ -168,13 +168,39 @@ function edit2($data) {
     global $conn;
 
     $np = $data["np"];
-    $skpl = upload("skpl");
-    $skcp = upload("skcp");
-    $skcltn = upload("skcltn");
-    $skpi = upload("skpi");
-    if( !$skpl && !$skcp && !$skcltn && !$skpi ) {
-        return false;
+    $oldskpl = htmlspecialchars($data["skpl2"]);
+    $oldskcp = htmlspecialchars($data["skcp2"]);
+    $oldskcltn = htmlspecialchars($data["skcltn2"]);
+    $oldskpi = htmlspecialchars($data["skpi2"]);
+
+    // check if user choosing a new picture
+    if($data["skpl"] == '') {
+        $skpl = $oldskpl;
+    } else{
+        $skpl = upload("skpl");
     }
+
+    if($data["skcp"] == '') {
+        $skcp = $oldskcp;
+    } else{
+        $skcp = upload("skcp");
+    }
+
+    if($data["skcltn"] == '') {
+        $skcltn = $oldskcltn; 
+    } else{
+        $skcltn = upload("skcltn");
+    }
+
+    if($data["skpi"] == '') {
+        $skpi = $oldskpi;       
+    } else{
+        $skpi = upload("skpi");
+    }
+
+    // if( !$skpl && !$skcp && !$skcltn && !$skpi ) {
+    //     return false;
+    // }
     
     $query = "UPDATE pelampiran_file SET
                skpl = '$skpl',
@@ -223,6 +249,14 @@ function refuse($data) {
 
     mysqli_query($conn, $query);
     return mysqli_affected_rows($conn);
+}
+
+function debug_to_console($data) {
+    $output = $data;
+    if (is_array($output))
+        $output = implode(',', $output);
+
+    echo "<script>console.log('Debug Objects: " . $output . "' );</script>";
 }
 
 ?>

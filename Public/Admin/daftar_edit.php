@@ -2,7 +2,9 @@
 require '../Functions/function-daftar.php';
 $id = $_GET["id"];
 $data = query("SELECT * FROM data_diri WHERE np = $id")[0]; 
-
+$datas = query("SELECT * FROM pelampiran_file WHERE np = $id")[0];
+//$a = $datas['skpl'];
+//var_dump($a == '');
 if ( isset($_POST["submit"]) ){
   if( edit($_POST) > 0 ){
     if( edit2($_POST) > 0){
@@ -15,10 +17,12 @@ if ( isset($_POST["submit"]) ){
     else {
       die('invalid Query : ' . mysqli_error($conn));
       echo mysqli_error($conn);
-      }
+      debug_to_console("Test");
+    }
   } else {
   die('invalid Query : ' . mysqli_error($conn));
   echo mysqli_error($conn);
+  debug_to_console("Test");
   }
 }
 
@@ -173,6 +177,7 @@ if ( isset($_POST["submit"]) ){
                       <form method="POST" enctype="multipart/form-data">
                           <div class="form-control w-full">
                           <input type="hidden" name="np" value="<?= $data["np"]; ?>">
+
                             <label class="label">
                               <span class="label-text">NAMA LENGKAP :</span>
                             </label>
@@ -395,6 +400,7 @@ if ( isset($_POST["submit"]) ){
                                 <span class="label-text">SKPL*</span>
                               </label>
                               <input name="skpl" type="file" class="file-input file-input-bordered w-full" />
+                              <input type="hidden" name="skpl2" value="<?= $datas["skpl"]; ?>">
                             </div>
 
                             <div class="form-control md:w-1/2 px-3">
@@ -402,6 +408,7 @@ if ( isset($_POST["submit"]) ){
                                 <span class="label-text">SKCP*</span>
                               </label>
                               <input name="skcp" type="file" class="file-input file-input-bordered w-full" />
+                              <input type="hidden" name="skcp2" value="<?= $datas["skcp"]; ?>">
                             </div>
                           </div>  
 
@@ -411,6 +418,7 @@ if ( isset($_POST["submit"]) ){
                                 <span class="label-text">SKCLTN*</span>
                               </label>
                               <input name="skcltn" type="file" class="file-input file-input-bordered w-full" />
+                              <input type="hidden" name="skcltn2" value="<?= $datas["skcltn"]; ?>">
                             </div>
 
                             <div class="form-control md:w-1/2 px-3">
@@ -418,6 +426,7 @@ if ( isset($_POST["submit"]) ){
                                 <span class="label-text">SKPI*</span>
                               </label>
                               <input name="skpi" type="file"  class="file-input file-input-bordered w-full" />
+                              <input type="hidden" name="skpi2" value="<?= $datas["skpi"]; ?>">
                             </div>
                           </div>  
                           

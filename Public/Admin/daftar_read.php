@@ -3,7 +3,7 @@
 require '../Functions/function-daftar.php';
 $id = $_GET["id"];
 $data = query("SELECT * FROM data_diri WHERE np = $id")[0]; //
-
+$datas = query("SELECT * FROM pelampiran_file WHERE np = $id")[0];
 ?>
 
 <!DOCTYPE html>
@@ -348,10 +348,10 @@ $data = query("SELECT * FROM data_diri WHERE np = $id")[0]; //
                         <div class="pt-6 ml-6 mr-6">
 
                           <div class="flex flex-col">
-                              <a class="text-slate-900 font-medium" href="<?= $data["skpl"]; ?>" download>- File SKPL</a>
-                              <a class="text-slate-900 font-medium" href="<?= $data["skcp"]; ?>" download>- File SKCP</a>
-                              <a class="text-slate-900 font-medium" href="<?= $data["skcltn"]; ?>" download>- File SKCLTN</a>
-                              <a class="text-slate-900 font-medium" href="../../dist/files/<?= $data["skpi"]; ?>" download>- File SKPI</a>
+                              <a class="text-slate-900 font-medium hover:text-blue-500" href="../Functions/download.php?file=<?= $datas["skpl"]; ?>">- File SKPL</a>
+                              <a class="text-slate-900 font-medium hover:text-blue-500" href="../Functions/download.php?file=<?= $datas["skcp"]; ?>">- File SKCP</a>
+                              <a class="text-slate-900 font-medium hover:text-blue-500" href="../Functions/download.php?file=<?= $datas["skcltn"]; ?>">- File SKCLTN</a>
+                              <a class="text-slate-900 font-medium hover:text-blue-500" href="../Functions/download.php?file=<?= $datas["skpi"]; ?>">- File SKPI</a>
                           </div>  
                           
                         </div>

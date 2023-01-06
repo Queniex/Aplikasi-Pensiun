@@ -10,6 +10,9 @@
     <!-- Link tailwind -->
     <script src="https://cdn.tailwindcss.com"></script>
 
+    <!-- Link DaisyUi -->
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@2.46.1/dist/full.css" rel="stylesheet" type="text/css" />
+
     <script>
         tailwind.config = {
           theme: {
@@ -49,31 +52,27 @@
 
     <aside class="relative bg-[#152A38] h-screen w-64 hidden sm:block shadow-xl">
         <div class="p-6 bg-[#0A161E]">
-            <a href../index.htmlindex.html" class="text-white text-3xl font-semibold uppercase hover:text-gray-300">Admin</a>
+            <a href="index.html" class="text-white text-3xl font-semibold uppercase hover:text-gray-300">User</a>
             <button class="w-full bg-white cta-btn font-semibold py-2 mt-5 rounded-br-lg rounded-bl-lg rounded-tr-lg shadow-lg hover:shadow-xl hover:bg-gray-300 flex items-center justify-center">
                 <i class="fas fa-plus mr-3"></i> New Report
             </button>
         </div>
         <nav class="text-white text-base font-semibold pt-0">
-            <a href="../index.html" class="flex items-center text-white py-4 pl-6 nav-item">
+            <a href="index.html" class="flex items-center text-white py-4 pl-6 nav-item">
                 <i class="fas fa-tachometer-alt mr-3"></i>
                 Dashboard
             </a>
-            <a href="datachart.html" class="flex items-center text-white opacity-75 hover:opacity-100 py-4 pl-6 nav-item">
-                <i class="fas fa-chart-bar mr-3"></i>
-                  Data Chart
-            </a>
-            <a href="validasi.html" class="flex items-center active-nav-link text-white opacity-75 hover:opacity-100 py-4 pl-6 nav-item">
+            <a href="daftar.html" class="flex items-center active-nav-link text-white opacity-75 hover:opacity-100 py-4 pl-6 nav-item">
                 <i class="fas fa-sticky-note mr-3"></i>
-                Validasi Berkas
+                Daftar Berkas
             </a>
             <a href="krip.html" class="flex items-center text-white opacity-75 hover:opacity-100 py-4 pl-6 nav-item">
               <i class="fas fa-book-reader mr-3"></i>
               KRIP
             </a>
-            <a href="user.html" class="flex items-center text-white opacity-75 hover:opacity-100 py-4 pl-6 nav-item">
-                <i class="fas fa-user-cog mr-3"></i>
-                Kelola User
+            <a href="saldo.html" class="flex items-center text-white opacity-75 hover:opacity-100 py-4 pl-6 nav-item">
+              <i class="fas fa-money-bill mr-3"></i>
+              Cek Saldo
             </a>
         </nav>
         <a href="#" class="absolute w-full upgrade-btn bottom-0 active-nav-link text-white flex items-center justify-center py-4">
@@ -88,7 +87,7 @@
             <div class="w-1/2"></div>
             <div x-data="{ isOpen: false }" class="relative w-1/2 flex justify-end">
                 <button @click="isOpen = !isOpen" class="realtive z-10 w-12 h-12 rounded-full overflow-hidden border-4 border-gray-400 hover:border-gray-300 focus:border-gray-300 focus:outline-none">
-                    <img src="../dist/images/Profile.png">
+                    <img src="../../dist/images/Profile.png">
                 </button>
                 <button x-show="isOpen" @click="isOpen = false" class="h-full w-full fixed inset-0 cursor-default"></button>
                 <div x-show="isOpen" class="absolute w-32 bg-white rounded-lg shadow-lg py-2 mt-16">
@@ -100,7 +99,7 @@
         <!-- Mobile Header & Nav -->
         <header x-data="{ isOpen: false }" class="bg-[#152A38] w-full bg-sidebar py-5 px-6 sm:hidden">
             <div class="flex items-center justify-between">
-                <a href="../index.html" class="text-white text-3xl font-semibold uppercase hover:text-gray-300">Admin</a>
+                <a href="index.html" class="text-white text-3xl font-semibold uppercase hover:text-gray-300">User</a>
                 <button @click="isOpen = !isOpen" class="text-white text-3xl focus:outline-none">
                     <i x-show="!isOpen" class="fas fa-bars"></i>
                     <i x-show="isOpen" class="fas fa-times"></i>
@@ -109,25 +108,21 @@
 
             <!-- Dropdown Nav -->
             <nav :class="isOpen ? 'flex': 'hidden'" class="flex flex-col pt-4">
-                <a href="../index.html" class="flex items-center text-white py-2 pl-4 nav-item">
-                    <i class="fas fa-tachometer-alt mr-3"></i>
-                    Dashboard
+                <a href="index.html" class="flex items-center text-white py-2 pl-4 nav-item">
+                  <i class="fas fa-tachometer-alt mr-3"></i>
+                  Dashboard
                 </a>
-                <a href="datachart.html" class="flex items-center text-white opacity-75 hover:opacity-100 py-2 pl-4 nav-item">
-                    <i class="fas fa-chart-bar mr-3"></i>
-                      Data Chart
-                </a>
-                <a href="validasi.html" class="flex items-center active-nav-link text-white opacity-75 hover:opacity-100 py-2 pl-4 nav-item">
-                    <i class="fas fa-sticky-note mr-3"></i>
-                    Validasi Berkas
+                <a href="daftar.html" class="flex items-center active-nav-link text-white opacity-75 hover:opacity-100 py-2 pl-4 nav-item">
+                  <i class="fas fa-sticky-note mr-3"></i>
+                  Daftar Berkas
                 </a>
                 <a href="krip.html" class="flex items-center text-white opacity-75 hover:opacity-100 py-2 pl-4 nav-item">
                   <i class="fas fa-book-reader mr-3"></i>
                   KRIP
                 </a>
-                <a href="user.html" class="flex items-center text-white opacity-75 hover:opacity-100 py-2 pl-4 nav-item">
-                    <i class="fas fa-user-cog mr-3"></i>
-                    Kelola User
+                <a href="saldo.html" class="flex items-center text-white opacity-75 hover:opacity-100 py-2 pl-4 nav-item">
+                    <i class="fas fa-money-bill mr-3"></i>
+                    Cek Saldo
                 </a>
                 <button class="w-full bg-white cta-btn font-semibold py-2 mt-3 rounded-lg shadow-lg hover:shadow-xl hover:bg-gray-300 flex items-center justify-center">
                   <i class="fas fa-arrow-alt-circle-left mr-3"></i>
@@ -138,13 +133,21 @@
     
         <div class="w-full h-screen overflow-x-hidden border-t flex flex-col">
             <main class="w-full flex-grow p-6">
-                <h1 class="text-3xl text-black pb-6">Blank Page</h1>
-
-                <!-- Content goes here! 😁 -->
+              <div class="flex justify-center">
+                <div class="flex-col mt-24">
+                  <center>
+                  <img src="../../dist/images/checked.png" width="100" height="100" alt="">
+                  <h1 class="text-black text-3xl font-bold">Request Berhasil!</h1>
+                  <p>Admin kami akan segera memproses permintaan anda. Silahkan tunggu konfirmasi dari kami paling lambat 3 hari kerja.</p>
+                  <a href="index.php" class="bg-[#152A38] text-white pl-3 pr-3 rounded-2xl mt-6 hover:bg-slate-400 hover:text-black">Kembali Ke Dashboard</a>
+                  </center>
+                </div>
+              </div> 
             </main>
     
             <footer class="w-full bg-white text-right p-4">
-                &#169; Copyright to <a target="_blank" href="https://github.com/Queniex/Aplikasi-Pensiun" class="underline text-[#152A38] hover:text-blue-500">Kelompok 3</a>.
+               Copyright to <a target="_blank" href="https://github.com/Queniex/Aplikasi-Pensiun" class="underline text-[#152A38] hover:text-blue-500">Kelompok 3</a><br>
+               All Right Reserved
             </footer>
         </div>
         

@@ -1,8 +1,8 @@
 <?php 
   require_once('../Functions/function-krip.php');
 
-  $id = 8;
-  $data = query("SELECT np, nama, nip, tempat_lahir, tanggal_lahir, agama, jenis_kelamin, alamat, no_telp, email, status_keluarga, instansi, tgl_pegawai, data_diri.golongan, dana.total_dana, jabatan, usia_pensiun, iuran_perbulan, status_berkas FROM data_diri JOIN dana ON data_diri.golongan = dana.golongan WHERE data_diri.id_user = $id AND status_berkas = 'approved'");
+  $id = 1008;
+  $data = query("SELECT np, nama, nip, tempat_lahir, tanggal_lahir, agama, jenis_kelamin, alamat, no_telp, email, status_keluarga, instansi, tgl_pegawai, data_diri.golongan, dana.total_dana, jabatan, usia_pensiun, iuran_perbulan, status_berkas FROM data_diri JOIN dana ON data_diri.golongan = dana.golongan WHERE data_diri.np = $id AND status_berkas = 'approved'");
 
   // var_dump(query("SELECT np, nama, nip, tempat_lahir, tanggal_lahir, agama, jenis_kelamin, alamat, no_telp, email, status_keluarga, instansi, tgl_pegawai, data_diri.golongan, dana.total_dana, jabatan, usia_pensiun, iuran_perbulan, status_berkas FROM data_diri JOIN dana ON data_diri.golongan = dana.golongan WHERE data_diri.id_user = $id AND status_berkas = 'approved'"));
   // die;

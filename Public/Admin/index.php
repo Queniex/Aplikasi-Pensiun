@@ -1,52 +1,63 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Dashboard</title>
-    <meta name="author" content="David Grzyb">
-    <meta name="description" content="">
+    <meta name="author" content="David Grzyb" />
+    <meta name="description" content="" />
 
     <!-- Link tailwind -->
     <script src="https://cdn.tailwindcss.com"></script>
 
     <script>
-        tailwind.config = {
-          theme: {
-            container: {
-              center: true,
-              padding: '16px'
+      tailwind.config = {
+        theme: {
+          container: {
+            center: true,
+            padding: "16px",
+          },
+          extend: {
+            colors: {},
+            screens: {
+              "2xl": "1320px",
             },
-            extend: {
-              colors: {
-              },
-              screens: {
-                '2xl': '1320px',
-              },
-              keyframes:{
-              }
-            }
-          }
-        }
-      </script>
-    
+            keyframes: {},
+          },
+        },
+      };
+    </script>
+
     <style type="text/tailwindcss">
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap');
-        .font-family-inter{ font-family: 'Inter', sans-serif; }
-        /* .bg-sidebar { background: #0A161E; } */
-        .cta-btn { color: #3d68ff; }
-        .upgrade-btn { background: #1947ee; }
-        .upgrade-btn:hover { background: #0038fd; }
-        .active-nav-link { background: #1947ee; }
-        .nav-item:hover { background: #1947ee; }
-        .account-link:hover { background: #3d68ff; }
-        /* *{
+      @import url("https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap");
+      .font-family-inter {
+        font-family: "Inter", sans-serif;
+      }
+      /* .bg-sidebar { background: #0A161E; } */
+      .cta-btn {
+        color: #3d68ff;
+      }
+      .upgrade-btn {
+        background: #1947ee;
+      }
+      .upgrade-btn:hover {
+        background: #0038fd;
+      }
+      .active-nav-link {
+        background: #1947ee;
+      }
+      .nav-item:hover {
+        background: #1947ee;
+      }
+      .account-link:hover {
+        background: #3d68ff;
+      }
+      /* *{
           border: 1px red solid;
         } */
     </style>
-</head>
-<body class="bg-gray-100 font-family-inter flex">
-
+  </head>
+  <body class="bg-gray-100 font-family-inter flex">
     <aside class="relative bg-[#152A38] h-screen w-64 hidden sm:block shadow-xl">
         <div class="p-6 bg-[#0A161E]">
             <a href="index.php" class="text-white text-3xl font-semibold uppercase hover:text-gray-300">Admin</a>
@@ -76,10 +87,10 @@
                 Kelola User
             </a>
         </nav>
-        <a href="#" class="absolute w-full upgrade-btn bottom-0 active-nav-link text-white flex items-center justify-center py-4">
-            <i class="fas fa-arrow-alt-circle-left mr-3"></i>
-            Log Out
-        </a>
+      <a href="#" class="absolute w-full upgrade-btn bottom-0 active-nav-link text-white flex items-center justify-center py-4">
+        <i class="fas fa-arrow-alt-circle-left mr-3"></i>
+        Log Out
+      </a>
     </aside>
 
     <div class="w-full flex flex-col h-screen overflow-y-hidden">
@@ -232,8 +243,7 @@
               &#169; Copyright to <a target="_blank" href="https://github.com/Queniex/Aplikasi-Pensiun" class="underline text-[#152A38] hover:text-blue-500">Kelompok 3</a>.
             </footer>
         </div>
-        
-    </div>
+      </header>
 
     <!-- AlpineJS -->
     <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script>
@@ -243,81 +253,61 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js" integrity="sha256-R4pqcOYV8lt7snxMQO/HSbVCFRPMdrhAFMH+vr9giYI=" crossorigin="anonymous"></script>
 
     <script>
-        var chartOne = document.getElementById('chartOne');
-        var myChart = new Chart(chartOne, {
-            type: 'bar',
-            data: {
-                labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
-                datasets: [{
-                    label: '# of Votes',
-                    data: [12, 19, 3, 5, 2, 3],
-                    backgroundColor: [
-                        'rgba(255, 99, 132, 0.2)',
-                        'rgba(54, 162, 235, 0.2)',
-                        'rgba(255, 206, 86, 0.2)',
-                        'rgba(75, 192, 192, 0.2)',
-                        'rgba(153, 102, 255, 0.2)',
-                        'rgba(255, 159, 64, 0.2)'
-                    ],
-                    borderColor: [
-                        'rgba(255, 99, 132, 1)',
-                        'rgba(54, 162, 235, 1)',
-                        'rgba(255, 206, 86, 1)',
-                        'rgba(75, 192, 192, 1)',
-                        'rgba(153, 102, 255, 1)',
-                        'rgba(255, 159, 64, 1)'
-                    ],
-                    borderWidth: 1
-                }]
+      var chartOne = document.getElementById("chartOne");
+      var myChart = new Chart(chartOne, {
+        type: "bar",
+        data: {
+          labels: ["Red", "Blue", "Yellow", "Green", "Purple", "Orange"],
+          datasets: [
+            {
+              label: "# of Votes",
+              data: [12, 19, 3, 5, 2, 3],
+              backgroundColor: ["rgba(255, 99, 132, 0.2)", "rgba(54, 162, 235, 0.2)", "rgba(255, 206, 86, 0.2)", "rgba(75, 192, 192, 0.2)", "rgba(153, 102, 255, 0.2)", "rgba(255, 159, 64, 0.2)"],
+              borderColor: ["rgba(255, 99, 132, 1)", "rgba(54, 162, 235, 1)", "rgba(255, 206, 86, 1)", "rgba(75, 192, 192, 1)", "rgba(153, 102, 255, 1)", "rgba(255, 159, 64, 1)"],
+              borderWidth: 1,
             },
-            options: {
-                scales: {
-                    yAxes: [{
-                        ticks: {
-                            beginAtZero: true
-                        }
-                    }]
-                }
-            }
-        });
+          ],
+        },
+        options: {
+          scales: {
+            yAxes: [
+              {
+                ticks: {
+                  beginAtZero: true,
+                },
+              },
+            ],
+          },
+        },
+      });
 
-        var chartTwo = document.getElementById('chartTwo');
-        var myLineChart = new Chart(chartTwo, {
-            type: 'line',
-            data: {
-                labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
-                datasets: [{
-                    label: '# of Votes',
-                    data: [12, 19, 3, 5, 2, 3],
-                    backgroundColor: [
-                        'rgba(255, 99, 132, 0.2)',
-                        'rgba(54, 162, 235, 0.2)',
-                        'rgba(255, 206, 86, 0.2)',
-                        'rgba(75, 192, 192, 0.2)',
-                        'rgba(153, 102, 255, 0.2)',
-                        'rgba(255, 159, 64, 0.2)'
-                    ],
-                    borderColor: [
-                        'rgba(255, 99, 132, 1)',
-                        'rgba(54, 162, 235, 1)',
-                        'rgba(255, 206, 86, 1)',
-                        'rgba(75, 192, 192, 1)',
-                        'rgba(153, 102, 255, 1)',
-                        'rgba(255, 159, 64, 1)'
-                    ],
-                    borderWidth: 1
-                }]
+      var chartTwo = document.getElementById("chartTwo");
+      var myLineChart = new Chart(chartTwo, {
+        type: "line",
+        data: {
+          labels: ["Red", "Blue", "Yellow", "Green", "Purple", "Orange"],
+          datasets: [
+            {
+              label: "# of Votes",
+              data: [12, 19, 3, 5, 2, 3],
+              backgroundColor: ["rgba(255, 99, 132, 0.2)", "rgba(54, 162, 235, 0.2)", "rgba(255, 206, 86, 0.2)", "rgba(75, 192, 192, 0.2)", "rgba(153, 102, 255, 0.2)", "rgba(255, 159, 64, 0.2)"],
+              borderColor: ["rgba(255, 99, 132, 1)", "rgba(54, 162, 235, 1)", "rgba(255, 206, 86, 1)", "rgba(75, 192, 192, 1)", "rgba(153, 102, 255, 1)", "rgba(255, 159, 64, 1)"],
+              borderWidth: 1,
             },
-            options: {
-                scales: {
-                    yAxes: [{
-                        ticks: {
-                            beginAtZero: true
-                        }
-                    }]
-                }
-            }
-        });
+          ],
+        },
+        options: {
+          scales: {
+            yAxes: [
+              {
+                ticks: {
+                  beginAtZero: true,
+                },
+              },
+            ],
+          },
+        },
+      });
     </script>
-</body>
+  </body>
 </html>

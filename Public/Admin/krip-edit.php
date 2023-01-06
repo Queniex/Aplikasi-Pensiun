@@ -1,30 +1,26 @@
 <?php 
-require_once("../Functions/function-krip.php");
+  require_once("../Functions/function-krip.php");
 
-$data = query("SELECT * FROM data_diri WHERE status_berkas = 'approved'");
+  $id = $_GET['np'];
+  $data = query("SELECT np, nama, nip, tempat_lahir, tanggal_lahir, agama, jenis_kelamin, alamat, no_telp, email, status_keluarga, instansi, tgl_pegawai, data_diri.golongan, dana.total_dana, jabatan, usia_pensiun, iuran_perbulan, status_berkas FROM data_diri JOIN dana ON data_diri.golongan = dana.golongan WHERE data_diri.np = $id")[0];
 
-$jumlahdata = count($data);
-$batas = 2;
-$banyaknyahalaman = ceil($jumlahdata / $batas);
-
-$halaman = 1;
-if (isset($_GET['halaman'])) {
-    $halaman = $_GET['halaman'];
-}
-$posisi = ($halaman - 1) * $batas;
-
-if (isset($_POST['search'])) {
-  if (search($_POST['keyword']) > 0) {
-      $data = search($_POST['keyword']);
-  } else {
-      $data = query("SELECT * FROM data_diri WHERE status_berkas = 'approved' LIMIT $posisi,$batas");
-  }
-} else {
-  $data = query("SELECT * FROM data_diri WHERE status_berkas = 'approved' LIMIT $posisi,$batas");
+  if (isset($_POST['submit'])) {
+    if (update($_POST) > 0) {
+        echo "<script>
+            alert('Input Success')
+            document.location.href = 'krip.php';
+        </script>";
+    } else {
+        echo "<script>
+            alert('Input Failed')
+            document.location.href = 'krip.php';
+        </script>";
+    }
 }
 
 
 ?>
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -124,14 +120,7 @@ if (isset($_POST['search'])) {
     <div class="w-full flex flex-col h-screen overflow-y-hidden">
       <!-- Desktop Header -->
       <header class="w-full items-center bg-white py-2 px-6 hidden sm:flex">
-        <div class="w-1/2">
-          <form action="" method="post" class="flex gap-2">
-            <input type="text" id="keyword" name="keyword" autofocus autocomplete="off" placeholder="Cari disini !!" class="rounded-lg bg-slate-100 block px-3 py-1 w-96 outline-none">
-            <button type="submit" name="search">
-              <img src="../../dist/images/search.png" alt="cari" width="30px">
-            </button>
-          </form>
-        </div>
+        <div class="w-1/2"></div>
         <div x-data="{ isOpen: false }" class="relative w-1/2 flex justify-end">
           <button @click="isOpen = !isOpen" class="realtive z-10 w-12 h-12 rounded-full overflow-hidden border-4 border-gray-400 hover:border-gray-300 focus:border-gray-300 focus:outline-none">
             <img src="../../dist/images/Profile.png" />
@@ -185,46 +174,65 @@ if (isset($_POST['search'])) {
       <!-- -------------------------------------------------------------------------------------------------------------------- -->
 
       <div class="w-full h-screen overflow-x-hidden border-t flex flex-col">
-        <main class="w-full flex-grow p-6 relative">
-          <h1 class="text-xl font-bold">Karip</h1>
-
-          <?php if($data < [0]) : ?>
-            <h1 class="italic text-3xl mt-5 text-red-700 text-center">Unknown data Available</h1>
-          <?php else : ?>
-            <?php foreach ($data as $row) : ?>
-            <div class="w-full h-16 rounded bg-slate-300 mt-5 p-3 pl-5 relative">
-              <div class="absolute">
-                <h2 class="font-bold capitalize"><?= $row['nama'] ?></h2>
-                <p><?= $row['np'] ?></p>
-              </div>
-              <div class="absolute right-0 flex gap-6 mr-12">
-                <a href="krip read.php?np=<?= $row['np'] ?>" class="bg-blue-500 p-1 rounded hover:bg-blue-700">
-                  <img src="../../dist/images/icon-read.png" alt="read" />
-                </a>
-                <a href="krip-edit.php?np=<?= $row['np'] ?>" class="bg-yellow-500 p-1 rounded hover:bg-yellow-700">
-                  <img src="../../dist/images/icon-edit.png" alt="edit" />
-                </a>
-                <a href="krip-delete.php?np=<?= $row['np']; ?>" onclick="return confirm('Yakin ingin menghapus?')" class="bg-red-500 p-1 rounded hover:bg-red-700">
-                  <img src="../../dist/images/icon-remove.png" alt="remove" />
-                </a>
-              </div>
-            </div>
-            <?php endforeach; ?>
-          <?php endif ?>
-
-          <div class="h-32 relative">
-            <ul class="text-center absolute bottom-2 right-1/2">
-              <?php for($i = 1; $i <= $banyaknyahalaman; $i++): ?>
-                <?php if($i == $halaman): ?>
-                  <li class="inline-block"><a href="?halaman=<?= $i ?>" class="bg-cyan-800 p-2 text-white rounded"><?= $i ?></a></li>
-                <?php else: ?>
-                  <li class="inline-block"><a href="?halaman=<?= $i ?>" class="border border-cyan-800 p-2 text-cyan-800 rounded"><?= $i ?></a></li>
-                <?php endif; ?>
-              <?php endfor; ?>
-            </ul>
+        <main class="w-full flex-grow p-6">
+          <div class="flex gap-3 items-center bg-gray-300 p-4 rounded">
+            <img src="../../dist/images/icon-peserta.png" alt="" width="40px" />
+            <h1 class="font-bold text-xl text-slate-700">Kartu Identitas Peserta</h1>
           </div>
+          <div class="mt-4 bg-gray-300 p-4 rounded relative">
+            <form action="" method="post">
+              <label for="np">
+                <span class="text-slate-700">Nomor Pensiun</span>
+                <input type="number" name="np" id="np" disabled class="block rounded-md w-full p-1 focus:outline-none focus:ring-2 ring-sky-500 mt-1 mb-3 bg-slate-50" value="<?= $data['np']; ?>">
+              </label>
 
+              <label for="nama_lengkap">
+                <span class="text-slate-700">Nama Lengkap</span>
+                <input type="text" name="nama_lengkap" id="nama_lengkap" class="block rounded-md p-1 w-full focus:outline-none focus:ring-2 ring-sky-500 mt-1 mb-3" value="<?= $data['nama']; ?>"/>
+              </label>
 
+              <label for="jenis_kelamin">
+                <span class="text-slate-700">Jenis Kelamin</span>
+                <select name="jenis_kelamin" id="jenis_kelamin" class="block w-full p-2 rounded-md mt-1 mb-3 focus:outline-none focus:ring-2 ring-sky-500">
+                  <option value="" disabled selected>Pilih Jenis Kelamin</option>
+                  <option value="Laki-Laki" selected=<?php if( $data['jenis_kelamin'] == 'Laki-laki' ){echo"selected";} ?>>Laki-Laki</option>
+                  <option value="Perempuan" selected=<?php if( $data['jenis_kelamin'] == 'Perempuan' ){echo"selected";} ?>>Perempuan</option>
+                </select>
+              </label>
+
+              <label for="alamat">
+                <span class="text-slate-700">Alamat</span>
+                <textarea name="alamat" id="alamat" class="block resize-none p-1 w-full rounded-md h-40 focus:outline-none focus:ring-2 ring-sky-500 mt-1 mb-3"><?= $data['alamat'] ?></textarea>
+              </label>
+
+              <label for="masa_pensiun">
+                <span class="text-slate-700">Masa Pensiun</span>
+                <input type="number" name="masa_pensiun" id="masa_pensiun" class="block p-1 rounded-md w-full focus:outline-none focus:ring-2 ring-sky-500 mt-1 mb-3" value="<?= $data['usia_pensiun']; ?>" />
+              </label>
+
+              <label for="golongan_pensiun">
+                <span class="text-slate-700">Golongan Pensiun</span>
+                <select name="golongan_pensiun" id="golongan_pensiun" class="block w-full p-2 rounded-md mt-1 mb-3 focus:outline-none focus:ring-2 ring-sky-500">
+                  <option value="" disabled selected>Pilih Golongan</option>
+                  <option value="1" selected=<?php if( $data['golongan'] == '1' ){echo"selected";} ?>>1</option>
+                  <option value="2" selected=<?php if( $data['golongan'] == '2' ){echo"selected";} ?>>2</option>
+                  <option value="3" selected=<?php if( $data['golongan'] == '3' ){echo"selected";} ?>>3</option>
+                  <option value="4" selected=<?php if( $data['golongan'] == '4' ){echo"selected";} ?>>4</option>
+                </select>
+              </label>
+
+              <br />
+              <label for="total_dana_pencairan">
+                <span class="text-slate-700">Total Dana Pencairan</span>
+                <input type="number" name="total_dana_pencairan" id="total_dana_pencairan" disabled value="<?= $data['total_dana']?>" class="block p-1 rounded-md w-full focus:outline-none focus:ring-2 ring-sky-500 mt-1 mb-3 bg-slate-50" />
+              </label>
+              <input type="hidden" name="np" value="<?= $data['np']; ?>">
+
+              <section class="absolute left-5 bottom-17 text-lg font-bold">[ <?= $data['instansi'] ?> ]</section>
+              <br /><br /><br /><br /><br />
+              <button value="submit" name="submit" id="submit" class="absolute right-2 bottom-2 py-2 px-4 bg-cyan-700 rounded-md hover:bg-cyan-800 text-white">Simpan</button>
+            </form>
+          </div>
         </main>
 
         <footer class="w-full bg-white text-right p-4">&#169; Copyright to <a target="_blank" href="https://github.com/Queniex/Aplikasi-Pensiun" class="underline text-[#152A38] hover:text-blue-500">Kelompok 3</a></footer>

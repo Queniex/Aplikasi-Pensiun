@@ -6,9 +6,9 @@ $validate = '';
 //mengecek apakah sesssion username tersedia atau tidak jika tersedia maka akan diredirect ke halaman index
 if( isset($_SESSION['username']) ) {
   if ($_SESSION['role'] == 'Admin') {
-    header('Location: ../Admin/index.html');
+    header('Location: ../Admin/index.php');
   }else {
-    header('Location: ../User/index.html');
+    header('Location: ../User/index.php');
   }
 } 
 //mengecek apakah form disubmit atau tidak
@@ -40,13 +40,13 @@ if( isset($_POST['submit']) ){
                           echo
                           "<script>
                           alert('Selamat Datang')
-                          document.location.href = '../Admin/index.html'
+                          document.location.href = '../Admin/index.php'
                           </script>";
                         }else{
                           echo
                           "<script>
                           alert('Selamat Datang')
-                          document.location.href = '../User/index.html'
+                          document.location.href = '../User/index.php'
                           </script>";
                         }
                         
@@ -121,7 +121,7 @@ if( isset($_POST['submit']) ){
   <header>
     <div class="py-8 bg-tema">
       <div class="flex text-white relative"> 
-        <h1 class="font-family-inter font-semibold text-2xl pl-24">Dana Pensiun PT Asep Makmur</h1>
+        <h1 class="font-family-inter font-semibold text-2xl pl-24">Dana Pensiun PT Makmur</h1>
         <a href="register.php" class="absolute right-12"><button class="bg-yellow-600 px-5 py-2 rounded-full text-slate-800 font-semibold font-family-inter block mx-auto hover:text-slate-900 hover:bg-yellow-500 active:bg-yellow-600 focus:ring focus:ring-sky-900">Register</button></a>
       </div>
     </div>

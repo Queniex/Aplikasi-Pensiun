@@ -3,8 +3,8 @@ require '../Functions/function-daftar.php';
 $id = $_GET["id"];
 $data = query("SELECT * FROM data_diri WHERE np = $id")[0]; 
 $datas = query("SELECT * FROM pelampiran_file WHERE np = $id")[0];
-//$a = $datas['skpl'];
-//var_dump($a == '');
+// $a = $datas['skpl'];
+// var_dump($a == '');
 if ( isset($_POST["submit"]) ){
   if( edit($_POST) > 0 ){
     if( edit2($_POST) > 0){

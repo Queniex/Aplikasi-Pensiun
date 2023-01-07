@@ -29,7 +29,7 @@ function add($data) {
     $jabatan = htmlspecialchars($data["jabatan"]);
     $usia_pensiun = htmlspecialchars($data["usia_pensiun"]);
     $iuran_perbulan = htmlspecialchars($data["iuran_perbulan"]);
-    $status_berkas = "Checked";
+    $status_berkas = "checked";
     
     $query = "INSERT INTO data_diri
                 VALUES

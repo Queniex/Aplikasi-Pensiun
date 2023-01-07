@@ -15,6 +15,10 @@ if (isset($_POST['submit']) ){
     echo mysqli_error($conn);
     }
 }
+
+$id = 1003; //harus diganti pake id_user
+$data = query("SELECT * FROM data_diri WHERE np = $id AND status_berkas = 'approve'");
+// var_dump($data < [0]);
 ?>
 
 <!DOCTYPE html>
@@ -152,6 +156,23 @@ if (isset($_POST['submit']) ){
     
         <div class="w-full h-screen overflow-x-hidden border-t flex flex-col">
             <main class="w-full flex-grow p-6">
+
+                <!-- Sudah Pernah Daftar Berkas -->
+                <?php if($data > [0]): ?>
+                      <div class="flex justify-center">
+                        <div class="flex-col mt-24">
+                          <center>
+                          <img src="../../dist/images/checked.png" width="100" height="100" alt="">
+                          <h1 class="text-black text-3xl font-bold">Request Berhasil!</h1>
+                          <p>Admin kami akan segera memproses permintaan anda. Silahkan tunggu konfirmasi dari kami paling lambat 3 hari kerja.</p>
+                          <a href="index.php" class="bg-[#152A38] text-white pl-3 pr-3 rounded-2xl mt-6 hover:bg-slate-400 hover:text-black">Kembali Ke Dashboard</a>
+                          </center>
+                        </div>
+                      </div> 
+                </div> 
+                <!-- End Daftar Berkas -->
+
+                <?php else: ?>
                 <h1 class="text-3xl text-black ml-6">Klaim Dana Pensiun</h1>
                 <h3 class="pb-3 ml-6">Lengkapi form berikut untuk melakukan pengajuan permintaan klaim dana pensiun</h3>
 
@@ -414,6 +435,7 @@ if (isset($_POST['submit']) ){
 
                   <button name="submit" type="submit" class="btn btn-outline bg-[#152A38] mx-2">Kirim</button>
                 </form>
+              <?php endif; ?>
             </main>
     
             <footer class="w-full bg-white text-right p-4">

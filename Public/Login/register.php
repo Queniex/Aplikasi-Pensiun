@@ -1,6 +1,6 @@
 <?php
 //menyertakan file program koneksi.php pada register
-require('koneksi.php');
+require('../Functions/koneksi.php');
 //inisialisasi session
 session_start();
 $error = '';

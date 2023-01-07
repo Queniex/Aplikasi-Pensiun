@@ -174,7 +174,7 @@
                     <div class="w-full lg:w-1/2 pr-0 lg:pr-2 bg-blue-300">
                         <h3 class="underline underline-offset-4 mt-4 sm:mb-2 md:mb-2 ml-3 font-medium">Tentang Kami : </h1>
                         <div class="flex justify-center text-justify ml-3 mr-3">
-                          Dana Pensiun Pemberi Kerja, adalah dana Pensiun yang dibentuk oleh orang atau badan yang mempekerjakan karyawan, selaku pendiri, untuk menyelenggarakan Program Pensiun Manfaat Pasti atau Program Pensiun Iuran Pasti, bagi kepentingan sebagian atau seluruh karyawannya sebagai peserta, dan yang menimbulkan kewajiban terhadap Pemberi Kerja.
+                          Dana Pensiun Pemberi Kerja adalah dana Pensiun yang dibentuk oleh orang atau badan yang mempekerjakan karyawan, selaku pendiri, untuk menyelenggarakan Program Pensiun Manfaat Pasti atau Program Pensiun Iuran Pasti, bagi kepentingan sebagian atau seluruh karyawannya sebagai peserta, dan yang menimbulkan kewajiban terhadap Pemberi Kerja.
                         </div>
                     </div>
                 </div>

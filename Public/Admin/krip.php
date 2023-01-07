@@ -82,7 +82,7 @@ if (isset($_POST['search'])) {
       }
       /* *{
           border: 1px red solid;
-        } */
+      } */
     </style>
   </head>
   <body class="bg-gray-100 font-family-inter flex">
@@ -184,18 +184,18 @@ if (isset($_POST['search'])) {
 
       <div class="w-full h-screen overflow-x-hidden border-t flex flex-col">
         <main class="w-full flex-grow p-6 relative">
-          <h1 class="text-xl font-bold text-black underline underline-offset-4">KARIP</h1>
+          <h1 class="text-xl font-bold text-black underline underline-offset-4 mb-5">KARIP</h1>
 
           <?php if($data < [0]) : ?>
             <h1 class="italic text-3xl mt-5 text-red-700 text-center">Unknown data Available</h1>
           <?php else : ?>
             <?php foreach ($data as $row) : ?>
-            <div class="w-full h-16 rounded bg-slate-300 mt-5 p-3 pl-5 relative">
-              <div class="absolute">
-                <h2 class="font-bold capitalize"><?= $row['nama'] ?></h2>
-                <p><?= $row['np'] ?></p>
+            <div class="w-full h-20 rounded bg-[#152A38] hover:bg-[#22466d] mt-2 p-3 pl-5 relative">
+              <div class="absolute mt-1">
+                <h2 class="capitalize text-white">Nama : <?= $row['nama'] ?></h2>
+                <p class="text-white">Nomor Pensiun : <?= $row['np'] ?></p>
               </div>
-              <div class="absolute right-0 flex gap-3 mr-10">
+              <div class="absolute right-0 mt-1 flex gap-3 mr-10">
                 <a href="krip-read.php?np=<?= $row['np'] ?>" class="bg-blue-500 p-1 rounded hover:bg-blue-700">
                   <img src="../../dist/images/icon-read.png" alt="read" />
                 </a>
@@ -214,9 +214,9 @@ if (isset($_POST['search'])) {
             <ul class="text-center absolute bottom-2 right-1/2">
               <?php for($i = 1; $i <= $banyaknyahalaman; $i++): ?>
                 <?php if($i == $halaman): ?>
-                  <li class="inline-block"><a href="?halaman=<?= $i ?>" class="bg-cyan-800 p-2 text-white rounded"><?= $i ?></a></li>
+                  <li class="inline-block"><a href="?halaman=<?= $i ?>" class="bg-[#152A38] hover:bg-[#22466d] p-2 text-white rounded"><?= $i ?></a></li>
                 <?php else: ?>
-                  <li class="inline-block"><a href="?halaman=<?= $i ?>" class="border border-cyan-800 p-2 text-cyan-800 rounded"><?= $i ?></a></li>
+                  <li class="inline-block"><a href="?halaman=<?= $i ?>" class="border bg-[#152A38] hover:bg-[#22466d] p-2 text-white rounded"><?= $i ?></a></li>
                 <?php endif; ?>
               <?php endfor; ?>
             </ul>

@@ -158,7 +158,7 @@
         <main class="w-full flex-grow p-6">
           <div class="flex gap-3 items-center bg-gray-300 p-4 rounded">
             <img src="../../dist/images/icon-peserta.png" alt="" width="40px" />
-            <h1 class="font-bold text-xl text-slate-700">Kartu Identitas Peserta</h1>
+            <h1 class="font-bold text-xl text-slate-700">Kartu Identitas Peserta <span class="text-slate-500">(Read Mode)</span></h1>
           </div>
 
           <div class="mt-4 bg-gray-300 p-4 rounded">
@@ -201,8 +201,7 @@
             </table>
           </div>
           <div class="relative h-10 mt-7 flex items-center gap-4">
-            <h1 class="font-bold text-sm">Kartu ini harus dicetak untuk melakukan pencairan dana*</h1>
-            <button type="submit" value="submit" class="right-0 bottom-1 bg-cyan-700 hover:bg-cyan-800 px-4 py-1 text-white rounded">Cetak</button>
+            <a href="krip.php" class="right-0 bottom-1 bg-black hover:bg-white hover:text-black px-4 py-1 text-white rounded">kembali</a>
           </div>
         </main>
 

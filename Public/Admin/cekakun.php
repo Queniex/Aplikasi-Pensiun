@@ -1,3 +1,25 @@
+<?php
+require '../Functions/function-cekakun.php';
+$id = 100;
+//$_GET["id"];
+$data = query("SELECT * FROM user WHERE id_user  = $id")[0];
+
+if ( isset($_POST["submit"]) ){
+  if( edit($_POST) > 0 ){
+      echo "
+          <script>
+              document.location.href = 'cekakun.php'
+          </script>
+     "; 
+  } else {
+  die('invalid Query : ' . mysqli_error($conn));
+  echo mysqli_error($conn);
+  debug_to_console("Test");
+  }
+}
+
+
+?>
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -147,64 +169,63 @@
           
             <!------------------------------------------------------------------->
 
-            <h1 class="text-3xl text-black ml-6">Profile</h1>           
-            <div class="flex flex-wrap w-full mt-1 pl-1 mb-10">
-                    <div class="flex-1 justify-center p-3 py-5">
-                    <form method="POST" enctype="multipart/form-data">
-                    <div class="form-control w-full">
-                        <label class="label">
-                        <span class="label-text">Nama</span>
-                        </label>
-                        <input name="nama" type="text" placeholder="Masukkan Disini" class="input input-bordered w-full" />
-                    </div>   
-                    
-                    <div class="form-control w-full">
-                        <label class="label">
-                        <span class="label-text">Email</span>
-                        </label>
-                        <input name="email" type="email" placeholder="Masukkan Disini" class="input input-bordered w-full" />
-                    </div>  
+            <h1 class="text-3xl text-black ml-6">Profile</h1>
+                <div class="flex flex-wrap w-full mt-1 pl-1 mb-10">
+                        <div class="flex-1 justify-center p-3 py-5">
+                        <form method="POST" enctype="multipart/form-data">
+                          <div class="form-control w-full">
+                          <input type="hidden" name="foto" value="<?= $data["foto"]; ?>">
+                          <input type="hidden" name="id" value="<?= $data["id_user"]; ?>">
+                            <label class="label">
+                              <span class="label-text">Nama</span>
+                            </label>
+                            <input name="nama" type="text" value="<?= $data["nama"]; ?>" placeholder="Masukkan Disini" class="input input-bordered w-full" />
+                          </div>   
+                          
+                          <div class="form-control w-full">
+                            <label class="label">
+                              <span class="label-text">Email</span>
+                            </label>
+                            <input name="email" type="email" value="<?= $data["email"]; ?>" placeholder="Masukkan Disini" class="input input-bordered w-full" />
+                          </div>  
 
-                    <div class="form-control w-full">
-                        <label class="label">
-                        <span class="label-text">Tanggal Lahir</span>
-                        </label>
-                        <input name="tanggal_lahir" type="date" placeholder="Masukkan Disini" class="input input-bordered w-full" />
-                    </div>  
+                          <div class="form-control w-full">
+                            <label class="label">
+                              <span class="label-text">Alamat</span>
+                            </label>
+                            <textarea name="alamat" class="textarea textarea-bordered" placeholder="Masukkan Disini"><?= $data["alamat"]; ?></textarea>
+                          </div>
+                          
+                          <div class="form-control w-full">
+                            <label class="label">
+                                <span class="label-text">Nomor Telepon</span>
+                            </label>
+                            <input name="no_telp" type="text" value="<?= $data["no_telp"]; ?>" placeholder="Masukkan Disini" class="input input-bordered w-full" />
+                          </div>
 
-                    <div class="form-control w-full">
-                        <label class="label">
-                        <span class="label-text">Alamat</span>
-                        </label>
-                        <textarea name="alamat" class="textarea textarea-bordered" placeholder="Masukkan Disini"></textarea>
-                    </div>
-                    
-                    <div class="form-control w-full">
-                        <label class="label">
-                            <span class="label-text">Nomor Telepon</span>
-                        </label>
-                        <input name="no_telp" type="text" placeholder="Masukkan Disini" class="input input-bordered w-full" />
-                    </div>
+                        </div>
 
-                    </div>
-
-                    <div class="flex-1 p-3 py-5">
-                        <div class="flex flex-col items-center text-center">
-                            <div class="border-2 border-gray-600 rounded-full">
-                                <img class="rounded-full" width="300px" src="../../dist/images/Profile.png">   
+                        <div class="flex-1 p-3 py-5">
+                            <div class="flex flex-col items-center text-center">
+                                <div class="border-2 border-gray-600 rounded-full">
+                                  <?php if ($data["foto"] > 0) : ?>
+                                    <img class="rounded-full" width="300px" src="../../dist/images/<?= $data["foto"]; ?>">   
+                                  <?php else : ?>
+                                    <img class="rounded-full" width="300px" src="../../dist/images/Profile.png">   
+                                  <?php endif ?>
+                                </div>
+                                <div class="my-10 border-2 border-gray-600 rounded-full">
+                                    <label for="changephoto" class="cursor-pointer text-black p-10">Change Photo
+                                        <input type="file" name="foto" id="changephoto" accept="image/*" style="display:none;"/>
+                                    </label>
+                                </div>
                             </div>
-                            <div class="my-10 border-2 border-gray-600 rounded-full">
-                                <label for="changephoto" class="cursor-pointer text-black p-10">Change Photo
-                                    <input type="file" name="changephoto" id="changephoto" accept="image/*" style="display:none;"/>
-                                </label>
+                            <div class="flex justify-end mt-20">
+                                <button name="submit" type="submit" class="btn btn-outline bg-[#152A38] ">Save</button>
                             </div>
                         </div>
-                        <div class="flex justify-end mt-20">
-                            <button name="submit" type="submit" class="btn btn-outline bg-[#152A38] ">Save</button>
-                        </div>
-                    </div>
                     </form>
-            </div>
+                </div>
         </main>
 
         <footer class="w-full bg-white text-right p-4">&#169; Copyright to <a target="_blank" href="https://github.com/Queniex/Aplikasi-Pensiun" class="underline text-[#152A38] hover:text-blue-500">Kelompok 3</a></footer>

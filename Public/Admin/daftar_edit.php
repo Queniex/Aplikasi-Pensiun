@@ -23,13 +23,13 @@ if ( isset($_POST["submit"]) ){
     }
     else {
       die('invalid Query : ' . mysqli_error($conn));
-      echo mysqli_error($conn);
-      debug_to_console("Test");
+      // echo mysqli_error($conn);
+      //debug_to_console("Test");
     }
   } else {
   die('invalid Query : ' . mysqli_error($conn));
-  echo mysqli_error($conn);
-  debug_to_console("Test");
+  // echo mysqli_error($conn);
+  //debug_to_console("Test123");
   }
 }
 
@@ -192,6 +192,12 @@ if ( isset($_POST["submit"]) ){
                       <form method="POST" enctype="multipart/form-data">
                           <div class="form-control w-full">
                           <input type="hidden" name="np" value="<?= $data["np"]; ?>">
+                          <input type="hidden" name="nf" value="<?= $data["nf"]; ?>">
+                          <input type="hidden" name="skpl2" value="<?= $datas["skpl"]; ?>">
+                          <input type="hidden" name="skcp2" value="<?= $datas["skcp"]; ?>">
+                          <input type="hidden" name="skcltn2" value="<?= $datas["skcltn"]; ?>">
+                          <input type="hidden" name="skpi2" value="<?= $datas["skpi"]; ?>">
+                          
                           <input name="id_user" value="<?= $_SESSION['id_user'] ?>" type="hidden" class="input input-bordered w-full" />
                             <label class="label">
                               <span class="label-text">NAMA LENGKAP :</span>
@@ -415,7 +421,6 @@ if ( isset($_POST["submit"]) ){
                                 <span class="label-text">SKPL*</span>
                               </label>
                               <input name="skpl" type="file" class="file-input file-input-bordered w-full" />
-                              <input type="hidden" name="skpl2" value="<?= $datas["skpl"]; ?>">
                             </div>
 
                             <div class="form-control md:w-1/2 px-3">
@@ -423,7 +428,6 @@ if ( isset($_POST["submit"]) ){
                                 <span class="label-text">SKCP*</span>
                               </label>
                               <input name="skcp" type="file" class="file-input file-input-bordered w-full" />
-                              <input type="hidden" name="skcp2" value="<?= $datas["skcp"]; ?>">
                             </div>
                           </div>  
 
@@ -433,7 +437,6 @@ if ( isset($_POST["submit"]) ){
                                 <span class="label-text">SKCLTN*</span>
                               </label>
                               <input name="skcltn" type="file" class="file-input file-input-bordered w-full" />
-                              <input type="hidden" name="skcltn2" value="<?= $datas["skcltn"]; ?>">
                             </div>
 
                             <div class="form-control md:w-1/2 px-3">
@@ -441,7 +444,6 @@ if ( isset($_POST["submit"]) ){
                                 <span class="label-text">SKPI*</span>
                               </label>
                               <input name="skpi" type="file"  class="file-input file-input-bordered w-full" />
-                              <input type="hidden" name="skpi2" value="<?= $datas["skpi"]; ?>">
                             </div>
                           </div>  
                           

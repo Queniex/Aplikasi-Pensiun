@@ -87,8 +87,8 @@ function edit($data) {
                nama = '$nama',
                email = '$email',
                no_telp = '$no_telp',
-               alamat = '$alamat',
                tanggal_lahir = '$tanggal_lahir',
+               alamat = '$alamat',
                foto = '$gambar'
                WHERE id_user = $id"; 
 

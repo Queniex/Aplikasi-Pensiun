@@ -161,7 +161,7 @@ function edit($data) {
                usia_pensiun = '$usia_pensiun',
                iuran_perbulan = '$iuran_perbulan',
                status_berkas = '$status_berkas'
-               WHERE np = $np"; 
+               WHERE np = '$np'"; 
 
     mysqli_query($conn, $query);
     return mysqli_affected_rows($conn);
@@ -170,47 +170,47 @@ function edit($data) {
 function edit2($data) {
     global $conn;
 
-    $np = $data["np"];
+    $nf = $data["nf"];
     $oldskpl = htmlspecialchars($data["skpl2"]);
     $oldskcp = htmlspecialchars($data["skcp2"]);
     $oldskcltn = htmlspecialchars($data["skcltn2"]);
     $oldskpi = htmlspecialchars($data["skpi2"]);
 
     // check if user choosing a new picture
-    if($data["skpl"] == '') {
+    if($_FILES['skpl']['error'] === 4) {
         $skpl = $oldskpl;
     } else{
         $skpl = upload("skpl");
     }
 
-    if($data["skcp"] == '') {
+    if($_FILES['skcp']['error'] === 4) {
         $skcp = $oldskcp;
     } else{
         $skcp = upload("skcp");
     }
 
-    if($data["skcltn"] == '') {
+    if($_FILES['skcltn']['error'] === 4) {
         $skcltn = $oldskcltn; 
     } else{
         $skcltn = upload("skcltn");
     }
 
-    if($data["skpi"] == '') {
+    if($_FILES['skpi']['error'] === 4) {
         $skpi = $oldskpi;       
     } else{
         $skpi = upload("skpi");
     }
 
-    // if( !$skpl && !$skcp && !$skcltn && !$skpi ) {
-    //     return false;
-    // }
+    if( !$skpl && !$skcp && !$skcltn && !$skpi ) {
+        return false;
+    }
     
     $query = "UPDATE pelampiran_file SET
                skpl = '$skpl',
                skcp = '$skcp',
                skcltn = '$skcltn',
                skpi = '$skpi'
-               WHERE np = $np"; 
+               WHERE nf = '$nf'"; 
 
     mysqli_query($conn, $query);
     return mysqli_affected_rows($conn);

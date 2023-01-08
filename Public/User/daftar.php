@@ -423,14 +423,14 @@ $datas = query("SELECT * FROM data_diri WHERE id_user = $id AND status_berkas = 
                               <label class="label">
                                 <span class="label-text">SKPL*</span>
                               </label>
-                              <input name="skpl" type="file" class="file-input file-input-bordered w-full" />
+                              <input name="skpl" type="file" accept="application/pdf" class="file-input file-input-bordered w-full" />
                             </div>
 
                             <div class="form-control md:w-1/2 px-3">
                               <label class="label">
                                 <span class="label-text">SKCP*</span>
                               </label>
-                              <input name="skcp" type="file" class="file-input file-input-bordered w-full" />
+                              <input name="skcp" type="file" accept="application/pdf" class="file-input file-input-bordered w-full" />
                             </div>
                           </div>  
 
@@ -439,14 +439,14 @@ $datas = query("SELECT * FROM data_diri WHERE id_user = $id AND status_berkas = 
                               <label class="label">
                                 <span class="label-text">SKCLTN*</span>
                               </label>
-                              <input name="skcltn" type="file" class="file-input file-input-bordered w-full" />
+                              <input name="skcltn" type="file" accept="application/pdf" class="file-input file-input-bordered w-full" />
                             </div>
 
                             <div class="form-control md:w-1/2 px-3">
                               <label class="label">
                                 <span class="label-text">SKPI*</span>
                               </label>
-                              <input name="skpi" type="file" class="file-input file-input-bordered w-full" />
+                              <input name="skpi" type="file" accept="application/pdf" class="file-input file-input-bordered w-full" />
                             </div>
                           </div>  
                           

@@ -6,11 +6,10 @@ $validate = '';
 //mengecek apakah sesssion username tersedia atau tidak jika tersedia maka akan diredirect ke halaman index
 if( isset($_SESSION['username']) ) {
     if ($_SESSION['role'] == 'Admin') {
-      // header('Location: ../Admin/index.php');
+      header('Location: ../Admin/index.php');
       var_dump($sql);
     }else {
-      // header('Location: ../User/index.php');
-      var_dump($sql);
+      header('Location: ../User/index.php');
     }
   }
 //mengecek apakah form disubmit atau tidak
@@ -42,6 +41,7 @@ if( isset($_POST['submit']) ){
                         $_SESSION['username'] = $sql['username'];
                         $_SESSION['id_user'] = $sql['id_user']; 
                           if($_POST['occupation'] == 'Admin') {
+                            $_SESSION['role'] = 'Admin';
                             echo
                             "<script>
                             alert('Selamat Datang')

@@ -13,6 +13,7 @@ function query($query) {
 
 function add($data) {
     global $conn;
+    $id = $data["id_user"];
     $nama = htmlspecialchars($data["nama"]);
     $nip = htmlspecialchars($data["nip"]);
     $tempat_lahir = htmlspecialchars($data["tempat_lahir"]);
@@ -33,7 +34,7 @@ function add($data) {
     
     $query = "INSERT INTO data_diri
                 VALUES
-               ('', '$nama', '$nip', '$tempat_lahir', '$tanggal_lahir', '$agama', '$jenis_kelamin', '$alamat', '$no_telp', '$email', '$status_keluarga', '$instansi', '$tgl_pegawai', '$golongan', '$jabatan', '$usia_pensiun', '$iuran_perbulan', '$status_berkas')"; 
+               ('', '$id', '$nama', '$nip', '$tempat_lahir', '$tanggal_lahir', '$agama', '$jenis_kelamin', '$alamat', '$no_telp', '$email', '$status_keluarga', '$instansi', '$tgl_pegawai', '$golongan', '$jabatan', '$usia_pensiun', '$iuran_perbulan', '$status_berkas')"; 
     mysqli_query($conn, $query);
 
     return mysqli_affected_rows($conn);
@@ -122,6 +123,7 @@ function edit($data) {
     global $conn;
 
     $np = $data["np"];
+    $id = $data["id_user"];
     $nama = htmlspecialchars($data["nama"]);
     $nip = htmlspecialchars($data["nip"]);
     $tempat_lahir = htmlspecialchars($data["tempat_lahir"]);

@@ -37,13 +37,13 @@ if( isset($_POST['submit']) ){
                           echo
                           "<script>
                           alert('Selamat Datang')
-                          document.location.href = '../Admin/index.html'
+                          document.location.href = '../Admin/index.php'
                           </script>";
                         }else{
                           echo
                           "<script>
                           alert('Selamat Datang')
-                          document.location.href = '../User/index.html'
+                          document.location.href = '../User/index.php'
                           </script>";
                         }
                     //jika gagal maka akan menampilkan pesan error

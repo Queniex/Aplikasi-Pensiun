@@ -92,7 +92,7 @@ $datas = query("SELECT * FROM pelampiran_file WHERE np = $id")[0];
                 Kelola User
             </a>
         </nav>
-      <a href="#" class="absolute w-full upgrade-btn bottom-0 active-nav-link text-white flex items-center justify-center py-4">
+      <a href="../Login/logout.php" class="absolute w-full upgrade-btn bottom-0 active-nav-link text-white flex items-center justify-center py-4">
         <i class="fas fa-arrow-alt-circle-left mr-3"></i>
         Log Out
       </a>
@@ -145,10 +145,10 @@ $datas = query("SELECT * FROM pelampiran_file WHERE np = $id")[0];
                     <i class="fas fa-user-cog mr-3"></i>
                     Kelola User
                 </a>
-                <button class="w-full bg-white cta-btn font-semibold py-2 mt-3 rounded-lg shadow-lg hover:shadow-xl hover:bg-gray-300 flex items-center justify-center">
+                <a href="../Login/logout.php" class="w-full bg-white cta-btn font-semibold py-2 mt-3 rounded-lg shadow-lg hover:shadow-xl hover:bg-gray-300 flex items-center justify-center">
                   <i class="fas fa-arrow-alt-circle-left mr-3"></i>
                   Log Out
-                </button>
+                </a>
             </nav>
         </header>
     

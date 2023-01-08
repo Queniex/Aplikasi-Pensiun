@@ -1,51 +1,45 @@
 <?php
 //menyertakan file program koneksi.php pada register
-require('koneksi.php');
+require('../Functions/koneksi.php');
 //inisialisasi session
 session_start();
 $error = '';
 $validate = '';
 //mengecek apakah form registrasi di submit atau tidak
 if( isset($_POST['submit']) ){
+        $occupation_val = 'Peserta';
         // menghilangkan backslashes
         $username = stripslashes($_POST['username']);
         //cara sederhana mengamankan dari sql injection
         $username = mysqli_real_escape_string($conn, $username);
-        $name     = stripslashes($_POST['name']);
-        $name     = mysqli_real_escape_string($conn, $name);
         $email    = stripslashes($_POST['email']);
         $email    = mysqli_real_escape_string($conn, $email);
         $password = stripslashes($_POST['password']);
         $password = mysqli_real_escape_string($conn, $password);
         $repass   = stripslashes($_POST['repassword']);
         $repass   = mysqli_real_escape_string($conn, $repass);
+        $occupation = stripslashes($occupation_val);
+        $occupation = mysqli_real_escape_string($conn, $occupation);
+        
         //cek apakah nilai yang diinputkan pada form ada yang kosong atau tidak
-        if(!empty(trim($name)) && !empty(trim($username)) && !empty(trim($email)) && !empty(trim($password)) && !empty(trim($repass))){
+        if(!empty(trim($username)) && !empty(trim($email)) && !empty(trim($password)) && !empty(trim($repass))){
             //mengecek apakah password yang diinputkan sama dengan re-password yang diinputkan kembali
             if($password == $repass){
                 //memanggil method cek_nama untuk mengecek apakah user sudah terdaftar atau belum
-                if( cek_nama($name,$conn) == 0 ){
+                if( cek_nama($username, $conn) == 0 ){
                     //hashing password sebelum disimpan didatabase
                     $pass  = password_hash($password, PASSWORD_DEFAULT);
                     //insert data ke database
-                    $query = "INSERT INTO user (username,name,email, password, occupation ) VALUES ('$username','$name','$email','$pass')";
+                    $query = "INSERT INTO user (username ,email, password, role ) VALUES ('$username','$email','$password', '$occupation')";
                     $result   = mysqli_query($conn, $query);
                     //jika insert data berhasil maka akan diredirect ke halaman index.php serta menyimpan data username ke session
                     if ($result) {
                         $_SESSION['username'] = $username;
-                        if($_POST['occupation'] == 'Admin') {
-                          echo
-                          "<script>
-                          alert('Selamat Datang')
-                          document.location.href = '../Admin/index.html'
-                          </script>";
-                        }else{
                           echo
                           "<script>
                           alert('Selamat Datang')
                           document.location.href = '../User/index.html'
                           </script>";
-                        }
                     //jika gagal maka akan menampilkan pesan error
                     } else {
                         $error =  'Register User Gagal !!';
@@ -64,7 +58,7 @@ if( isset($_POST['submit']) ){
     //fungsi untuk mengecek username apakah sudah terdaftar atau belum
     function cek_nama($username,$conn){
         $nama = mysqli_real_escape_string($conn, $username);
-        $query = "SELECT * FROM user WHERE username = '$nama'";
+        $query = "SELECT * FROM user WHERE username = '$username'";
         if( $result = mysqli_query($conn, $query) ) return mysqli_num_rows($result);
     }
 ?>
@@ -131,7 +125,7 @@ if( isset($_POST['submit']) ){
   <div class="flex h-screen items-center">
     <div class="w-[60%] px-32 bg-tema-abu h-screen">
       
-      <form action="login.php" class="relative mt-20" method="POST">
+      <form action="register.php" class="relative mt-20" method="POST">
         <p class="font-family-inter font-bold text-2xl mb-4 text-center text-slate-600">Register</p>
         <label for="username">
           <span class="block font-semibold mt-4 text-slate-700 border-0">Username</span>
@@ -148,14 +142,6 @@ if( isset($_POST['submit']) ){
         <label for="repassword">
           <span class="block font-semibold mt-4 text-slate-700 border-0">Re-Password</span>
           <input type="password" name="repassword" id="repassword" placeholder="Re-Password" class="px-3 py-2 border shadow rounded w-full block text-sm placeholder:text-slate-400 focus:outline-none focus:ring-1 focus:ring-sky-500 focus:border-sky-500 invalid:text-pink-700 invalid:focus:ring-pink-700 invalid:focus:border-pink-700 peer"/>
-        </label>
-        <label for="occupation">
-          <span class="block font-semibold mt-4 text-slate-700 border-0">Occupation</span>
-          <select id="occupation" name="occupation" class="px-3 py-2 border shadow rounded w-full block text-sm placeholder:text-slate-400 focus:outline-none focus:ring-1 focus:ring-sky-500 focus:border-sky-500 invalid:text-pink-700 invalid:focus:ring-pink-700 invalid:focus:border-pink-700 peer">
-            <option value="#" disabled selected>Pilih :</option>
-            <option value="Peserta">Peserta</option>
-            <option value="Admin">Admin</option>
-          </select>
         </label>
 
         <div class="flex mt-6 absolute right-0">

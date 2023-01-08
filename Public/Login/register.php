@@ -1,4 +1,4 @@
-<?php
+<!-- <?php
 //menyertakan file program koneksi.php pada register
 require('../Functions/koneksi.php');
 //inisialisasi session
@@ -67,7 +67,7 @@ if( isset($_POST['submit']) ){
         $query = "SELECT * FROM user WHERE username = '$nama'";
         if( $result = mysqli_query($conn, $query) ) return mysqli_num_rows($result);
     }
-?>
+?> -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -129,7 +129,7 @@ if( isset($_POST['submit']) ){
     </div>
   </header>
   <div class="flex h-screen items-center">
-    <div class="w-[60%] px-32 bg-tema-abu h-screen">
+    <div class="lg:w-[60%] w-[100%] px-32 bg-tema-abu h-screen">
       
       <form action="register.php" class="relative mt-20" method="POST">
         <p class="font-family-inter font-bold text-2xl mb-4 text-center text-slate-600">Register</p>
@@ -164,7 +164,7 @@ if( isset($_POST['submit']) ){
       </form>
     </div>
 
-    <div class="flex w-[40%] items-center h-screen">
+    <div class="lg:flex lg:w-[40%] lg:items-center lg:h-screen lg:visible hidden">
         <div class="mx-auto">
           <img src="../../dist/images/pensiun.png">
         </div>

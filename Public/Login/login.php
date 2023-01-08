@@ -112,13 +112,10 @@ if( isset($_POST['submit']) ){
         .active-nav-link { background: #1947ee; }
         .nav-item:hover { background: #1947ee; }
         .account-link:hover { background: #3d68ff; }
-        /* *{
-          border: 1px red solid;
-        } */
     </style>
 </head>
 <body>
-  <header>
+  <header clas>
     <div class="py-8 bg-tema">
       <div class="flex text-white relative"> 
         <h1 class="font-family-inter font-semibold text-2xl pl-24">Dana Pensiun PT Makmur</h1>
@@ -126,11 +123,11 @@ if( isset($_POST['submit']) ){
       </div>
     </div>
   </header>
-  <div class="flex h-screen items-center">
-    <div class="w-[60%] px-32 bg-tema-abu h-screen">
-      
-      <form action="login.php" class="relative mt-20" method="POST">
-        <p class="font-family-inter font-bold text-2xl mb-4 text-center text-slate-600">Sign In</p>
+  <div class="lg:flex h-screen items-center bg-tema-abu">
+    <div class="lg:w-[60%] md:w-[100%] sm:w-[100%] px-32 h-screen">
+      <div class="h-32 w-full lg:hidden"></div>
+      <form action="login.php" class="relative lg:mt-20" method="POST">
+        <p class="font-family-inter font-bold text-2xl mb-4 text-center text-slate-600 lg:mt-0">Sign In</p>
         <?php if($error != ''){ ?>
                         <div><?= $error; ?></div>
                     <?php } ?>
@@ -163,9 +160,9 @@ if( isset($_POST['submit']) ){
       </form>
     </div>
 
-    <div class="flex w-[40%] items-center h-screen">
-        <div class="mx-auto">
-          <img src="../../dist/images/logo_pensiun1.jpg">
+    <div class="lg:flex lg:w-[40%] lg:visible hidden lg:items-center lg:h-[100%]">
+        <div class="mx-auto mr-16">
+          <img class="rounded-3xl" src="../../dist/images/logo_pensiun1.jpg">
         </div>
         <p></p>
     </div>

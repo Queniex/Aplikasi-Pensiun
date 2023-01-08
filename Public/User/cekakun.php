@@ -1,3 +1,26 @@
+<?php
+require '../Functions/function-cekakun.php';
+$id = 100;
+//$_GET["id"];
+$data = query("SELECT * FROM user WHERE id_user  = $id")[0];
+
+if ( isset($_POST["submit"]) ){
+  if( edit($_POST) > 0 ){
+      echo "
+          <script>
+              document.location.href = 'cekakun.php'
+          </script>
+     "; 
+  } else {
+  die('invalid Query : ' . mysqli_error($conn));
+  echo mysqli_error($conn);
+  debug_to_console("Test");
+  }
+}
+
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -141,38 +164,40 @@
                         <div class="flex-1 justify-center p-3 py-5">
                         <form method="POST" enctype="multipart/form-data">
                           <div class="form-control w-full">
+                          <input type="hidden" name="foto" value="<?= $data["foto"]; ?>">
+                          <input type="hidden" name="id" value="<?= $data["id_user"]; ?>">
                             <label class="label">
                               <span class="label-text">Nama</span>
                             </label>
-                            <input name="nama" type="text" placeholder="Masukkan Disini" class="input input-bordered w-full" />
+                            <input name="nama" type="text" value="<?= $data["nama"]; ?>" placeholder="Masukkan Disini" class="input input-bordered w-full" />
                           </div>   
                           
                           <div class="form-control w-full">
                             <label class="label">
                               <span class="label-text">Email</span>
                             </label>
-                            <input name="email" type="email" placeholder="Masukkan Disini" class="input input-bordered w-full" />
+                            <input name="email" type="email" value="<?= $data["email"]; ?>" placeholder="Masukkan Disini" class="input input-bordered w-full" />
                           </div>  
 
                           <div class="form-control w-full">
                             <label class="label">
                               <span class="label-text">Tanggal Lahir</span>
                             </label>
-                            <input name="tanggal_lahir" type="date" placeholder="Masukkan Disini" class="input input-bordered w-full" />
+                            <input name="tanggal_lahir" type="date" value="<?= $data["tanggal_lahir"]; ?>" placeholder="Masukkan Disini" class="input input-bordered w-full" />
                           </div>  
 
                           <div class="form-control w-full">
                             <label class="label">
                               <span class="label-text">Alamat</span>
                             </label>
-                            <textarea name="alamat" class="textarea textarea-bordered" placeholder="Masukkan Disini"></textarea>
+                            <textarea name="alamat" class="textarea textarea-bordered" value="<?= $data["alamat"]; ?>" placeholder="Masukkan Disini"></textarea>
                           </div>
                           
                           <div class="form-control w-full">
                             <label class="label">
                                 <span class="label-text">Nomor Telepon</span>
                             </label>
-                            <input name="no_telp" type="text" placeholder="Masukkan Disini" class="input input-bordered w-full" />
+                            <input name="no_telp" type="text" value="<?= $data["no_telp"]; ?>" placeholder="Masukkan Disini" class="input input-bordered w-full" />
                           </div>
 
                         </div>
@@ -180,11 +205,15 @@
                         <div class="flex-1 p-3 py-5">
                             <div class="flex flex-col items-center text-center">
                                 <div class="border-2 border-gray-600 rounded-full">
+                                  <?php if ($data["foto"] > 0) : ?>
+                                    <img class="rounded-full" width="300px" src="../../dist/images/<?= $data["foto"]; ?>">   
+                                  <?php else : ?>
                                     <img class="rounded-full" width="300px" src="../../dist/images/Profile.png">   
+                                  <?php endif ?>
                                 </div>
                                 <div class="my-10 border-2 border-gray-600 rounded-full">
                                     <label for="changephoto" class="cursor-pointer text-black p-10">Change Photo
-                                        <input type="file" name="changephoto" id="changephoto" accept="image/*" style="display:none;"/>
+                                        <input type="file" name="foto" id="changephoto" accept="image/*" style="display:none;"/>
                                     </label>
                                 </div>
                             </div>

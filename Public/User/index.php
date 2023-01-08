@@ -1,3 +1,12 @@
+<?php 
+require "../Functions/koneksi.php";
+// inisialisasi session
+session_start();
+// mengecek username pada session
+if( !isset($_SESSION['username']) ){
+  $_SESSION['msg'] = 'anda harus login untuk mengakses halaman ini';
+  header('Location: ../Login/login.php');
+} ?> 
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -49,7 +58,8 @@
     </style>
 </head>
 <body class="bg-gray-100 font-family-inter flex">
-
+    <a href="../Functions/logout.php" type="submit">Log Out</a>
+    <?php var_dump($_SESSION['role']); ?>
     <aside class="relative bg-[#152A38] h-screen w-64 hidden sm:block shadow-xl">
         <div class="p-6 bg-[#0A161E]">
             <a href="index.html" class="text-white text-3xl font-semibold uppercase hover:text-gray-300">User</a>

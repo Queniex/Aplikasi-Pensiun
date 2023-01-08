@@ -7,7 +7,16 @@ $error = '';
 $validate = '';
 //mengecek apakah form registrasi di submit atau tidak
 if( isset($_POST['submit']) ){
-        $occupation_val = 'Peserta';
+        if($_POST['occupation'] == 'Admin'){
+          if($_POST['adminVerification'] == '12345'){
+            echo
+                          "<script>
+                          alert('Anda berhasil mendaftar sebagai ADMIN!')
+                          </script>";
+          }else{
+              header('Location: login.php');
+          }
+        }
         // menghilangkan backslashes
         $username = stripslashes($_POST['username']);
         //cara sederhana mengamankan dari sql injection
@@ -18,11 +27,10 @@ if( isset($_POST['submit']) ){
         $password = mysqli_real_escape_string($conn, $password);
         $repass   = stripslashes($_POST['repassword']);
         $repass   = mysqli_real_escape_string($conn, $repass);
-        $occupation = stripslashes($occupation_val);
-        $occupation = mysqli_real_escape_string($conn, $occupation);
+        $occupation = htmlspecialchars($_POST['occupation']);
         
         //cek apakah nilai yang diinputkan pada form ada yang kosong atau tidak
-        if(!empty(trim($username)) && !empty(trim($email)) && !empty(trim($password)) && !empty(trim($repass))){
+        if(!empty(trim($username)) && !empty(trim($email)) && !empty(trim($password)) && !empty(trim($repass)) && !empty(trim($occupation))){
             //mengecek apakah password yang diinputkan sama dengan re-password yang diinputkan kembali
             if($password == $repass){
                 //memanggil method cek_nama untuk mengecek apakah user sudah terdaftar atau belum
@@ -31,30 +39,28 @@ if( isset($_POST['submit']) ){
                     $pass  = password_hash($password, PASSWORD_DEFAULT);
                     //insert data ke database
                     $query = "INSERT INTO user (username ,email, password, role ) VALUES ('$username','$email','$password', '$occupation')";
-                    $result   = mysqli_query($conn, $query);
+                    $result = mysqli_query($conn, $query);
                     //jika insert data berhasil maka akan diredirect ke halaman index.php serta menyimpan data username ke session
                     if ($result) {
                         $_SESSION['username'] = $username;
-                          echo
-                          "<script>
-                          alert('Selamat Datang')
-                          document.location.href = '../User/index.html'
-                          </script>";
+                        $_SESSION['role'] = $occupation;
+                        header('Location: login.php');
+                          
                     //jika gagal maka akan menampilkan pesan error
                     } else {
-                        $error =  'Register User Gagal !!';
+                        $error =  'Register User Gagal!';
                     }
                 }else{
-                        $error =  'Username sudah terdaftar !!';
+                        $error =  'Username sudah terdaftar!';
                 }
             }else{
-                $validate = 'Password tidak sama !!';
+                $validate = 'Password tidak sama!';
             }
              
         }else {
-            $error =  'Data tidak boleh kosong !!';
+            $error =  'Data tidak boleh kosong!';
         }
-    } 
+    }
     //fungsi untuk mengecek username apakah sudah terdaftar atau belum
     function cek_nama($username,$conn){
         $nama = mysqli_real_escape_string($conn, $username);
@@ -127,21 +133,36 @@ if( isset($_POST['submit']) ){
       
       <form action="register.php" class="relative mt-20" method="POST">
         <p class="font-family-inter font-bold text-2xl mb-4 text-center text-slate-600">Register</p>
+        <?php if($error != ''){ ?>
+                        <div><?= $error; ?></div>
+                    <?php } ?>
         <label for="username">
-          <span class="block font-semibold mt-4 text-slate-700 border-0">Username</span>
+          <span class="block font-semibold mt-4 text-slate-700 border-0">Username*</span>
           <input type="text" name="username" id="username" placeholder="Username" class="px-3 py-2 border shadow rounded w-full block text-sm placeholder:text-slate-400 focus:outline-none focus:ring-1 focus:ring-sky-500 focus:border-sky-500 invalid:text-pink-700 invalid:focus:ring-pink-700 invalid:focus:border-pink-700 peer"/>
         </label>
         <label for="email">
-          <span class="block font-semibold mt-4 text-slate-700 border-0">E-Mail</span>
+          <span class="block font-semibold mt-4 text-slate-700 border-0">E-Mail*</span>
           <input type="text" name="email" id="email" placeholder="E-Mail" class="px-3 py-2 border shadow rounded w-full block text-sm placeholder:text-slate-400 focus:outline-none focus:ring-1 focus:ring-sky-500 focus:border-sky-500 invalid:text-pink-700 invalid:focus:ring-pink-700 invalid:focus:border-pink-700 peer"/>
         </label>
         <label for="password">
-          <span class="block font-semibold mt-4 text-slate-700 border-0">Password</span>
+          <span class="block font-semibold mt-4 text-slate-700 border-0">Password*</span>
           <input type="password" name="password" id="password" placeholder="Password" class="px-3 py-2 border shadow rounded w-full block text-sm placeholder:text-slate-400 focus:outline-none focus:ring-1 focus:ring-sky-500 focus:border-sky-500 invalid:text-pink-700 invalid:focus:ring-pink-700 invalid:focus:border-pink-700 peer"/>
         </label>
         <label for="repassword">
-          <span class="block font-semibold mt-4 text-slate-700 border-0">Re-Password</span>
+          <span class="block font-semibold mt-4 text-slate-700 border-0">Re-Password*</span>
           <input type="password" name="repassword" id="repassword" placeholder="Re-Password" class="px-3 py-2 border shadow rounded w-full block text-sm placeholder:text-slate-400 focus:outline-none focus:ring-1 focus:ring-sky-500 focus:border-sky-500 invalid:text-pink-700 invalid:focus:ring-pink-700 invalid:focus:border-pink-700 peer"/>
+        </label>
+        <label for="occupation">
+          <span class="block font-semibold mt-4 text-slate-700 border-0">Occupation*</span>
+          <select id="occupation" name="occupation" class="px-3 py-2 border shadow rounded w-full block text-sm placeholder:text-slate-400 focus:outline-none focus:ring-1 focus:ring-sky-500 focus:border-sky-500 invalid:text-pink-700 invalid:focus:ring-pink-700 invalid:focus:border-pink-700 peer">
+            <option value="#" disabled selected>Pilih :</option>
+            <option value="Peserta">Peserta</option>
+            <option value="Admin">Admin</option>
+          </select>
+        </label>
+        <label for="adminVerification">
+          <span class="block font-semibold mt-4 text-slate-700 border-0">Kode Verifikasi (untuk Admin)</span>
+          <input type="text" name="adminVerification" id="adminVerification" placeholder="Verification Number" class="px-3 py-2 border shadow rounded w-full block text-sm placeholder:text-slate-400 focus:outline-none focus:ring-1 focus:ring-sky-500 focus:border-sky-500 invalid:text-pink-700 invalid:focus:ring-pink-700 invalid:focus:border-pink-700 peer"/>
         </label>
 
         <div class="flex mt-6 absolute right-0">

@@ -5,10 +5,11 @@ $error = '';
 $validate = '';
 //mengecek apakah sesssion username tersedia atau tidak jika tersedia maka akan diredirect ke halaman index
 if( isset($_SESSION['username']) ) {
+  //mengecek role dari session yang sedang aktif
   if ($_SESSION['role'] == 'Admin') {
-    header('Location: ../Admin/index.html');
+    header('Location: ../Admin/index.php');
   }else {
-    header('Location: ../User/index.html');
+    header('Location: ../User/index.php');
   }
 } 
 //mengecek apakah form disubmit atau tidak
@@ -35,22 +36,13 @@ if( isset($_POST['submit']) ){
                         $error = 'Kode Captcha Salah!';
                     } else { // jika captcha benar, maka perintah yang bawah akan dijalankan
                         $_SESSION['username'] = $username;
-
-                        if($_POST['occupation'] == 'Admin') {
-                          echo
-                          "<script>
-                          alert('Selamat Datang')
-                          document.location.href = '../Admin/index.html'
-                          </script>";
-                        }else{
-                          echo
-                          "<script>
-                          alert('Selamat Datang')
-                          document.location.href = '../User/index.html'
-                          </script>";
-                        }
+                        $_SESSION['role'] = $occupation;
                         
-                        // header('Location: index.php');
+                        if ($_SESSION['role'] == 'Admin') {
+                          header('Location: ../Admin/index.php');
+                        }else {
+                          header('Location: ../User/index.php');
+                        }
                     }
                 
                     // header('Location: index.php');
@@ -72,7 +64,7 @@ if( isset($_POST['submit']) ){
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Test Tailwind</title>
+    <title>Login</title>
     <!-- Link tailwind -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
@@ -118,6 +110,7 @@ if( isset($_POST['submit']) ){
     </style>
 </head>
 <body>
+  <?php var_dump($_SESSION['username']); ?>
   <header>
     <div class="py-8 bg-tema">
       <div class="flex text-white relative"> 
@@ -132,7 +125,7 @@ if( isset($_POST['submit']) ){
       <form action="login.php" class="relative mt-20" method="POST">
         <p class="font-family-inter font-bold text-2xl mb-4 text-center text-slate-600">Sign In</p>
         <?php if($error != ''){ ?>
-                        <div><?= $error; ?></div>
+                        <p><?= $error; ?></p>
                     <?php } ?>
         <label for="username">
           <span class="block font-semibold mt-4 text-slate-700 border-0">Username</span>
@@ -152,9 +145,9 @@ if( isset($_POST['submit']) ){
         </label>
         <label for="Captcha">
           <img class="my-4" id="Captcha" src="../Functions/captcha.php" alt="gambar">
-          <?php var_dump($_SESSION['code'])?>
           <input type="text" class="px-3 py-2 border shadow rounded w-full block text-sm placeholder:text-slate-400 focus:outline-none focus:ring-1 focus:ring-sky-500 focus:border-sky-500 invalid:text-pink-700 invalid:focus:ring-pink-700 invalid:focus:border-pink-700 peer" name="kodecaptcha" value="" maxlength="5" placeholder="Masukkan Captcha...">
         </label>
+        <?php var_dump($_SESSION['code']); ?>
 
 
         <div class="flex mt-6 absolute right-0">

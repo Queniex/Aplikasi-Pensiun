@@ -1,4 +1,4 @@
-<!-- <?php
+<?php
 //menyertakan file program koneksi.php pada register
 require('../Functions/koneksi.php');
 //inisialisasi session
@@ -67,7 +67,7 @@ if( isset($_POST['submit']) ){
         $query = "SELECT * FROM user WHERE username = '$nama'";
         if( $result = mysqli_query($conn, $query) ) return mysqli_num_rows($result);
     }
-?> -->
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>

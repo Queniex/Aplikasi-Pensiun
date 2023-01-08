@@ -6,9 +6,10 @@ if( !isset($_SESSION['username']) ) {
 }
 
 require '../Functions/function-daftar.php';
-$id = $_GET["id"];
+$id = $_GET["np"];
+$nf = $_GET["nf"];
 $data = query("SELECT * FROM data_diri WHERE np = $id")[0]; //
-$datas = query("SELECT * FROM pelampiran_file WHERE np = $id")[0];
+$datas = query("SELECT * FROM pelampiran_file WHERE nf = $nf")[0];
 ?>
 
 <!DOCTYPE html>

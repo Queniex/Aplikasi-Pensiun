@@ -11,7 +11,7 @@ if (isset($_POST['submit']) ){
       if( add2($_POST) > 0){
         echo "
             <script>
-                document.location.href = 'daftarSucces.php'
+                document.location.href = 'daftar.php'
             </script>
        "; 
       }
@@ -22,25 +22,25 @@ if (isset($_POST['submit']) ){
 }
 
 $id = $_SESSION['id_user']; 
-$data = query("SELECT * FROM data_diri WHERE np = $id AND status_berkas = 'approve'");
-$datas = query("SELECT * FROM data_diri WHERE np = $id AND status_berkas = 'refuse'");
-if(isset($_POST['coba'])){
-  $query = "UPDATE data_diri SET status_berkas = 'try' WHERE np = $id";
-  $result = mysqli_query($conn, $query);
-  if($result){
-    echo "
-            <script>
-                document.location.href = 'daftar.php'
-            </script>
-       "; 
-  }else{
-    echo "
-            <script>
-                document.location.href = 'index.php'
-            </script>
-       "; 
-  }
-  }
+$data = query("SELECT * FROM data_diri WHERE id_user = $id AND status_berkas = 'checked'");
+$datas = query("SELECT * FROM data_diri WHERE id_user = $id AND status_berkas = 'refuse'");
+  if(isset($_POST['coba'])){
+    $query = "UPDATE data_diri SET status_berkas = 'try' WHERE id_user = $id";
+    $result = mysqli_query($conn, $query);
+    if($result){
+      echo "
+              <script>
+                  document.location.href = 'daftar.php'
+              </script>
+        "; 
+    }else{
+      echo "
+              <script>
+                  document.location.href = 'index.php'
+              </script>
+        "; 
+      }
+    }
 ?>
 
 <!DOCTYPE html>

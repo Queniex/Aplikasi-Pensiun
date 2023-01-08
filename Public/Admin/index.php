@@ -9,7 +9,7 @@ require '../Functions/function-daftar.php';
 $berkas = query("SELECT COUNT(status_berkas) AS 'berkas' FROM data_diri")[0];
 $berkas_sudah = query("SELECT COUNT(status_berkas) As 'berkas_sudah' FROM data_diri WHERE status_berkas = 'approve' OR status_berkas = 'refuse'")[0];
 $berkas_belum = query("SELECT COUNT(status_berkas) AS 'berkas_belum' FROM data_diri WHERE status_berkas = 'checked'")[0];
-$akun = query("SELECT COUNT(id_user) AS 'akun' FROM user")[0];
+$akun = query("SELECT COUNT(id_user) AS 'akun' FROM user WHERE role = 'Peserta'")[0];
 //var_dump($berkas);
 ?>
 

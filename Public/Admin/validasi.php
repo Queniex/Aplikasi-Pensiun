@@ -10,11 +10,11 @@ require '../Functions/function-daftar.php';
 
 // pagination configuration
 $totalDataPage = 5;
-$totalData = count(query("SELECT np, nama, nip, instansi, status_berkas FROM data_diri WHERE status_berkas = 'checked'"));
+$totalData = count(query("SELECT np, nama, nip, instansi, status_berkas, pelampiran_file.nf AS 'nf' FROM data_diri LEFT JOIN pelampiran_file ON data_diri.id_user WHERE status_berkas = 'checked'"));
 $totalPage = ceil($totalData / $totalDataPage);
 $activePage = ( isset($_GET["page"]) ) ? $_GET["page"] : 1;
 $data = ($totalDataPage * $activePage ) - $totalDataPage;
-$datas = query("SELECT np, nama, nip, instansi, status_berkas FROM data_diri WHERE status_berkas = 'checked' LIMIT $data, $totalDataPage ");
+$datas = query("SELECT np, nama, nip, instansi, status_berkas, pelampiran_file.nf AS 'nf' FROM data_diri LEFT JOIN pelampiran_file ON data_diri.id_user WHERE status_berkas = 'checked' LIMIT $data, $totalDataPage ");
 
 if ( isset($_POST["cari"]) ){
   $datas = find($_POST["keyword"]);
@@ -242,7 +242,7 @@ if ( isset($_POST["refused"]) ){
                               </td>
                               <td class="text-center">
                                 <span>
-                                  <a href="daftar_read.php?id=<?= $data["np"]; ?>" class="font-bold text-blue-400 hover:text-white">Lihat</a> | <a href="daftar_edit.php?id=<?= $data["np"]; ?>" class="font-bold text-lime-500 hover:text-white">Edit</a>
+                                  <a href="daftar_read.php?np=<?= $data["np"]; ?>&nf=<?= $data["nf"]; ?>" class="font-bold text-blue-400 hover:text-white">Lihat</a> | <a href="daftar_edit.php?np=<?= $data["np"]; ?>&nf=<?= $data["nf"]; ?>" class="font-bold text-lime-500 hover:text-white">Edit</a>
                                 </span>
                               </td>
                               <th>

@@ -44,6 +44,7 @@ function add2($data) {
     global $conn;
 
     // upload file
+    $id = $data["id_user"];
     $skpl = upload("skpl");
     $skcp = upload("skcp");
     $skcltn = upload("skcltn");
@@ -54,7 +55,7 @@ function add2($data) {
 
     $query = "INSERT INTO pelampiran_file 
                 VALUES
-               ('4', '$skpl', '$skcp', '$skcltn', '$skpi')"; 
+               ('$id', '$skpl', '$skcp', '$skcltn', '$skpi')"; 
     mysqli_query($conn, $query);
 
     return mysqli_affected_rows($conn);

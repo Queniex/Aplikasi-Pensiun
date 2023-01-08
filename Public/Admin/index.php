@@ -1,4 +1,10 @@
 <?php
+session_start();
+if( !isset($_SESSION['username']) ) {
+  header("Location: ../Login/login.php");
+  exit;
+}
+
 require '../Functions/function-daftar.php';
 $berkas = query("SELECT COUNT(status_berkas) AS 'berkas' FROM data_diri")[0];
 $berkas_sudah = query("SELECT COUNT(status_berkas) As 'berkas_sudah' FROM data_diri WHERE status_berkas = 'approve' OR status_berkas = 'refuse'")[0];

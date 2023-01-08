@@ -1,4 +1,10 @@
 <?php 
+  session_start();
+  if( !isset($_SESSION['username']) ) {
+    header("Location: ../Login/login.php");
+    exit;
+  }
+  
   require_once('../Functions/function-krip.php');
 
   $id = 1004; //harus diganti pake id_user

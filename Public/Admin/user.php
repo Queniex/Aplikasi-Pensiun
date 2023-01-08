@@ -3,12 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tailwind Admin Template</title>
+    <title>Kelola User</title>
     <meta name="author" content="David Grzyb">
     <meta name="description" content="">
 
     <!-- Link tailwind -->
     <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Link Daisyui -->
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@2.46.1/dist/full.css" rel="stylesheet" type="text/css" />
 
     <script>
         tailwind.config = {
@@ -85,14 +87,21 @@
     <div class="w-full flex flex-col h-screen overflow-y-hidden">
         <!-- Desktop Header -->
         <header class="w-full items-center bg-white py-2 px-6 hidden sm:flex">
-            <div class="w-1/2"></div>
+            <div class="w-1/2">
+            <form action="" method="post" class="flex gap-2">
+            <input type="text" id="keyword" name="keyword" autofocus autocomplete="off" placeholder="Cari Data.." class="rounded-lg bg-slate-100 block px-3 py-1 w-96 outline-none">
+            <button type="submit" name="search">
+              <img src="../../dist/images/search.png" alt="cari" width="30px">
+            </button>
+          </form>
+            </div>
             <div x-data="{ isOpen: false }" class="relative w-1/2 flex justify-end">
                 <button @click="isOpen = !isOpen" class="realtive z-10 w-12 h-12 rounded-full overflow-hidden border-4 border-gray-400 hover:border-gray-300 focus:border-gray-300 focus:outline-none">
                     <img src="../../dist/images/Profile.png">
                 </button>
                 <button x-show="isOpen" @click="isOpen = false" class="h-full w-full fixed inset-0 cursor-default"></button>
                 <div x-show="isOpen" class="absolute w-32 bg-white rounded-lg shadow-lg py-2 mt-16">
-                    <a href="#" class="block px-4 py-2 account-link hover:text-white">Account</a>
+                    <a href="cekakun.php" class="block px-4 py-2 account-link hover:text-white">Account</a>
                 </div>
             </div>
         </header>
@@ -138,79 +147,69 @@
     
         <div class="w-full h-screen overflow-x-hidden border-t flex flex-col">
             <main class="w-full flex-grow p-6">
-                <h1 class="w-full text-3xl text-black pb-6">Forms</h1>
-
-                <div class="flex flex-wrap">
-                    <div class="w-full lg:w-1/2 my-6 pr-0 lg:pr-2">
-                        <p class="text-xl pb-6 flex items-center">
-                            <i class="fas fa-list mr-3"></i> Contact Form
-                        </p>
-                        <div class="leading-loose">
-                            <form class="p-10 bg-white rounded shadow-xl">
-                                <div class="">
-                                    <label class="block text-sm text-gray-600" for="name">Name</label>
-                                    <input class="w-full px-5 py-1 text-gray-700 bg-gray-200 rounded" id="name" name="name" type="text" required="" placeholder="Your Name" aria-label="Name">
+            <!------------------------------------------------------------------->
+                <h1 class="sm:mb-3 lg:text-3xl w-1/2 lg:mt-3 lg:mb-3 text-black underline underline-offset-4">Kelola User</h1>
+                <div class="flex flex-col mt-4 mb-8 mx-8">
+                    <div class="flex flex-wrap w-full bg-gray-300 rounded-lg h-25 mt-4">
+                        <div class="flex-1 p-5 ">
+                            <div class="flex flex-wrap justify-start ">
+                                <div class="flex-0 rounded-full">
+                                    <img class="border-2 border-black rounded-full" width="40px" src="../../dist/images/Profile.png">   
                                 </div>
-                                <div class="mt-2">
-                                    <label class="block text-sm text-gray-600" for="email">Email</label>
-                                    <input class="w-full px-5  py-4 text-gray-700 bg-gray-200 rounded" id="email" name="email" type="text" required="" placeholder="Your Email" aria-label="Email">
+                                <div class="flex-1 self-center mx-5">
+                                <h3 class="text-black">Nama Lengkap</h3>
                                 </div>
-                                <div class="mt-2">
-                                    <label class=" block text-sm text-gray-600" for="message">Message</label>
-                                    <textarea class="w-full px-5 py-2 text-gray-700 bg-gray-200 rounded" id="message" name="message" rows="6" required="" placeholder="Your inquiry.." aria-label="Email"></textarea>
+                            </div>
+                        </div>
+                        <div class="flex-1 p-5 self-center">
+                                <div class="flex flex-wrap justify-end">
+                                <span>
+                                      <button data-modal-target="popup-approve" data-modal-toggle="popup-approve" type="button" class="text-lime-600 hover:text-white">Edit</button> | <button data-modal-target="popup-modal" data-modal-toggle="popup-modal" type="button" class="text-red-500 hover:text-white">Hapus</button>
+                                    </span>
                                 </div>
-                                <div class="mt-6">
-                                    <button class="px-4 py-1 text-white font-light tracking-wider bg-gray-900 rounded" type="submit">Submit</button>
-                                </div>
-                            </form>
                         </div>
                     </div>
 
-                    <div class="w-full lg:w-1/2 mt-6 pl-0 lg:pl-2">
-                        <p class="text-xl pb-6 flex items-center">
-                            <i class="fas fa-list mr-3"></i> Checkout Form
-                        </p>
-                        <div class="leading-loose">
-                            <form class="p-10 bg-white rounded shadow-xl">
-                                <p class="text-lg text-gray-800 font-medium pb-4">Customer information</p>
-                                <div class="">
-                                    <label class="block text-sm text-gray-600" for="cus_name">Name</label>
-                                    <input class="w-full px-5 py-1 text-gray-700 bg-gray-200 rounded" id="cus_name" name="cus_name" type="text" required="" placeholder="Your Name" aria-label="Name">
+                    <div class="flex flex-wrap w-full bg-gray-300 rounded-lg h-25 mt-4">
+                        <div class="flex-1 p-5 ">
+                            <div class="flex flex-wrap justify-start">
+                                <div class="flex-0 rounded-full">
+                                    <img class="border-2 border-black rounded-full" width="40px" src="../../dist/images/Profile.png">   
                                 </div>
-                                <div class="mt-2">
-                                    <label class="block text-sm text-gray-600" for="cus_email">Email</label>
-                                    <input class="w-full px-5  py-4 text-gray-700 bg-gray-200 rounded" id="cus_email" name="cus_email" type="text" required="" placeholder="Your Email" aria-label="Email">
+                                <div class="flex-1 self-center mx-5">
+                                <h3 class="text-black">Nama Lengkap</h3>
                                 </div>
-                                <div class="mt-2">
-                                    <label class=" block text-sm text-gray-600" for="cus_email">Address</label>
-                                    <input class="w-full px-2 py-2 text-gray-700 bg-gray-200 rounded" id="cus_email" name="cus_email" type="text" required="" placeholder="Street" aria-label="Email">
-                                </div>
-                                <div class="mt-2">
-                                    <label class="text-sm block text-gray-600" for="cus_email">City</label>
-                                    <input class="w-full px-2 py-2 text-gray-700 bg-gray-200 rounded" id="cus_email" name="cus_email" type="text" required="" placeholder="City" aria-label="Email">
-                                </div>
-                                <div class="inline-block mt-2 w-1/2 pr-1">
-                                    <label class="block text-sm text-gray-600" for="cus_email">Country</label>
-                                    <input class="w-full px-2 py-2 text-gray-700 bg-gray-200 rounded" id="cus_email" name="cus_email" type="text" required="" placeholder="Country" aria-label="Email">
-                                </div>
-                                <div class="inline-block mt-2 -mx-1 pl-1 w-1/2">
-                                    <label class="block text-sm text-gray-600" for="cus_email">Zip</label>
-                                    <input class="w-full px-2 py-2 text-gray-700 bg-gray-200 rounded" id="cus_email"  name="cus_email" type="text" required="" placeholder="Zip" aria-label="Email">
-                                </div>
-                                <p class="text-lg text-gray-800 font-medium py-4">Payment information</p>
-                                <div class="">
-                                    <label class="block text-sm text-gray-600" for="cus_name">Card</label>
-                                    <input class="w-full px-2 py-2 text-gray-700 bg-gray-200 rounded" id="cus_name" name="cus_name" type="text" required="" placeholder="Card Number MM/YY CVC" aria-label="Name">
-                                </div>
-                                <div class="mt-6">
-                                    <button class="px-4 py-1 text-white font-light tracking-wider bg-gray-900 rounded" type="submit">$3.00</button>
-                                </div>
-                            </form>
+                            </div>
                         </div>
-                        <p class="pt-6 text-gray-600">
-                            Source: <a class="underline" href="https://tailwindcomponents.com/component/checkout-form">https://tailwindcomponents.com/component/checkout-form</a>
-                        </p>
+                        <div class="flex-1 p-5 self-center">
+                                <div class="flex flex-wrap justify-end">
+                                <span>
+                                      <button data-modal-target="popup-approve" data-modal-toggle="popup-approve" type="button" class="text-lime-600 hover:text-white">Edit</button> | <button data-modal-target="popup-modal" data-modal-toggle="popup-modal" type="button" class="text-red-500 hover:text-white">Hapus</button>
+                                    </span>
+                                </div>
+                        </div>
                     </div>
+
+                    <div class="flex flex-wrap w-full bg-gray-300 rounded-lg h-25 mt-4">
+                        <div class="flex-1 p-5 ">
+                            <div class="flex flex-wrap justify-start">
+                                <div class="flex-0 rounded-full">
+                                    <img class="border-2 border-black rounded-full" width="40px" src="../../dist/images/Profile.png">   
+                                </div>
+                                <div class="flex-1 self-center mx-5">
+                                <h3 class="text-black">Nama Lengkap</h3>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="flex-1 p-5 self-center">
+                                <div class="flex flex-wrap justify-end">
+                                <span>
+                                      <button data-modal-target="popup-edit" data-modal-toggle="popup-edit" type="button" class="text-lime-600 hover:text-white">Edit</button> | <button data-modal-target="popup-hapus" data-modal-toggle="popup-hapus" type="button" class="text-red-500 hover:text-white">Hapus</button>
+                                    </span>
+                                </div>
+                        </div>
+                    </div>
+                    
                 </div>
             </main>
     

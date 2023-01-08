@@ -1,4 +1,10 @@
 <?php
+session_start();
+if( !isset($_SESSION['username']) ) {
+  header("Location: ../Login/login.php");
+  exit;
+}
+
 require '../Functions/function-daftar.php';
 $id = $_GET["id"];
 $data = query("SELECT * FROM data_diri WHERE np = $id")[0]; 

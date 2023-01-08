@@ -181,16 +181,9 @@ if ( isset($_POST["submit"]) ){
 
                           <div class="form-control w-full">
                             <label class="label">
-                              <span class="label-text">Tanggal Lahir</span>
-                            </label>
-                            <input name="tanggal_lahir" type="date" value="<?= $data["tanggal_lahir"]; ?>" placeholder="Masukkan Disini" class="input input-bordered w-full" />
-                          </div>  
-
-                          <div class="form-control w-full">
-                            <label class="label">
                               <span class="label-text">Alamat</span>
                             </label>
-                            <textarea name="alamat" class="textarea textarea-bordered" value="<?= $data["alamat"]; ?>" placeholder="Masukkan Disini"></textarea>
+                            <textarea name="alamat" class="textarea textarea-bordered" placeholder="Masukkan Disini"><?= $data["alamat"]; ?></textarea>
                           </div>
                           
                           <div class="form-control w-full">

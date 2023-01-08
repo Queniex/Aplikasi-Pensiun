@@ -11,8 +11,6 @@ if( isset($_POST['submit']) ){
         $username = stripslashes($_POST['username']);
         //cara sederhana mengamankan dari sql injection
         $username = mysqli_real_escape_string($conn, $username);
-        $occupation = stripslashes($_POST['occupation']);
-        $occupation = mysqli_real_escape_string($conn, $occupation);
         $email    = stripslashes($_POST['email']);
         $email    = mysqli_real_escape_string($conn, $email);
         $password = stripslashes($_POST['password']);
@@ -21,6 +19,8 @@ if( isset($_POST['submit']) ){
         $repass   = mysqli_real_escape_string($conn, $repass);
         //cek apakah nilai yang diinputkan pada form ada yang kosong atau tidak
         if(!empty(trim($username)) && !empty(trim($email)) && !empty(trim($password)) && !empty(trim($repass))){
+            $occupation = stripslashes($_POST['occupation']);
+            $occupation = mysqli_real_escape_string($conn, $occupation);
             //mengecek apakah password yang diinputkan sama dengan re-password yang diinputkan kembali
             if($password == $repass){
                 //memanggil method cek_nama untuk mengecek apakah user sudah terdaftar atau belum
@@ -133,6 +133,9 @@ if( isset($_POST['submit']) ){
       
       <form action="register.php" class="relative mt-20" method="POST">
         <p class="font-family-inter font-bold text-2xl mb-4 text-center text-slate-600">Register</p>
+        <?php if($error != ''){ ?>
+          <div class="text-pink-700 font-semibold"><?= $error; ?></div>
+        <?php } ?>
         <label for="username">
           <span class="block font-semibold mt-4 text-slate-700 border-0">Username</span>
           <input type="text" name="username" id="username" placeholder="Username" class="px-3 py-2 border shadow rounded w-full block text-sm placeholder:text-slate-400 focus:outline-none focus:ring-1 focus:ring-sky-500 focus:border-sky-500 invalid:text-pink-700 invalid:focus:ring-pink-700 invalid:focus:border-pink-700 peer"/>

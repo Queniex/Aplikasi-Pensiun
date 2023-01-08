@@ -21,9 +21,26 @@ if (isset($_POST['submit']) ){
     }
 }
 
-$id = 1003; //harus diganti pake id_user
+$id = 1005; //harus diganti pake id_user
 $data = query("SELECT * FROM data_diri WHERE np = $id AND status_berkas = 'approve'");
-// var_dump($data < [0]);
+$datas = query("SELECT * FROM data_diri WHERE np = $id AND status_berkas = 'refuse'");
+if(isset($_POST['coba'])){
+  $query = "UPDATE data_diri SET status_berkas = 'try' WHERE np = $id";
+  $result = mysqli_query($conn, $query);
+  if($result){
+    echo "
+            <script>
+                document.location.href = 'daftar.php'
+            </script>
+       "; 
+  }else{
+    echo "
+            <script>
+                document.location.href = 'index.php'
+            </script>
+       "; 
+  }
+  }
 ?>
 
 <!DOCTYPE html>
@@ -80,30 +97,30 @@ $data = query("SELECT * FROM data_diri WHERE np = $id AND status_berkas = 'appro
 
     <aside class="relative bg-[#152A38] h-screen w-64 hidden sm:block shadow-xl">
         <div class="p-6 bg-[#0A161E]">
-            <a href="index.php" class="text-white text-3xl font-semibold uppercase hover:text-gray-300">User</a>
+            <a href="index.php?id<?= $_SESSION['id_user'] ?>" class="text-white text-3xl font-semibold uppercase hover:text-gray-300">User</a>
             <button class="w-full bg-white cta-btn font-semibold py-2 mt-5 rounded-br-lg rounded-bl-lg rounded-tr-lg shadow-lg hover:shadow-xl hover:bg-gray-300 flex items-center justify-center">
                 <i class="fas fa-plus mr-3"></i> New Report
             </button>
         </div>
         <nav class="text-white text-base font-semibold pt-0">
-            <a href="index.php" class="flex items-center text-white py-4 pl-6 nav-item">
+            <a href="index.php?id<?= $_SESSION['id_user'] ?>" class="flex items-center text-white py-4 pl-6 nav-item">
                 <i class="fas fa-tachometer-alt mr-3"></i>
                 Dashboard
             </a>
-            <a href="daftar.php" class="flex items-center active-nav-link text-white opacity-75 hover:opacity-100 py-4 pl-6 nav-item">
+            <a href="daftar.php?id<?= $_SESSION['id_user'] ?>" class="flex items-center active-nav-link text-white opacity-75 hover:opacity-100 py-4 pl-6 nav-item">
                 <i class="fas fa-sticky-note mr-3"></i>
                 Daftar Berkas
             </a>
-            <a href="krip.php" class="flex items-center text-white opacity-75 hover:opacity-100 py-4 pl-6 nav-item">
+            <a href="krip.php?id<?= $_SESSION['id_user'] ?>" class="flex items-center text-white opacity-75 hover:opacity-100 py-4 pl-6 nav-item">
               <i class="fas fa-book-reader mr-3"></i>
               KRIP
             </a>
-            <a href="saldo.php" class="flex items-center text-white opacity-75 hover:opacity-100 py-4 pl-6 nav-item">
+            <a href="saldo.php?id<?= $_SESSION['id_user'] ?>" class="flex items-center text-white opacity-75 hover:opacity-100 py-4 pl-6 nav-item">
               <i class="fas fa-money-bill mr-3"></i>
               Cek Saldo
             </a>
         </nav>
-        <a href="../Login/logout.php" class="absolute w-full upgrade-btn bottom-0 active-nav-link text-white flex items-center justify-center py-4">
+        <a href="../Login/logout.php?id<?= $_SESSION['id_user'] ?>" class="absolute w-full upgrade-btn bottom-0 active-nav-link text-white flex items-center justify-center py-4">
             <i class="fas fa-arrow-alt-circle-left mr-3"></i>
             Log Out
         </a>
@@ -127,7 +144,7 @@ $data = query("SELECT * FROM data_diri WHERE np = $id AND status_berkas = 'appro
         <!-- Mobile Header & Nav -->
         <header x-data="{ isOpen: false }" class="bg-[#152A38] w-full bg-sidebar py-5 px-6 sm:hidden">
             <div class="flex items-center justify-between">
-                <a href="index.php" class="text-white text-3xl font-semibold uppercase hover:text-gray-300">User</a>
+                <a href="index.php?id<?= $_SESSION['id_user'] ?>" class="text-white text-3xl font-semibold uppercase hover:text-gray-300">User</a>
                 <button @click="isOpen = !isOpen" class="text-white text-3xl focus:outline-none">
                     <i x-show="!isOpen" class="fas fa-bars"></i>
                     <i x-show="isOpen" class="fas fa-times"></i>
@@ -136,23 +153,23 @@ $data = query("SELECT * FROM data_diri WHERE np = $id AND status_berkas = 'appro
 
             <!-- Dropdown Nav -->
             <nav :class="isOpen ? 'flex': 'hidden'" class="flex flex-col pt-4">
-                <a href="index.php" class="flex items-center text-white py-2 pl-4 nav-item">
+                <a href="index.php?id<?= $_SESSION['id_user'] ?>" class="flex items-center text-white py-2 pl-4 nav-item">
                   <i class="fas fa-tachometer-alt mr-3"></i>
                   Dashboard
                 </a>
-                <a href="daftar.php" class="flex items-center active-nav-link text-white opacity-75 hover:opacity-100 py-2 pl-4 nav-item">
+                <a href="daftar.php?id<?= $_SESSION['id_user'] ?>" class="flex items-center active-nav-link text-white opacity-75 hover:opacity-100 py-2 pl-4 nav-item">
                   <i class="fas fa-sticky-note mr-3"></i>
                   Daftar Berkas
                 </a>
-                <a href="krip.php" class="flex items-center text-white opacity-75 hover:opacity-100 py-2 pl-4 nav-item">
+                <a href="krip.php?id<?= $_SESSION['id_user'] ?>" class="flex items-center text-white opacity-75 hover:opacity-100 py-2 pl-4 nav-item">
                   <i class="fas fa-book-reader mr-3"></i>
                   KRIP
                 </a>
-                <a href="saldo.php" class="flex items-center text-white opacity-75 hover:opacity-100 py-2 pl-4 nav-item">
+                <a href="saldo.php?id<?= $_SESSION['id_user'] ?>" class="flex items-center text-white opacity-75 hover:opacity-100 py-2 pl-4 nav-item">
                     <i class="fas fa-money-bill mr-3"></i>
                     Cek Saldo
                 </a>
-                <a href="../Login/logout.php" class="w-full bg-white cta-btn font-semibold py-2 mt-3 rounded-lg shadow-lg hover:shadow-xl hover:bg-gray-300 flex items-center justify-center">
+                <a href="../Login/logout.php?id<?= $_SESSION['id_user'] ?>" class="w-full bg-white cta-btn font-semibold py-2 mt-3 rounded-lg shadow-lg hover:shadow-xl hover:bg-gray-300 flex items-center justify-center">
                   <i class="fas fa-arrow-alt-circle-left mr-3"></i>
                   Log Out
                 </a>
@@ -163,7 +180,7 @@ $data = query("SELECT * FROM data_diri WHERE np = $id AND status_berkas = 'appro
             <main class="w-full flex-grow p-6">
 
                 <!-- Sudah Pernah Daftar Berkas -->
-                <?php if($data > [0]): ?>
+                <?php if($data > [0] && $datas < [0]): ?>
                       <div class="flex justify-center">
                         <div class="flex-col mt-24">
                           <center>
@@ -177,7 +194,7 @@ $data = query("SELECT * FROM data_diri WHERE np = $id AND status_berkas = 'appro
                 </div> 
                 <!-- End Daftar Berkas -->
 
-                <?php else: ?>
+                <?php elseif($data < [0] && $datas <[0]): ?>
                 <h1 class="text-3xl text-black ml-6">Klaim Dana Pensiun</h1>
                 <h3 class="pb-3 ml-6">Lengkapi form berikut untuk melakukan pengajuan permintaan klaim dana pensiun</h3>
 
@@ -440,6 +457,23 @@ $data = query("SELECT * FROM data_diri WHERE np = $id AND status_berkas = 'appro
 
                   <button name="submit" type="submit" class="btn btn-outline bg-[#152A38] mx-2">Kirim</button>
                 </form>
+
+                <!-- Gagal Pendaftaran Berkas -->
+                <?php elseif($datas > [0]):  ?>
+                  <form method="POST">
+                    <div class="flex justify-center">
+                      <div class="flex-col mt-24">
+                        <center>
+                        <img src="../../dist/images/fail.png" width="100" height="100" alt="">
+                        <h1 class="text-black text-3xl font-bold">Request Gagal!</h1>
+                        <p>Sihlakan mengisi lembar pendaftaran berkas kembali.</p>
+                        <button name="coba" type="submit" class="bg-[#152A38] text-white pl-3 pr-3 rounded-2xl mt-6 hover:bg-slate-400 hover:text-black">Kembali ke Pendaftaran Berkas</button>
+                        </center>
+                      </div>
+                    </div>
+                  </form>
+                 <!-- End Gagal Pendaftaran berkas  -->
+
               <?php endif; ?>
             </main>
     

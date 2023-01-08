@@ -58,7 +58,7 @@ function upload() {
     $newPictureName .= '.';
     $newPictureName .= $pictureExtension;
 
-    move_uploaded_file($tmpName, '../../dist/images' . $newPictureName);
+    move_uploaded_file($tmpName, '../../dist/images/' . $newPictureName);
 
     return $newPictureName;
 
@@ -72,7 +72,6 @@ function edit($data) {
     $email = htmlspecialchars($data["email"]);
     $alamat = htmlspecialchars($data["alamat"]);
     $no_telp = htmlspecialchars($data["no_telp"]);
-    $tanggal_lahir = date('Y-m-d', strtotime($data["tanggal_lahir"]));
 
     $oldPicture = htmlspecialchars($data["foto"]);
 
@@ -88,7 +87,6 @@ function edit($data) {
                email = '$email',
                no_telp = '$no_telp',
                alamat = '$alamat',
-               tanggal_lahir = '$tanggal_lahir',
                foto = '$gambar'
                WHERE id_user = $id"; 
 

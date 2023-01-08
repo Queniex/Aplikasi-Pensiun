@@ -5,15 +5,6 @@ $error = '';
 $validate = '';
 //mengecek apakah sesssion username tersedia atau tidak jika tersedia maka akan diredirect ke halaman index
 if( isset($_SESSION['username']) ) {
-  $username = mysqli_real_escape_string($connection, $_POST['username']);
-  $sql = "SELECT * FROM user WHERE username = $username";
-  $result = mysqli_query($connection, $sql);
-  $count = mysqli_num_rows($result);
-
-  if($count == 1){
-    $_SESSION['username'] = $username;
-    $_SESSION['id_user'] = $ID; 
-
     if ($_SESSION['role'] == 'Admin') {
       // header('Location: ../Admin/index.php');
       var_dump($sql);
@@ -21,10 +12,7 @@ if( isset($_SESSION['username']) ) {
       // header('Location: ../User/index.php');
       var_dump($sql);
     }
-  }else{
-      
   }
-} 
 //mengecek apakah form disubmit atau tidak
 if( isset($_POST['submit']) ){
          

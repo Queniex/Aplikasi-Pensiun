@@ -32,7 +32,10 @@ if( isset($_POST['submit']) ){
                     $result   = mysqli_query($conn, $query);
                     //jika insert data berhasil maka akan diredirect ke halaman index.php serta menyimpan data username ke session
                     if ($result) {
-                        $_SESSION['username'] = $username;
+                        require_once('../Functions/function-krip.php');
+                        $sql = query("SELECT * FROM user WHERE username = '$username'")[0];
+                        $_SESSION['username'] = $sql['username'];
+                        $_SESSION['id_user'] = $sql['id_user']; 
                         if($_POST['occupation'] == 'Admin') {
                           echo
                           "<script>

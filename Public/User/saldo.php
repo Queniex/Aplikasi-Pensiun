@@ -142,6 +142,16 @@
                     </div>
                 </div>
             </header>
+
+            <!-- Mobile Header & Nav -->
+            <header x-data="{ isOpen: false }" class="bg-[#152A38] w-full bg-sidebar py-5 px-6 sm:hidden">
+                <div class="flex items-center justify-between">
+                    <a href="index.php" class="text-white text-3xl font-semibold uppercase hover:text-gray-300">User</a>
+                    <button @click="isOpen = !isOpen" class="text-white text-3xl focus:outline-none">
+                        <i x-show="!isOpen" class="fas fa-bars"></i>
+                        <i x-show="isOpen" class="fas fa-times"></i>
+                    </button>
+                </div>
         </div>
     </div>
     </main><br>

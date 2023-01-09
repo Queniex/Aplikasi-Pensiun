@@ -299,7 +299,7 @@ $counter = 1;
             new Chart(cty, {
             type: 'bar',
             data: {
-                    labels: <?php echo json_encode($namaBar2); ?>,
+                    labels: ['Checked', 'Approve', 'Refuse'],
                     datasets: [{
                     label: 'Grafik Status Berkas',
                     data: <?php echo json_encode($jumlahBar2); ?>,

@@ -1,6 +1,6 @@
 <?php
 require '../Functions/function-cekakun.php';
-$id = 100;
+$id = $_GET['id'];
 //$_GET["id"];
 $data = query("SELECT * FROM user WHERE id_user  = $id")[0];
 

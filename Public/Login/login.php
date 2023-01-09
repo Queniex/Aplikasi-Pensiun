@@ -48,6 +48,7 @@ if( isset($_POST['submit']) ){
                             document.location.href = '../Admin/index.php'
                             </script>";
                           }else{
+                            $_SESSION['role'] = 'Peserta';
                             echo
                             "<script>
                             alert('Selamat Datang')

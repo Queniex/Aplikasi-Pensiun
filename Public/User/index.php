@@ -1,6 +1,6 @@
 <?php
 session_start();
-if( !isset($_SESSION['username']) ) {
+if( !isset($_SESSION['username']) && $_SESSION['role'] != 'Peserta' ) {
   header("Location: ../Login/login.php");
   exit;
 }
@@ -71,7 +71,7 @@ if( !isset($_SESSION['username']) ) {
                 <i class="fas fa-tachometer-alt mr-3"></i>
                 Dashboard
             </a>
-            <a href="daftar.php?id=<?= $_SESSION['id_user'] ?>" class="flex items-center text-white opacity-75 hover:opacity-100 py-4 pl-6 nav-item">
+            <a href="daftar.php?id=<?= $_SESSION['id_user'] ?>&role=<?= $_SESSION['role'] ?>" class="flex items-center text-white opacity-75 hover:opacity-100 py-4 pl-6 nav-item">
                 <i class="fas fa-sticky-note mr-3"></i>
                 Daftar Berkas
             </a>

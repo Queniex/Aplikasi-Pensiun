@@ -5,7 +5,6 @@ if( !isset($_SESSION['username']) ) {
   exit;
 }
 
-
 if( $_SESSION['role'] != 'Admin') {
   header("Location: ../Login/login.php");
   exit;

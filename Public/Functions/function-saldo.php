@@ -14,11 +14,13 @@
 
     function dana($data) {
         global $conn;
-        $nama = htmlspecialchars($data["data_diri.nama"]);
-        $golongan = htmlspecialchars($data["data_diri.golongan"]);
-        $total_dana = htmlspecialchars($data["dana.total_dana"]);
+
+        $nama = htmlspecialchars($data["nama"]);
+        $golongan = htmlspecialchars($data["golongan"]);
+        $total_dana = htmlspecialchars($data["total_dana"]);
         
-        $query = "SELECT data_diri.nama AS 'nama', data_diri.golongan AS 'golongan', dana.total_dana AS 'total dana' FROM data_diri LEFT JOIN dana ON data_diri.golongan = dana.golongan"; 
+        $query = "SELECT data_diri.nama AS 'nama', data_diri.golongan AS 'golongan', dana.total_dana AS 'total_dana' FROM data_diri LEFT JOIN dana ON data_diri.golongan = dana.golongan WHERE data_diri.id_user"; 
+
 
     mysqli_query($conn, $query);
 

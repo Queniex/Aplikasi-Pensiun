@@ -35,6 +35,7 @@ for ($i = 0; $i < count($item2); $i++) {
     $row2= $query2->fetch_array();
     array_push($jumlahBar2, $row2[0]);
 }
+$counter = 1;
 ?>
 
 <!DOCTYPE html>
@@ -217,18 +218,20 @@ for ($i = 0; $i < count($item2); $i++) {
                         <table class="min-w-full bg-white">
                             <thead class="bg-gray-800 text-white">
                                 <tr>
+                                    <th class="text-left py-3 px-4 uppercase font-semibold text-sm">No</th>
                                     <th class="w-1/3 text-left py-3 px-4 uppercase font-semibold text-sm">Nama</th>
-                                    <th class="text-left py-3 px-4 uppercase font-semibold text-sm">Golongan</th>
-                                    <th class="text-left py-3 px-4   uppercase font-semibold text-sm">Status</th>
+                                    <th class="text-left py-3 px-4 uppercase font-semibold text-sm">Golongan </th>
+                                    <th class="text-left py-3 px-4   uppercase font-semibold text-sm">Status Berkas</th>
                                 </tr>
                             </thead>
                             <tbody class="text-gray-700">
                                 <?php foreach ($datas as $data) : ?>
                                     <tr>
+                                        <td class="text-left py-3 px-4"><?php echo $counter; ?></td>
                                         <td class="w-1/3 text-left py-3 px-4"> <?= $data["nama"]; ?> </td>
                                         <td class="w-1/3 text-left py-3 px-4"> <?= $data["golongan"]; ?> </td>
                                         <td class="w-1/3 text-left py-3 px-4"> <?= $data["status_berkas"]; ?> </td>
-
+                                        <?php $counter++; ?>
                                     </tr>
                                 <?php endforeach; ?>
                             </tbody>

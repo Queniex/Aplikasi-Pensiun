@@ -13,19 +13,19 @@ $datas = query("SELECT * FROM pelampiran_file WHERE nf = $nf")[0];
 // $a = $datas['skpl'];
 // var_dump($a == '');
 if ( isset($_POST["submit"]) ){
-  if( edit($_POST) > 0 ){
-    if( edit2($_POST) > 0){
-      echo "
+  if( edit($_POST ) > 0 ){
+    if( edit2($_POST ) > 0){
+        echo "
           <script>
               document.location.href = 'validasi.php'
           </script>
-     "; 
-    }
-    else {
-      die('invalid Query : ' . mysqli_error($conn));
-      // echo mysqli_error($conn);
-      //debug_to_console("Test");
-    }
+        "; 
+        }
+      else {
+        die('invalid Query : ' . mysqli_error($conn));
+        // echo mysqli_error($conn);
+        //debug_to_console("Test");
+      }
   } else {
   die('invalid Query : ' . mysqli_error($conn));
   // echo mysqli_error($conn);

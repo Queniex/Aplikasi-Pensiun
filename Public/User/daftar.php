@@ -14,6 +14,12 @@ if (isset($_POST['submit']) ){
                 document.location.href = 'daftar.php'
             </script>
        "; 
+      } else {
+        echo "
+            <script>
+                document.location.href = 'daftarGagal.php'
+            </script>
+       "; 
       }
     } else {
     die('invalid Query : ' . mysqli_error($conn));
@@ -41,6 +47,7 @@ $datas = query("SELECT * FROM data_diri WHERE id_user = $id AND status_berkas = 
         "; 
       }
     }
+
 ?>
 
 <!DOCTYPE html>

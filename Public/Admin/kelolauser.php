@@ -1,6 +1,7 @@
 <?php
 require '../Functions/function-cekakun.php';
 
+
 // pagination configuration
 $totalDataPage = 5;
 $totalData = count(query("SELECT id_user, nama, email, no_telp, alamat, foto FROM user WHERE role = 'Peserta'"));
@@ -26,6 +27,7 @@ if ( isset($_POST["delete"]) ){
       echo mysqli_error($conn);
     }
   }
+
 
 ?>
 
@@ -247,6 +249,7 @@ if ( isset($_POST["delete"]) ){
     </div>
     
     <?php foreach( $datas as $data ) : ?>
+
     <!-- Delete Modal -->
     <form method="POST">
     <div id="delete-modal<?= $data["id_user"]; ?>" tabindex="-1" class="fixed top-0 left-0 right-0 z-50 hidden p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-modal md:h-full">

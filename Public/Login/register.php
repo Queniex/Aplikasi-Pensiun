@@ -34,7 +34,6 @@ if( isset($_POST['submit']) ){
                     if ($result) {
                         require_once('../Functions/function-krip.php');
                         $sql = query("SELECT * FROM user WHERE username = '$username'")[0];
-                        $_SESSION['username'] = $sql['username'];
                         $_SESSION['id_user'] = $sql['id_user']; 
                         if($_POST['occupation'] == 'Admin') {
                           echo

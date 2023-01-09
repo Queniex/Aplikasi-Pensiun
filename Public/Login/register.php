@@ -169,12 +169,16 @@ if( isset($_POST['submit']) ){
       </form>
     </div>
 
-    <div class="lg:flex lg:w-[40%] lg:items-center lg:h-screen lg:visible hidden">
-        <div class="mx-auto">
+    <div class="lg:flex lg:w-[40%] lg:items-center lg:h-screen lg:visible hidden bg-tema-abu">
+        <div class="mx-auto mr-16">
           <img src="../../dist/images/pensiun.png">
         </div>
         <p></p>
     </div>
   </div>
+  <footer class="w-full bg-white text-center p-4">
+      Copyright to <a target="_blank" href="https://github.com/Queniex/Aplikasi-Pensiun" class="underline text-[#152A38] hover:text-blue-500">Kelompok 3</a><br>
+      All Right Reserved
+  </footer>
 </body>
 </html>

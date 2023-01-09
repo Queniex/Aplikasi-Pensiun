@@ -50,7 +50,7 @@
 
     function search($keyword)
     {
-        $query = "SELECT * FROM data_diri WHERE nama LIKE '%$keyword%' OR np LIKE '%$keyword%' ";
+        $query = "SELECT * FROM data_diri WHERE status_berkas = 'approve' AND nama LIKE '%$keyword%' OR np LIKE '%$keyword%'  ";
         return query($query);
     }
 ?>

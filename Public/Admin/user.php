@@ -251,8 +251,9 @@ if ( isset($_POST["delete"]) ){
 
             </main>
     
-            <footer class="w-full bg-white text-right p-4">
-                &#169; Copyright to <a target="_blank" href="https://github.com/Queniex/Aplikasi-Pensiun" class="underline text-[#152A38] hover:text-blue-500">Kelompok 3</a>.
+            <footer class="w-full bg-white text-center p-4">
+                Copyright to <a target="_blank" href="https://github.com/Queniex/Aplikasi-Pensiun" class="underline text-[#152A38] hover:text-blue-500">Kelompok 3</a><br>
+                All Right Reserved
             </footer>
         </div>
         
@@ -274,9 +275,11 @@ if ( isset($_POST["delete"]) ){
                     <svg aria-hidden="true" class="mx-auto mb-4 text-gray-400 w-14 h-14 dark:text-gray-200" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
                     <h3 class="mb-5 text-lg font-normal text-gray-500 dark:text-gray-400">Anda yakin ingin menghapus akun user : <br> 
                     <?php if ($data["nama"] > 0) : ?>
-                        <?= $data["nama"]; ?>
+                       NAMA : <?= $data["nama"]; ?>
+                       <br>
+                       ID USER : <?= $data["id_user"]; ?>?
                     <?php else : ?>
-                        user :<?= $data["id_user"]; ?>?
+                       ID USER : <?= $data["id_user"]; ?>?
                     <?php endif ?>
                     </h3>
                     <button data-modal-hide="delete-modal<?= $data["id_user"]; ?>" name="delete" type="submit" class="text-white bg-red-600 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center mr-2">
@@ -311,28 +314,28 @@ if ( isset($_POST["delete"]) ){
                             <label class="label">
                               <span class="label-text">Nama</span>
                             </label>
-                            <input name="nama" type="text" value="<?= $data["nama"]; ?>" placeholder="Masukkan Disini" class="input input-bordered w-full" />
+                            <input name="nama" type="text" value="<?= $data["nama"]; ?>" placeholder=" - " class="input input-bordered w-full" readonly/>
                           </div>   
                           
                           <div class="form-control w-full">
                             <label class="label">
                               <span class="label-text">Email</span>
                             </label>
-                            <input name="email" type="email" value="<?= $data["email"]; ?>" placeholder="Masukkan Disini" class="input input-bordered w-full" />
+                            <input name="email" type="email" value="<?= $data["email"]; ?>" placeholder=" - " class="input input-bordered w-full" readonly/>
                           </div>  
 
                           <div class="form-control w-full">
                             <label class="label">
                               <span class="label-text">Alamat</span>
                             </label>
-                            <textarea name="alamat" class="bg-white textarea textarea-bordered" placeholder="Masukkan Disini"><?= $data["alamat"]; ?></textarea>
+                            <textarea name="alamat" class="bg-white textarea textarea-bordered" placeholder=" - " readonly><?= $data["alamat"]; ?></textarea>
                           </div>
                           
                           <div class="form-control w-full">
                             <label class="label">
                                 <span class="label-text">Nomor Telepon</span>
                             </label>
-                            <input name="no_telp" type="text" value="<?= $data["no_telp"]; ?>" placeholder="Masukkan Disini" class="input input-bordered w-full" />
+                            <input name="no_telp" type="text" value="<?= $data["no_telp"]; ?>" placeholder=" - " class="input input-bordered w-full" readonly/>
                           </div>
 
                         </div>

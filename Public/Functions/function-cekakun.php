@@ -16,11 +16,13 @@ function deletes($data) {
 
     $id = $data["id"];
     
-    $query = "DELETE FROM user WHERE id_user = $id"; 
+    $query = "DELETE user.*, pelampiran_file.*, data_diri.* FROM user LEFT JOIN data_diri ON user.id_user = data_diri.id_user LEFT JOIN pelampiran_file ON user.id_user = pelampiran_file.id_user WHERE user.id_user = $id"; 
 
     mysqli_query($conn, $query);
     return mysqli_affected_rows($conn);
 }
+
+
 
 function upload() {
 

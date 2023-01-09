@@ -289,8 +289,9 @@ if ( isset($_POST["refused"]) ){
             </main>
 
     
-            <footer class="w-full bg-white text-right p-4">
-                &#169; Copyright to <a target="_blank" href="https://github.com/Queniex/Aplikasi-Pensiun" class="underline text-[#152A38] hover:text-blue-500">Kelompok 3</a>.
+            <footer class="w-full bg-white text-center p-4">
+              Copyright to <a target="_blank" href="https://github.com/Queniex/Aplikasi-Pensiun" class="underline text-[#152A38] hover:text-blue-500">Kelompok 3</a><br>
+              All Right Reserved
             </footer>
         </div>
         
@@ -332,9 +333,9 @@ if ( isset($_POST["refused"]) ){
                   <center><svg fill="#1fcf07" class="w-20 h-20" height="200px" width="200px" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 472.615 472.615" xml:space="preserve" stroke="#1fcf07"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_iconCarrier"> <g> <g> <path d="M236.308,0C105.799,0,0,105.798,0,236.308c0,130.507,105.799,236.308,236.308,236.308 c130.509,0,236.308-105.801,236.308-236.308C472.615,105.798,366.816,0,236.308,0z M189.676,343.493L89.455,243.272l13.923-13.923 l86.298,86.299l179.557-179.558l13.923,13.923L189.676,343.493z"></path> </g> </g> </g></svg></center>
                   <h3 class="mb-5 mt-1 text-lg font-normal text-gray-500 dark:text-gray-400">Anda yakin ingin mengapprove data ini?</h3>
                   <button data-modal-hide="popup-approve" type="submit" name="approved" class="text-white bg-lime-600 hover:bg-lime-800 focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-lime-800 font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center mr-2">
-                      Yes, I'm sure
+                     Ya, saya yakin
                   </button>
-                  <button data-modal-hide="popup-approve" type="button" class="text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-200 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600">No, cancel</button>
+                  <button data-modal-hide="popup-approve" type="button" class="text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-200 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600">Tidak, saya tolak</button>
               </div>
           </div>
       </div>

@@ -137,7 +137,7 @@ if (isset($_POST['search'])) {
       <header class="w-full items-center bg-white py-2 px-6 hidden sm:flex">
         <div class="w-1/2">
           <form action="" method="post" class="flex gap-2">
-            <input type="text" id="keyword" name="keyword" autofocus autocomplete="off" placeholder="Cari Data.." class="rounded-lg bg-slate-100 block px-3 py-1 w-96 outline-none">
+            <input type="text" id="keyword" name="keyword" autofocus autocomplete="off" placeholder="Cari Data.." class="rounded-lg bg-slate-100 block px-3 py-1 w-96 outline-none" required>
             <button type="submit" name="search">
               <img src="../../dist/images/search.png" alt="cari" width="30px">
             </button>
@@ -236,7 +236,10 @@ if (isset($_POST['search'])) {
 
         </main>
 
-        <footer class="w-full bg-white text-right p-4">&#169; Copyright to <a target="_blank" href="https://github.com/Queniex/Aplikasi-Pensiun" class="underline text-[#152A38] hover:text-blue-500">Kelompok 3</a></footer>
+        <footer class="w-full bg-white text-center p-4">
+            Copyright to <a target="_blank" href="https://github.com/Queniex/Aplikasi-Pensiun" class="underline text-[#152A38] hover:text-blue-500">Kelompok 3</a><br>
+            All Right Reserved
+        </footer>
       </div>
     </div>
 

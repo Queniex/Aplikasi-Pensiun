@@ -216,7 +216,10 @@
           </div>
         </main>
 
-        <footer class="w-full bg-white text-right p-4">&#169; Copyright to <a target="_blank" href="https://github.com/Queniex/Aplikasi-Pensiun" class="underline text-[#152A38] hover:text-blue-500">Kelompok 3</a>.</footer>
+        <footer class="w-full bg-white text-center p-4">
+            Copyright to <a target="_blank" href="https://github.com/Queniex/Aplikasi-Pensiun" class="underline text-[#152A38] hover:text-blue-500">Kelompok 3</a><br>
+            All Right Reserved
+        </footer>
       </div>
     </div>
 

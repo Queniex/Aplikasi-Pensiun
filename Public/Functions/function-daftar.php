@@ -189,7 +189,7 @@ function edit2($data) {
 
 function find($keyword) {
     $query = "SELECT np, nama, nip, instansi, status_berkas FROM data_diri
-                WHERE
+                WHERE status_berkas = 'checked' AND
                 nama LIKE '%$keyword%' OR
                 nip LIKE '%$keyword%' OR
                 instansi LIKE '%$keyword%'";

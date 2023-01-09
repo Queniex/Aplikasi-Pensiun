@@ -11,8 +11,7 @@ if( $_SESSION['role'] != 'Peserta') {
 }
 
 require '../Functions/function-cekakun.php';
-$id = 100;
-//$_GET["id"];
+$id = $_SESSION['id_user'];
 $data = query("SELECT * FROM user WHERE id_user  = $id")[0];
 
 if ( isset($_POST["submit"]) ){
@@ -109,7 +108,7 @@ if ( isset($_POST["submit"]) ){
               Cek Saldo
             </a>
         </nav>
-        <a href="cekakun.php?id=<?= $_SESSION['id_user'] ?>"class="absolute w-full upgrade-btn bottom-0 active-nav-link text-white flex items-center justify-center py-4">
+        <a href="../Login/logout.php" class="absolute w-full upgrade-btn bottom-0 active-nav-link text-white flex items-center justify-center py-4">
             <i class="fas fa-arrow-alt-circle-left mr-3"></i>
             Log Out
         </a>

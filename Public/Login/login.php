@@ -41,20 +41,28 @@ if( isset($_POST['submit']) ){
                         $_SESSION['username'] = $sql['username'];
                         $_SESSION['id_user'] = $sql['id_user']; 
                           if($_POST['occupation'] == 'Admin') {
-                            $_SESSION['role'] = 'Admin';
-                            echo
-                            "<script>
-                            alert('Selamat Datang')
-                            document.location.href = '../Admin/index.php'
-                            </script>";
-                          }else{
-                            $_SESSION['role'] = 'Peserta';
-                            echo
-                            "<script>
-                            alert('Selamat Datang')
-                            document.location.href = '../User/index.php'
-                            </script>";
-                           
+                            if($sql['role'] == 'Admin'){
+                              $_SESSION['role'] = 'Admin';
+                              echo
+                              "<script>
+                              alert('Selamat Datang')
+                              document.location.href = '../Admin/index.php'
+                              </script>";
+                            } else {
+                              $error =  'Anda Tidak Punya Hak Sebagai Admin!';
+                            }
+                          }elseif ($_POST['occupation'] == 'User'){
+                            if($sql['role'] == 'Peserta'){
+                              $_SESSION['role'] = 'Peserta';
+                              echo
+                              "<script>
+                              alert('Selamat Datang')
+                              document.location.href = '../User/index.php'
+                              </script>";
+                            }else {
+                              $error =  'Anda Tidak Punya Hak Sebagai User!';
+                            }
+                            
                           }
 
                         // header('Location: index.php');
@@ -172,6 +180,11 @@ if( isset($_POST['submit']) ){
         </div>
         <p></p>
     </div>
+
   </div>
+  <footer class="w-full bg-white text-center p-4">
+      Copyright to <a target="_blank" href="https://github.com/Queniex/Aplikasi-Pensiun" class="underline text-[#152A38] hover:text-blue-500">Kelompok 3</a><br>
+      All Right Reserved
+  </footer>
 </body>
 </html>

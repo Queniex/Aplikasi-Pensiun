@@ -1,5 +1,12 @@
+<?php
+
+require '../Functions/function-datachart.php';
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -12,24 +19,22 @@
 
     <script>
         tailwind.config = {
-          theme: {
-            container: {
-              center: true,
-              padding: '16px'
-            },
-            extend: {
-              colors: {
-              },
-              screens: {
-                '2xl': '1320px',
-              },
-              keyframes:{
-              }
+            theme: {
+                container: {
+                    center: true,
+                    padding: '16px'
+                },
+                extend: {
+                    colors: {},
+                    screens: {
+                        '2xl': '1320px',
+                    },
+                    keyframes: {}
+                }
             }
-          }
         }
-      </script>
-    
+    </script>
+
     <style type="text/tailwindcss">
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap');
         .font-family-inter{ font-family: 'Inter', sans-serif; }
@@ -45,9 +50,10 @@
         } */
     </style>
 </head>
+
 <body class="bg-gray-100 font-family-inter flex">
 
-<aside class="relative bg-[#152A38] h-screen w-64 hidden sm:block shadow-xl">
+    <aside class="relative bg-[#152A38] h-screen w-64 hidden sm:block shadow-xl">
         <div class="p-6 bg-[#0A161E]">
             <a href="index.php" class="text-white text-3xl font-semibold uppercase hover:text-gray-300">Admin</a>
             <button class="w-full bg-white cta-btn font-semibold py-2 mt-5 rounded-br-lg rounded-bl-lg rounded-tr-lg shadow-lg hover:shadow-xl hover:bg-gray-300 flex items-center justify-center">
@@ -60,7 +66,7 @@
                 Dashboard
             </a>
             <a href="datachart.php" class="flex items-center active-nav-link text-white opacity-75 hover:opacity-100 py-4 pl-6 nav-item">
-              <i class="fas fa-chart-bar mr-3"></i>
+                <i class="fas fa-chart-bar mr-3"></i>
                 Data Chart
             </a>
             <a href="validasi.php" class="flex items-center text-white opacity-75 hover:opacity-100 py-4 pl-6 nav-item">
@@ -68,18 +74,18 @@
                 Validasi Berkas
             </a>
             <a href="krip.php" class="flex items-center text-white opacity-75 hover:opacity-100 py-4 pl-6 nav-item">
-              <i class="fas fa-book-reader mr-3"></i>
-              KRIP
+                <i class="fas fa-book-reader mr-3"></i>
+                KRIP
             </a>
             <a href="user.php" class="flex items-center text-white opacity-75 hover:opacity-100 py-4 pl-6 nav-item">
                 <i class="fas fa-user-cog mr-3"></i>
                 Kelola User
             </a>
         </nav>
-      <a href="#" class="absolute w-full upgrade-btn bottom-0 active-nav-link text-white flex items-center justify-center py-4">
-        <i class="fas fa-arrow-alt-circle-left mr-3"></i>
-        Log Out
-      </a>
+        <a href="#" class="absolute w-full upgrade-btn bottom-0 active-nav-link text-white flex items-center justify-center py-4">
+            <i class="fas fa-arrow-alt-circle-left mr-3"></i>
+            Log Out
+        </a>
     </aside>
 
     <div class="w-full flex flex-col h-screen overflow-y-hidden">
@@ -110,28 +116,28 @@
             <!-- Dropdown Nav -->
             <nav :class="isOpen ? 'flex': 'hidden'" class="flex flex-col pt-4">
                 <a href="index.php" class="flex items-center text-white py-2 pl-4 nav-item">
-                  <i class="fas fa-tachometer-alt mr-3"></i>
-                  Dashboard
+                    <i class="fas fa-tachometer-alt mr-3"></i>
+                    Dashboard
                 </a>
                 <a href="validasi.php" class="flex items-center text-white opacity-75 hover:opacity-100 py-2 pl-4 nav-item">
-                  <i class="fas fa-sticky-note mr-3"></i>
-                  Validasi Berkas
+                    <i class="fas fa-sticky-note mr-3"></i>
+                    Validasi Berkas
                 </a>
                 <a href="datachart.php" class="flex items-center active-nav-link text-white opacity-75 hover:opacity-100 py-2 pl-4 nav-item">
-                  <i class="fas fa-chart-bar mr-3"></i>
+                    <i class="fas fa-chart-bar mr-3"></i>
                     Data Chart
                 </a>
                 <a href="krip.php" class="flex items-center text-white opacity-75 hover:opacity-100 py-2 pl-4 nav-item">
-                  <i class="fas fa-book-reader mr-3"></i>
-                  KRIP
+                    <i class="fas fa-book-reader mr-3"></i>
+                    KRIP
                 </a>
                 <a href="user.php" class="flex items-center text-white opacity-75 hover:opacity-100 py-2 pl-4 nav-item">
                     <i class="fas fa-user-cog mr-3"></i>
                     Kelola User
                 </a>
                 <button class="w-full bg-white cta-btn font-semibold py-2 mt-3 rounded-lg shadow-lg hover:shadow-xl hover:bg-gray-300 flex items-center justify-center">
-                  <i class="fas fa-arrow-alt-circle-left mr-3"></i>
-                  Log Out
+                    <i class="fas fa-arrow-alt-circle-left mr-3"></i>
+                    Log Out
                 </button>
             </nav>
         </header>
@@ -161,20 +167,20 @@
                     Validasi Berkas
                 </a>
                 <a href="krip.php" class="flex items-center text-white opacity-75 hover:opacity-100 py-2 pl-4 nav-item">
-                  <i class="fas fa-book-reader mr-3"></i>
-                  KRIP
+                    <i class="fas fa-book-reader mr-3"></i>
+                    KRIP
                 </a>
                 <a href="user.php" class="flex items-center text-white opacity-75 hover:opacity-100 py-2 pl-4 nav-item">
                     <i class="fas fa-user-cog mr-3"></i>
                     Kelola User
                 </a>
                 <button class="w-full bg-white cta-btn font-semibold py-2 mt-3 rounded-lg shadow-lg hover:shadow-xl hover:bg-gray-300 flex items-center justify-center">
-                  <i class="fas fa-arrow-alt-circle-left mr-3"></i>
-                  Log Out
+                    <i class="fas fa-arrow-alt-circle-left mr-3"></i>
+                    Log Out
                 </button>
             </nav>
         </header>
-    
+
         <div class="w-full h-screen overflow-x-hidden border-t flex flex-col">
             <main class="w-full flex-grow p-6">
                 <h1 class="text-3xl text-black pb-6">Tabel Data</h1>
@@ -189,16 +195,26 @@
                                     <th class="text-left py-3 px-4   uppercase font-semibold text-sm">Status</th>
                                 </tr>
                             </thead>
+                            <tbody class="text-gray-700">
+                                <?php foreach ($datas as $data) : ?>
+                                    <tr>
+                                        <td class="w-1/3 text-left py-3 px-4"> <?= $data["nama"]; ?> </td>
+                                        <td class="w-1/3 text-left py-3 px-4"> <?= $data["golongan"]; ?> </td>
+                                        <td class="w-1/3 text-left py-3 px-4"> <?= $data["status_berkas"]; ?> </td>
+
+                                    </tr>
+                                <?php endforeach; ?>
+                            </tbody>
                         </table>
                     </div>
                 </div>
             </main>
-    
+
             <footer class="w-full bg-white text-right p-4">
                 &#169; Copyright to <a target="_blank" href="https://github.com/Queniex/Aplikasi-Pensiun" class="underline text-[#152A38] hover:text-blue-500">Kelompok 3</a>.
             </footer>
         </div>
-        
+
     </div>
 
     <!-- AlpineJS -->
@@ -206,4 +222,5 @@
     <!-- Font Awesome -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/js/all.min.js" integrity="sha256-KzZiKy0DWYsnwMF+X1DvQngQ2/FxF7MF3Ff72XcpuPs=" crossorigin="anonymous"></script>
 </body>
+
 </html>

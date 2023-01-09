@@ -16,6 +16,10 @@ $berkas_sudah = query("SELECT COUNT(status_berkas) As 'berkas_sudah' FROM data_d
 $berkas_belum = query("SELECT COUNT(status_berkas) AS 'berkas_belum' FROM data_diri WHERE status_berkas = 'checked'")[0];
 $akun = query("SELECT COUNT(id_user) AS 'akun' FROM user WHERE role = 'Peserta'")[0];
 //var_dump($berkas);
+
+require '../Functions/function-cekakun.php';
+$id = $_SESSION['id_user']; 
+$data_foto = query("SELECT * FROM user WHERE id_user  = $id")[0];
 ?>
 
 <!DOCTYPE html>
@@ -122,7 +126,11 @@ $akun = query("SELECT COUNT(id_user) AS 'akun' FROM user WHERE role = 'Peserta'"
             <div class="w-1/2"></div>
             <div x-data="{ isOpen: false }" class="relative w-1/2 flex justify-end">
                 <button @click="isOpen = !isOpen" class="realtive z-10 w-12 h-12 rounded-full overflow-hidden border-4 border-gray-400 hover:border-gray-300 focus:border-gray-300 focus:outline-none">
+                  <?php if ($data_foto["foto"] > 0) : ?>
+                    <img src="../../dist/images/<?= $data_foto["foto"]; ?>">   
+                  <?php else : ?>
                     <img src="../../dist/images/Profile.png">
+                  <?php endif ?>
                 </button>
                 <button x-show="isOpen" @click="isOpen = false" class="h-full w-full fixed inset-0 cursor-default"></button>
                 <div x-show="isOpen" class="absolute w-32 bg-white rounded-lg shadow-lg py-2 mt-16">

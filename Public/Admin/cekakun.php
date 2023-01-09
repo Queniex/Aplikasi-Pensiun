@@ -27,6 +27,10 @@ if ( isset($_POST["submit"]) ){
   echo mysqli_error($conn);
   debug_to_console("Test");
   }
+
+  require '../Functions/function-cekakun.php';
+  $id = $_SESSION['id_user']; 
+  $data_foto = query("SELECT * FROM user WHERE id_user  = $id")[0];
 }
 
 
@@ -127,7 +131,11 @@ if ( isset($_POST["submit"]) ){
         </div>
         <div x-data="{ isOpen: false }" class="relative w-1/2 flex justify-end">
           <button @click="isOpen = !isOpen" class="realtive z-10 w-12 h-12 rounded-full overflow-hidden border-4 border-gray-400 hover:border-gray-300 focus:border-gray-300 focus:outline-none">
-            <img src="../../dist/images/Profile.png" />
+            <?php if ($data_foto["foto"] > 0) : ?>
+              <img src="../../dist/images/<?= $data_foto["foto"]; ?>">   
+            <?php else : ?>
+              <img src="../../dist/images/Profile.png">
+            <?php endif ?>
           </button>
           <button x-show="isOpen" @click="isOpen = false" class="h-full w-full fixed inset-0 cursor-default"></button>
           <div x-show="isOpen" class="absolute w-32 bg-white rounded-lg shadow-lg py-2 mt-16">

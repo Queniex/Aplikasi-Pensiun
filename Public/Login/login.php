@@ -4,14 +4,15 @@ session_start();
 $error = '';
 $validate = '';
 //mengecek apakah sesssion username tersedia atau tidak jika tersedia maka akan diredirect ke halaman index
+
 if( isset($_SESSION['username']) ) {
-    if ($_SESSION['role'] == 'Admin') {
-      header('Location: ../Admin/index.php');
-      var_dump($sql);
-    }else {
-      header('Location: ../User/index.php');
-    }
+  if ($_SESSION['role'] == 'Admin') {
+    header('Location: ../Admin/index.php');
+    var_dump($sql);
+  }else {
+    header('Location: ../User/index.php');
   }
+}
 //mengecek apakah form disubmit atau tidak
 if( isset($_POST['submit']) ){
          
@@ -40,30 +41,22 @@ if( isset($_POST['submit']) ){
                         $sql = query("SELECT * FROM user WHERE username = '$username'")[0];
                         $_SESSION['username'] = $sql['username'];
                         $_SESSION['id_user'] = $sql['id_user']; 
-                          if($_POST['occupation'] == 'Admin') {
-                            if($sql['role'] == 'Admin'){
-                              $_SESSION['role'] = 'Admin';
-                              echo
-                              "<script>
-                              alert('Selamat Datang')
-                              document.location.href = '../Admin/index.php'
-                              </script>";
-                            } else {
-                              $error =  'Anda Tidak Punya Hak Sebagai Admin!';
-                            }
-                          }elseif ($_POST['occupation'] == 'User'){
-                            if($sql['role'] == 'Peserta'){
-                              $_SESSION['role'] = 'Peserta';
-                              echo
-                              "<script>
-                              alert('Selamat Datang')
-                              document.location.href = '../User/index.php'
-                              </script>";
-                            }else {
-                              $error =  'Anda Tidak Punya Hak Sebagai User!';
-                            }
-                            
-                          }
+                        if($_POST['occupation'] == 'Admin') {
+                          $_SESSION['role'] = 'Admin';
+                          echo
+                          "<script>
+                          alert('Selamat Datang')
+                          document.location.href = '../Admin/index.php'
+                          </script>";
+                        }else{
+                          $_SESSION['role'] = 'Peserta';
+                          echo
+                          "<script>
+                          alert('Selamat Datang')
+                          document.location.href = '../User/index.php'
+                          </script>";
+                    
+                        }
 
                         // header('Location: index.php');
                     }

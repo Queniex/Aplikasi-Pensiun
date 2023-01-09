@@ -5,6 +5,11 @@
     exit;
   }
   
+  if( $_SESSION['role'] != 'Admin') {
+    header("Location: ../Login/login.php");
+    exit;
+  }
+
   require_once("../Functions/function-krip.php");
 
   $id = $_GET['np'];

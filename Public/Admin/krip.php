@@ -5,6 +5,11 @@ if( !isset($_SESSION['username']) ) {
   exit;
 }
 
+if( $_SESSION['role'] != 'Admin') {
+  header("Location: ../Login/login.php");
+  exit;
+}
+
 require_once("../Functions/function-krip.php");
 
 $data = query("SELECT * FROM data_diri WHERE status_berkas = 'approve'");

@@ -5,6 +5,12 @@ if( !isset($_SESSION['username']) ) {
   exit;
 }
 
+if( $_SESSION['role'] != 'Peserta') {
+  header("Location: ../Login/login.php");
+  exit;
+}
+
+
 require '../Functions/function-daftar.php';
 if (isset($_POST['submit']) ){
     if( add($_POST) > 0 ){

@@ -1,4 +1,15 @@
 <?php
+session_start();
+if( !isset($_SESSION['username']) ) {
+  header("Location: ../Login/login.php");
+  exit;
+}
+
+if( $_SESSION['role'] != 'Peserta') {
+  header("Location: ../Login/login.php");
+  exit;
+}
+
 require '../Functions/function-cekakun.php';
 $id = 100;
 //$_GET["id"];

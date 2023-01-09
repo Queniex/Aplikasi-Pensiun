@@ -1,4 +1,15 @@
 <?php
+session_start();
+if( !isset($_SESSION['username']) ) {
+  header("Location: ../Login/login.php");
+  exit;
+}
+
+if( $_SESSION['role'] != 'Admin') {
+  header("Location: ../Login/login.php");
+  exit;
+}
+
 require '../Functions/function-cekakun.php';
 $id = $_GET['id'];
 //$_GET["id"];

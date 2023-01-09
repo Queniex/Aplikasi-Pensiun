@@ -1,10 +1,15 @@
 <?php 
-  session_start();
-  if( !isset($_SESSION['username']) ) {
-    header("Location: ../Login/login.php");
-    exit;
-  }
-  
+ session_start();
+ if( !isset($_SESSION['username']) ) {
+   header("Location: ../Login/login.php");
+   exit;
+ }
+ 
+ if( $_SESSION['role'] != 'Peserta') {
+   header("Location: ../Login/login.php");
+   exit;
+ }
+ 
   require_once('../Functions/function-krip.php');
 
   $id = $_SESSION['id_user']; //harus diganti pake id_user

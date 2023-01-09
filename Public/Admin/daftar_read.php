@@ -74,7 +74,7 @@ $data_foto = query("SELECT * FROM user WHERE id_user  = $id")[0];
 
 <aside class="relative bg-[#152A38] h-screen w-64 hidden sm:block shadow-xl">
         <div class="p-6 bg-[#0A161E]">
-            <a href="index.php?id=<?= $_SESSION['id_user'] ?>" class="text-white text-3xl font-semibold uppercase hover:text-gray-300">Admin</a>
+            <a href="index.php?id=<?= $_SESSION['id_user'] ?>&role=<?= $_SESSION['role'] ?>" class="text-white text-3xl font-semibold uppercase hover:text-gray-300">Admin</a>
             <button class="w-full bg-white cta-btn font-semibold py-2 mt-5 rounded-br-lg rounded-bl-lg rounded-tr-lg shadow-lg hover:shadow-xl hover:bg-gray-300 flex items-center justify-center">
                 <i class="fas fa-plus mr-3"></i> New Report
             </button>

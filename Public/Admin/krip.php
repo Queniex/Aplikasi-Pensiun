@@ -200,7 +200,7 @@ $data_foto = query("SELECT * FROM user WHERE id_user  = $id")[0];
 
       <div class="w-full h-screen overflow-x-hidden border-t flex flex-col">
         <main class="w-full flex-grow p-6 relative">
-          <h1 class="text-xl font-bold text-black underline underline-offset-4 mb-5">KARIP</h1>
+          <h1 class="sm:mb-3 lg:text-3xl w-1/2 lg:mt-3 lg:mb-3 text-black underline underline-offset-4">KARIP</h1>
 
           <?php if($data < [0]) : ?>
             <h1 class="italic text-3xl mt-5 text-red-700 text-center">Unknown data Available</h1>

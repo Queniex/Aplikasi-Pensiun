@@ -1,10 +1,22 @@
 <?php
+session_start();
+if( !isset($_SESSION['username']) ) {
+  header("Location: ../Login/login.php");
+  exit;
+}
+
+if( $_SESSION['role'] != 'Peserta') {
+  header("Location: ../Login/login.php");
+  exit;
+}
 
 require '../Functions/function-saldo.php';
 
-$id = 1005; //harus diganti pake id_user
+$id = $_GET['id']; 
+$data = query("SELECT data_diri.nama AS 'nama', data_diri.golongan AS 'golongan', dana.total_dana AS 'total_dana' FROM data_diri LEFT JOIN dana ON data_diri.golongan = dana.golongan WHERE data_diri.id_user = $id");
 
-$data = query("SELECT data_diri.nama AS 'nama', data_diri.golongan AS 'golongan', dana.total_dana AS 'total_dana' FROM data_diri LEFT JOIN dana ON data_diri.golongan = dana.golongan WHERE data_diri.id_user");
+$id = $_GET['id']; 
+$data_foto = query("SELECT * FROM user WHERE id_user  = $id")[0];
 ?>
 
 <!DOCTYPE html>
@@ -65,30 +77,30 @@ $data = query("SELECT data_diri.nama AS 'nama', data_diri.golongan AS 'golongan'
 
     <aside class="relative bg-[#152A38] h-screen w-64 hidden sm:block shadow-xl">
         <div class="p-6 bg-[#0A161E]">
-            <a href="index.php" class="text-white text-3xl font-semibold uppercase hover:text-gray-300">User</a>
+            <a href="index.php?id=<?= $_SESSION['id_user'] ?>&role=<?= $_SESSION['role'] ?>" class="text-white text-3xl font-semibold uppercase hover:text-gray-300">User</a>
             <button class="w-full bg-white cta-btn font-semibold py-2 mt-5 rounded-br-lg rounded-bl-lg rounded-tr-lg shadow-lg hover:shadow-xl hover:bg-gray-300 flex items-center justify-center">
                 <i class="fas fa-plus mr-3"></i> New Report
             </button>
         </div>
         <nav class="text-white text-base font-semibold pt-0">
-            <a href="index.php" class="flex items-center text-white py-4 pl-6 nav-item">
+            <a href="index.php?id=<?= $_SESSION['id_user'] ?>" class="flex items-center text-white py-4 pl-6 nav-item">
                 <i class="fas fa-tachometer-alt mr-3"></i>
                 Dashboard
             </a>
-            <a href="daftar.php" class="flex items-center text-white opacity-75 hover:opacity-100 py-4 pl-6 nav-item">
+            <a href="daftar.php?id=<?= $_SESSION['id_user'] ?>&role=<?= $_SESSION['role'] ?>" class="flex items-center text-white opacity-75 hover:opacity-100 py-4 pl-6 nav-item">
                 <i class="fas fa-sticky-note mr-3"></i>
                 Daftar Berkas
             </a>
-            <a href="krip.php" class="flex items-center text-white opacity-75 hover:opacity-100 py-4 pl-6 nav-item">
-                <i class="fas fa-book-reader mr-3"></i>
-                KRIP
+            <a href="krip.php?id=<?= $_SESSION['id_user'] ?>&role=<?= $_SESSION['role'] ?>" class="flex items-center text-white opacity-75 hover:opacity-100 py-4 pl-6 nav-item">
+              <i class="fas fa-book-reader mr-3"></i>
+              KRIP
             </a>
-            <a href="saldo.php" class="flex items-center active-nav-link text-white opacity-75 hover:opacity-100 py-4 pl-6 nav-item">
-                <i class="fas fa-money-bill mr-3"></i>
-                Cek Saldo
+            <a href="saldo.php?id=<?= $_SESSION['id_user'] ?>&role=<?= $_SESSION['role'] ?>" class="flex items-center active-nav-link text-white opacity-75 hover:opacity-100 py-4 pl-6 nav-item">
+              <i class="fas fa-money-bill mr-3"></i>
+              Cek Saldo
             </a>
         </nav>
-        <a href="#" class="absolute w-full upgrade-btn bottom-0 active-nav-link text-white flex items-center justify-center py-4">
+        <a href="../Login/logout.php"class="absolute w-full upgrade-btn bottom-0 active-nav-link text-white flex items-center justify-center py-4">
             <i class="fas fa-arrow-alt-circle-left mr-3"></i>
             Log Out
         </a>
@@ -100,11 +112,15 @@ $data = query("SELECT data_diri.nama AS 'nama', data_diri.golongan AS 'golongan'
             <div class="w-1/2"></div>
             <div x-data="{ isOpen: false }" class="relative w-1/2 flex justify-end">
                 <button @click="isOpen = !isOpen" class="realtive z-10 w-12 h-12 rounded-full overflow-hidden border-4 border-gray-400 hover:border-gray-300 focus:border-gray-300 focus:outline-none">
+                  <?php if ($data_foto["foto"] > 0) : ?>
+                    <img src="../../dist/images/<?= $data_foto["foto"]; ?>">   
+                  <?php else : ?>
                     <img src="../../dist/images/Profile.png">
+                  <?php endif ?>
                 </button>
                 <button x-show="isOpen" @click="isOpen = false" class="h-full w-full fixed inset-0 cursor-default"></button>
                 <div x-show="isOpen" class="absolute w-32 bg-white rounded-lg shadow-lg py-2 mt-16">
-                    <a href="#" class="block px-4 py-2 account-link hover:text-white">Account</a>
+                    <a href="cekakun.php?id=<?= $_SESSION['id_user'] ?>&role=<?= $_SESSION['role'] ?>" class="block px-4 py-2 account-link hover:text-white">Account</a>
                 </div>
             </div>
         </header>
@@ -112,7 +128,7 @@ $data = query("SELECT data_diri.nama AS 'nama', data_diri.golongan AS 'golongan'
         <!-- Mobile Header & Nav -->
         <header x-data="{ isOpen: false }" class="bg-[#152A38] w-full bg-sidebar py-5 px-6 sm:hidden">
             <div class="flex items-center justify-between">
-                <a href="index.php" class="text-white text-3xl font-semibold uppercase hover:text-gray-300">User</a>
+                <a href="index.php?id=<?= $_SESSION['id_user'] ?>&role=<?= $_SESSION['role'] ?>" class="text-white text-3xl font-semibold uppercase hover:text-gray-300">User</a>
                 <button @click="isOpen = !isOpen" class="text-white text-3xl focus:outline-none">
                     <i x-show="!isOpen" class="fas fa-bars"></i>
                     <i x-show="isOpen" class="fas fa-times"></i>
@@ -121,62 +137,40 @@ $data = query("SELECT data_diri.nama AS 'nama', data_diri.golongan AS 'golongan'
 
             <!-- Dropdown Nav -->
             <nav :class="isOpen ? 'flex': 'hidden'" class="flex flex-col pt-4">
-                <a href="index.php" class="flex items-center text-white py-2 pl-4 nav-item">
-                    <i class="fas fa-tachometer-alt mr-3"></i>
-                    Dashboard
+                <a href="index.php?id=<?= $_SESSION['id_user'] ?>&role=<?= $_SESSION['role'] ?>" class="flex items-center text-white py-2 pl-4 nav-item">
+                  <i class="fas fa-tachometer-alt mr-3"></i>
+                  Dashboard
                 </a>
-                <a href="daftar.php" class="flex items-center text-white opacity-75 hover:opacity-100 py-2 pl-4 nav-item">
-                    <i class="fas fa-sticky-note mr-3"></i>
-                    Daftar Berkas
+                <a href="daftar.php?id=<?= $_SESSION['id_user'] ?>&role=<?= $_SESSION['role'] ?>" class="flex items-center text-white opacity-75 hover:opacity-100 py-2 pl-4 nav-item">
+                  <i class="fas fa-sticky-note mr-3"></i>
+                  Daftar Berkas
                 </a>
-                <a href="krip.php" class="flex items-center text-white opacity-75 hover:opacity-100 py-2 pl-4 nav-item">
-                    <i class="fas fa-book-reader mr-3"></i>
-                    KRIP
+                <a href="krip.php?id=<?= $_SESSION['id_user'] ?>&role=<?= $_SESSION['role'] ?>" class="flex items-center text-white opacity-75 hover:opacity-100 py-2 pl-4 nav-item">
+                  <i class="fas fa-book-reader mr-3"></i>
+                  KRIP
                 </a>
-                <a href="saldo.php" class="flex items-center active-nav-link text-white opacity-75 hover:opacity-100 py-2 pl-4 nav-item">
+                <a href="saldo.php?id=<?= $_SESSION['id_user'] ?>&role=<?= $_SESSION['role'] ?>" class="flex items-center active-nav-link text-white opacity-75 hover:opacity-100 py-2 pl-4 nav-item">
                     <i class="fas fa-money-bill mr-3"></i>
                     Cek Saldo
                 </a>
-                <button class="w-full bg-white cta-btn font-semibold py-2 mt-3 rounded-lg shadow-lg hover:shadow-xl hover:bg-gray-300 flex items-center justify-center">
-                    <i class="fas fa-arrow-alt-circle-left mr-3"></i>
-                    Log Out
-                </button>
+                <a href="../Login/logout.php" class="w-full bg-white cta-btn font-semibold py-2 mt-3 rounded-lg shadow-lg hover:shadow-xl hover:bg-gray-300 flex items-center justify-center">
+                  <i class="fas fa-arrow-alt-circle-left mr-3"></i>
+                  Log Out
+                </a>
             </nav>
-
         </header>
 
+        
         <div class="w-full h-screen overflow-x-hidden border-t flex flex-col">
             <main class="w-full flex-grow p-6">
                 <div class="flex flex-wrap">
-                    <form class="p-10 bg-white rounded shadow-xl container">
-
-
-                        <div class="container">
-                            <?php foreach ($data as $data) : ?>
-                                <div class="row">
-                                    <div class="col-sm-2">
-                                        Nama <br />
-                                        Golongan <br />
-                                        Dana Pengsiun <br /><br>
-                                    </div>
-                                    <div class="col-sm-5">
-                                        : <?= $data["nama"]; ?> <br />
-                                        : <?= $data["golongan"]; ?> <br />
-                                        : <?= $data["total_dana"]; ?>
-                                    </div>
-                                <?php endforeach; ?>
-                                </div>
-                        </div>
-                    </form>
-                </div>
-        </div><br>
 
         <form class="p-20 bg-white rounded shadow-xl container">
             <div class="container">
-                <div class="row row-cols-2 row-cols-lg-5 g-2 g-lg-3">
+                <div class="row row-cols-2 row-cols-lg-5 g-3 g-lg-3">
 
                     <div class="col">
-                        <div class="p-5 btn btn-light bg-subtle border border-primary-subtle rounded-3 " data-bs-toggle="modal" data-bs-target="#modal1">
+                        <div class="p-7 btn btn-light bg-subtle border border-primary-subtle rounded-3 " data-bs-toggle="modal" data-bs-target="#modal1">
                             <img src="https://www.svgrepo.com/show/345389/file-document-data-health-result-archive-folder.svg" alt="Jaminan Hari Tua">
                             <br><br><i class="icon-tab icon-program-1">Jaminan Hari Tua</i>
                         </div>
@@ -187,7 +181,7 @@ $data = query("SELECT data_diri.nama AS 'nama', data_diri.golongan AS 'golongan'
                                     <div class="modal-header">
                                         <h1 class="modal-title fs-5" id="exampleModalLabel">Kriteria Pengajuan Klaim</h1>
                                     </div>
-                                    <div class="modal-body">
+                                    <div class="modal-body bg-[#152A38] text-white">
                                         <div class="row">
                                             <div class="col-sm-1">
                                                 a. <br />
@@ -226,7 +220,7 @@ $data = query("SELECT data_diri.nama AS 'nama', data_diri.golongan AS 'golongan'
                     </div>
 
                     <div class="col">
-                        <div class="p-5 btn btn-light border border-info-subtle rounded-3" data-bs-toggle="modal" data-bs-target="#modal2">
+                        <div class="p-7 btn btn-light border border-info-subtle rounded-3" data-bs-toggle="modal" data-bs-target="#modal2">
                             <img src="https://www.svgrepo.com/show/345379/bandage-medicine-protection-medical-healthcare-health-care.svg" alt="Jaminan Kematian">
                             <br><br><i class="icon-tab icon-program-1">Jaminan Kematian</i>
                         </div>
@@ -237,7 +231,7 @@ $data = query("SELECT data_diri.nama AS 'nama', data_diri.golongan AS 'golongan'
                                     <div class="modal-header">
                                         <h1 class="modal-title fs-5" id="exampleModalLabel">Kriteria Pengajuan Klaim Kantor Cabang</h1>
                                     </div>
-                                    <div class="modal-body">
+                                    <div class="modal-body bg-[#152A38] text-white">
                                         <div class="row">
                                             <div>
                                                 <img src="https://i.postimg.cc/zvxzz6S1/1.png" alt="Pengajuan Klaim Kantor Cabang">
@@ -254,7 +248,7 @@ $data = query("SELECT data_diri.nama AS 'nama', data_diri.golongan AS 'golongan'
                     </div>
 
                     <div class="col">
-                        <div class="p-5 btn btn-light border border-warning-subtle rounded-3" data-bs-toggle="modal" data-bs-target="#modal3">
+                        <div class="p-7 btn btn-light border border-warning-subtle rounded-3" data-bs-toggle="modal" data-bs-target="#modal3">
                             <img src="https://www.svgrepo.com/show/345385/consultation-consulting-laptop-doctor-healthy-medical-care.svg" alt="Jaminan Kecelakaan Kerja">
                             <br><i class="icon-tab icon-program-1">Jaminan Kecelakaan Kerja</i>
                         </div>
@@ -265,7 +259,7 @@ $data = query("SELECT data_diri.nama AS 'nama', data_diri.golongan AS 'golongan'
                                     <div class="modal-header">
                                         <h1 class="modal-title fs-5" id="exampleModalLabel">Dokumen Pengajuan Klaim</h1>
                                     </div>
-                                    <div class="modal-body">
+                                    <div class="modal-body bg-[#152A38] text-white">
                                         <div class="row">
                                             <div>
                                                 <img src="https://i.postimg.cc/yNp2NK2j/2.png" alt="Dokumen Pengajuan Klaim">
@@ -282,7 +276,7 @@ $data = query("SELECT data_diri.nama AS 'nama', data_diri.golongan AS 'golongan'
                     </div>
 
                     <div class="col">
-                        <div class="p-5 btn btn-light border border-danger-subtle rounded-3" data-bs-toggle="modal" data-bs-target="#modal4">
+                        <div class="p-7 btn btn-light border border-danger-subtle rounded-3" data-bs-toggle="modal" data-bs-target="#modal4">
                             <img src="https://www.svgrepo.com/show/345387/health-message-text-mail-medical-inbox-hospital.svg" alt="Jaminan Hari Tua">
                             <br><br><i class="icon-tab icon-program-1">Jaminan Pensiun</i>
                         </div>
@@ -293,7 +287,7 @@ $data = query("SELECT data_diri.nama AS 'nama', data_diri.golongan AS 'golongan'
                                     <div class="modal-header">
                                         <h1 class="modal-title fs-5" id="exampleModalLabel">Dokumen Pengajuan Klaim Layanan Manual</h1>
                                     </div>
-                                    <div class="modal-body">
+                                    <div class="modal-body bg-[#152A38] text-white">
                                         <div class="row">
                                             <div>
                                                 <img src="https://i.postimg.cc/6qXcW16z/3.png" alt="Pengajuan Klaim Layanan Manual">
@@ -310,7 +304,7 @@ $data = query("SELECT data_diri.nama AS 'nama', data_diri.golongan AS 'golongan'
                     </div>
 
                     <div class="col" data-bs-toggle="modal" data-bs-target="#modal5">
-                        <div class="p-5 btn btn-light border border-success-subtle rounded-3">
+                        <div class="p-7 btn btn-light border border-success-subtle rounded-3">
                             <img src="https://www.svgrepo.com/show/345400/mobile-phone-chat-health-device-telephone-smartphone.svg" alt="Jaminan Kehilangan Pekerjaan">
                             <br><i class="icon-tab icon-program-1">Jaminan Kehilangan Pekerjaan</i>
                         </div>
@@ -318,10 +312,10 @@ $data = query("SELECT data_diri.nama AS 'nama', data_diri.golongan AS 'golongan'
                         <div class="modal fade" id="modal5" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                             <div class="modal-dialog">
                                 <div class="modal-content">
-                                    <div class="modal-header">
+                                    <div class="modal-header ">
                                         <h1 class="modal-title fs-5" id="exampleModalLabel">Dokumen Pengajuan Klaim (JKP)</h1>
                                     </div>
-                                    <div class="modal-body">
+                                    <div class="modal-body bg-[#152A38] text-white">
                                         <div class="row">
                                             <div>
                                                 <img src="https://i.postimg.cc/KvYLPyWB/4.png" alt="Pengajuan Klaim (JKP)">
@@ -329,61 +323,49 @@ $data = query("SELECT data_diri.nama AS 'nama', data_diri.golongan AS 'golongan'
 
                                         </div>
                                     </div>
-                                    <div class="modal-footer">
+                                    <div class="modal-footer ">
                                         <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Close</button>
                                     </div>
-
                                 </div>
                             </div>
                         </div>
                     </div>
-                </form> <br>
+                </div>
+            </div>
+        </form> 
+                    <form class="p-8 mt-5 rounded shadow-xl container bg-[#152A38]">
 
-                <div class="flex flex-wrap">
-                    <form class="p-20 bg-white rounded shadow-xl container">
-
-                        <img src="https://i.postimg.cc/YC973dNv/Cara-1.png" alt="cara klaim saldo">
-                        <br><br>
-
-                        <p class="fs-5 fw-bold">Qui facilis alias 33 omnis optio. </p>
-                        <p class="lh-lg">Lorem ipsum dolor sit amet. Qui quod reprehenderit At quia itaque quo harum doloremque et quibusdam autem non officia dolorem quo consequatur quibusdam aut recusandae rerum. Qui voluptate incidunt ab amet vero non consequuntur consectetur hic explicabo aliquam ut voluptas excepturi ut quos laborum. Hic officiis libero est laborum odio est ipsam nesciunt ut officia explicabo. Aut ratione incidunt qui explicabo voluptas sit vero voluptatibus id explicabo dolor est earum dolor non ducimus fugiat. Est reiciendis omnis cum quas consequatur ut nihil impedit. Id eaque cumque rem commodi atque quo doloremque provident et minus dolore ut maxime fugiat At doloremque corporis et voluptas dolor. Et nihil ipsa ut accusamus consectetur est minima eligendi vel illum consequatur At sequi accusamus. </p><br>
-                        <p class="fs-5 fw-bold ">Aut molestias mollitia sed velit incidunt et ratione neque. </p>
-                        <p class="lh-lg">Et sint inventore ea expedita maxime eum consectetur inventore aut sunt molestiae non ipsam dolore eum illum omnis ut voluptates libero. Cum molestiae autem quo unde ipsa ut incidunt fugit. Ut facilis nesciunt est totam quos aut perspiciatis harum sed nihil minima ut iste doloremque. Ut minus omnis et quasi quia At voluptatem explicabo eum consectetur ducimus. Quo officia modi et minus delectus et dignissimos saepe id eveniet totam et ipsa animi hic maiores obcaecati aut obcaecati accusamus. Sit eligendi odit ex blanditiis sapiente aut explicabo ullam aut debitis culpa et distinctio velit ut odio quae et veritatis adipisci. Est quos nulla et rerum maxime in similique omnis. </p><br>
-                        <p class="fs-5 fw-bold">Et libero rerum eos temporibus aliquid aut quibusdam eaque? </p>
-                        <p class="lh-lg">Quo ipsa autem eum deserunt rerum aut modi ipsa. Non aliquam soluta hic consectetur minus est perspiciatis esse quo dignissimos beatae! Hic voluptates quod est aspernatur repudiandae nam reiciendis galisum non rerum quia eum iusto corporis. Est harum unde non iure modi est quas consequatur ut unde sunt ex dolore molestias vel rerum dolorem sed laudantium esse. Qui galisum rerum non quod culpa qui voluptas exercitationem. 33 corporis vitae ut dolore sequi ut consequuntur eveniet vel iste quia est voluptas accusamus ab eius facere. Eos consequatur saepe At sequi galisum qui magni excepturi ex reprehenderit Quis ut nulla voluptatibus 33 voluptatum odio. </p><br>
-                        <p class="fs-5 fw-bold">In galisum pariatur est enim labore. </p>
-                        <p class="lh-lg">Qui minus nulla in optio quia ut corporis dolore. At quas enim est eveniet maiores ad voluptas quis est autem suscipit qui consequuntur tempore. In expedita officiis ut voluptatem minus sit iusto deserunt et laboriosam aspernatur est velit animi. Aut quos voluptatem est galisum neque in incidunt laboriosam et cumque similique. Sit velit totam est natus enim et laboriosam cupiditate et minus reiciendis sit aperiam dolorem qui quisquam magnam. </p>
-
+                        <div class="container mt-3 text-white">
+                            <?php foreach ($data as $data) : ?>
+                                <div class="row">
+                                    <div class="col-sm-2">
+                                        Nama <br />
+                                        Golongan <br />
+                                        Dana Pensiun <br /><br>
+                                    </div>
+                                    <div class="col-sm-5">
+                                        : <?= $data["nama"]; ?> <br />
+                                        : <?= $data["golongan"]; ?> <br />
+                                        <?php if ($data["total_dana"] > 0) : ?>
+                                        : Rp. <?= number_format($data["total_dana"]); ?>
+                                        <?php else : ?>
+                                        : Rp. -
+                                        <?php endif ?>
+                                    </div>
+                                <?php endforeach; ?>
+                                </div>
+                        </div>
                     </form>
                 </div>
+        </div><br>
 
-            </div>
-        </form> <br>
-
-        <div class="flex flex-wrap">
-            <form class="p-20 bg-white rounded shadow-xl container">
-
-                <img src="https://i.postimg.cc/YC973dNv/Cara-1.png" alt="cara klaim saldo">
-                <br><br>
-
-                <p class="fs-5 fw-bold">Qui facilis alias 33 omnis optio. </p>
-                <p class="lh-lg">Lorem ipsum dolor sit amet. Qui quod reprehenderit At quia itaque quo harum doloremque et quibusdam autem non officia dolorem quo consequatur quibusdam aut recusandae rerum. Qui voluptate incidunt ab amet vero non consequuntur consectetur hic explicabo aliquam ut voluptas excepturi ut quos laborum. Hic officiis libero est laborum odio est ipsam nesciunt ut officia explicabo. Aut ratione incidunt qui explicabo voluptas sit vero voluptatibus id explicabo dolor est earum dolor non ducimus fugiat. Est reiciendis omnis cum quas consequatur ut nihil impedit. Id eaque cumque rem commodi atque quo doloremque provident et minus dolore ut maxime fugiat At doloremque corporis et voluptas dolor. Et nihil ipsa ut accusamus consectetur est minima eligendi vel illum consequatur At sequi accusamus. </p><br>
-                <p class="fs-5 fw-bold ">Aut molestias mollitia sed velit incidunt et ratione neque. </p>
-                <p class="lh-lg">Et sint inventore ea expedita maxime eum consectetur inventore aut sunt molestiae non ipsam dolore eum illum omnis ut voluptates libero. Cum molestiae autem quo unde ipsa ut incidunt fugit. Ut facilis nesciunt est totam quos aut perspiciatis harum sed nihil minima ut iste doloremque. Ut minus omnis et quasi quia At voluptatem explicabo eum consectetur ducimus. Quo officia modi et minus delectus et dignissimos saepe id eveniet totam et ipsa animi hic maiores obcaecati aut obcaecati accusamus. Sit eligendi odit ex blanditiis sapiente aut explicabo ullam aut debitis culpa et distinctio velit ut odio quae et veritatis adipisci. Est quos nulla et rerum maxime in similique omnis. </p><br>
-                <p class="fs-5 fw-bold">Et libero rerum eos temporibus aliquid aut quibusdam eaque? </p>
-                <p class="lh-lg">Quo ipsa autem eum deserunt rerum aut modi ipsa. Non aliquam soluta hic consectetur minus est perspiciatis esse quo dignissimos beatae! Hic voluptates quod est aspernatur repudiandae nam reiciendis galisum non rerum quia eum iusto corporis. Est harum unde non iure modi est quas consequatur ut unde sunt ex dolore molestias vel rerum dolorem sed laudantium esse. Qui galisum rerum non quod culpa qui voluptas exercitationem. 33 corporis vitae ut dolore sequi ut consequuntur eveniet vel iste quia est voluptas accusamus ab eius facere. Eos consequatur saepe At sequi galisum qui magni excepturi ex reprehenderit Quis ut nulla voluptatibus 33 voluptatum odio. </p><br>
-                <p class="fs-5 fw-bold">In galisum pariatur est enim labore. </p>
-                <p class="lh-lg">Qui minus nulla in optio quia ut corporis dolore. At quas enim est eveniet maiores ad voluptas quis est autem suscipit qui consequuntur tempore. In expedita officiis ut voluptatem minus sit iusto deserunt et laboriosam aspernatur est velit animi. Aut quos voluptatem est galisum neque in incidunt laboriosam et cumque similique. Sit velit totam est natus enim et laboriosam cupiditate et minus reiciendis sit aperiam dolorem qui quisquam magnam. </p>
-
-            </form>
-        </div>
+        
         </main><br>
 
         <footer class="w-full bg-white text-right p-4">
             &#169; Copyright to <a target="_blank" href="https://github.com/Queniex/Aplikasi-Pensiun" class="underline text-[#152A38] hover:text-blue-500">Kelompok 3</a>.
         </footer>
     </div>
-
 
     </div>
 

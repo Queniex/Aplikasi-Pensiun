@@ -14,6 +14,27 @@ $datas = query("SELECT nama, golongan, status_berkas FROM data_diri LIMIT $data,
 if (isset($_POST["cari"])) {
     $datas = find($_POST["keyword"]);
 }
+
+$namaBar = [];
+$jumlahBar = [];
+$item = query("SELECT DISTINCT golongan FROM dana ORDER BY golongan ASC");
+for ($i = 0; $i < count($item); $i++) {
+    array_push($namaBar, $item[$i]["golongan"]);
+    $query = mysqli_query($conn,"SELECT COUNT(golongan) AS jumlah FROM data_diri WHERE golongan = '".($i+1)."'");
+    $row = $query->fetch_array();
+    array_push($jumlahBar, $row[0]);
+}
+
+// Berkas
+$namaBar2 = [];
+$jumlahBar2 = [];
+$item2 = query("SELECT DISTINCT status_berkas FROM status_berkas ORDER BY id_status ASC");
+for ($i = 0; $i < count($item2); $i++) {
+    array_push($namaBar2, $item2[$i]["status_berkas"]);
+    $query2 = mysqli_query($conn,"SELECT COUNT(data_diri.status_berkas) AS 'jumlah' FROM data_diri INNER JOIN status_berkas on data_diri.status_berkas = status_berkas.status_berkas WHERE status_berkas.id_status = '".($i+1)."'");
+    $row2= $query2->fetch_array();
+    array_push($jumlahBar2, $row2[0]);
+}
 ?>
 
 <!DOCTYPE html>
@@ -23,11 +44,21 @@ if (isset($_POST["cari"])) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Data Chart</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <meta name="author" content="David Grzyb">
     <meta name="description" content="">
 
     <!-- Link tailwind -->
     <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Link Daisyui -->
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@2.46.1/dist/full.css" rel="stylesheet" type="text/css" />
+
+    <!-- Link Flowbite -->
+    <link rel="stylesheet" href="https://unpkg.com/flowbite@1.6.0/dist/flowbite.min.css" />
+
+    <!-- JavaScript Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
 
     <script>
         tailwind.config = {
@@ -161,49 +192,26 @@ if (isset($_POST["cari"])) {
             </nav>
         </header>
 
-        <!-- Mobile Header & Nav -->
-        <header x-data="{ isOpen: false }" class="bg-[#152A38] w-full bg-sidebar py-5 px-6 sm:hidden">
-            <div class="flex items-center justify-between">
-                <a href="index.php" class="text-white text-3xl font-semibold uppercase hover:text-gray-300">Admin</a>
-                <button @click="isOpen = !isOpen" class="text-white text-3xl focus:outline-none">
-                    <i x-show="!isOpen" class="fas fa-bars"></i>
-                    <i x-show="isOpen" class="fas fa-times"></i>
-                </button>
-            </div>
-
-            <!-- Dropdown Nav -->
-            <nav :class="isOpen ? 'flex': 'hidden'" class="flex flex-col pt-4">
-                <a href="index.php" class="flex items-center text-white py-2 pl-4 nav-item">
-                    <i class="fas fa-tachometer-alt mr-3"></i>
-                    Dashboard
-                </a>
-                <a href="datachart.php" class="flex items-center active-nav-link text-white opacity-75 hover:opacity-100 py-2 pl-4 nav-item">
-                    <i class="fas fa-chart-bar mr-3"></i>
-                    Data Chart
-                </a>
-                <a href="validasi.php" class="flex items-center text-white opacity-75 hover:opacity-100 py-2 pl-4 nav-item">
-                    <i class="fas fa-sticky-note mr-3"></i>
-                    Validasi Berkas
-                </a>
-                <a href="krip.php" class="flex items-center text-white opacity-75 hover:opacity-100 py-2 pl-4 nav-item">
-                    <i class="fas fa-book-reader mr-3"></i>
-                    KRIP
-                </a>
-                <a href="user.php" class="flex items-center text-white opacity-75 hover:opacity-100 py-2 pl-4 nav-item">
-                    <i class="fas fa-user-cog mr-3"></i>
-                    Kelola User
-                </a>
-                <button class="w-full bg-white cta-btn font-semibold py-2 mt-3 rounded-lg shadow-lg hover:shadow-xl hover:bg-gray-300 flex items-center justify-center">
-                    <i class="fas fa-arrow-alt-circle-left mr-3"></i>
-                    Log Out
-                </button>
-            </nav>
-        </header>
 
         <div class="w-full h-screen overflow-x-hidden border-t flex flex-col">
             <main class="w-full flex-grow p-6">
-                <h1 class="text-3xl text-black pb-6">Tabel Data</h1>
-
+                <h1 class="sm:mb-3 lg:text-3xl w-1/2 lg:mt-3 lg:mb-3 text-black underline underline-offset-4">Data Chart</h1>
+                <div class="w-full mt-6 flex flex-col lg:flex-row">
+                    <div class="w-full lg:w-1/3 lg:h-56 lg:ml-56">
+                        <div class="ml-[112px] lg:ml-0 h-[300px] w-[300px] lg:h-full lg:w-full">
+                            <canvas id="myChart"></canvas>
+                        </div>
+                        <h1 class="mr-[55px] ml-2 text-center">Golongan Penerima Pensiun</h1>
+                    </div>
+                    <div class="w-full lg:w-2/3 lg:h-56">
+                        <div class="ml-[112px] h-full lg:ml-0 lg:w-full w-[300px]">
+                            <canvas id="myChart2"></canvas>
+                        </div>
+                        <h1 class="lg:mr-[112px] ml-1 lg:ml-0 text-center">Seluruh Status Data Berkas Pendaftaran</h1>
+                    </div>
+                </div>
+                
+                <h1 class="sm:mb-3 lg:text-3xl w-1/2 lg:mt-6 lg:mb-3 text-black underline underline-offset-4">Tabel Data</h1>
                 <div class="w-full mt-6">
                     <div class="bg-white overflow-auto">
                         <table class="min-w-full bg-white">
@@ -226,20 +234,98 @@ if (isset($_POST["cari"])) {
                             </tbody>
                         </table>
                     </div>
+                </div><br>
+
+                <!-- Navigation -->
+                <div class="btn-group flex justify-center">
+                    <?php if ($activePage > 1) : ?>
+                        <a class="btn bg-[#152A38] text-white hover:text-black hover:bg-white" href="?page=<?= $activePage - 1; ?>">«</a>
+                    <?php endif; ?>
+
+                    <?php for ($i = 1; $i <= $totalPage; $i++) : ?>
+                        <?php if ($i == $activePage) : ?>
+                            <a class="btn bg-[#152A38] text-white hover:text-black hover:bg-white" href="?page=<?= $i; ?>"><?= $i; ?></a>
+                        <?php else : ?>
+                            <a class="btn bg-[#152A38] text-white hover:text-black hover:bg-white" href="?page=<?= $i; ?>"><?= $i; ?></a>
+                        <?php endif; ?>
+                    <?php endfor; ?>
+
+                    <?php if ($activePage < $totalPage) : ?>
+                        <a class="btn bg-[#152A38] text-white hover:text-black hover:bg-white" href="?page=<?= $activePage + 1; ?>">»</a>
+                    <?php endif; ?>
                 </div>
+                <!-- End Navigation -->
             </main>
 
             <footer class="w-full bg-white text-right p-4">
                 &#169; Copyright to <a target="_blank" href="https://github.com/Queniex/Aplikasi-Pensiun" class="underline text-[#152A38] hover:text-blue-500">Kelompok 3</a>.
             </footer>
         </div>
-
     </div>
+
+    <script>
+            const ctx = document.getElementById('myChart');
+            new Chart(ctx, {
+            type: 'doughnut',
+            data: {
+                    labels: ['Gol I', 'Gol II', 'Gol III', 'Gol IV'],
+                    datasets: [{
+                    label: 'Jumlah Pendaftar ',
+                    data: <?php echo json_encode($jumlahBar); ?>,
+                    backgroundColor: [
+                                    'rgb(26, 61, 142)',
+                                    'rgb(88, 111, 166)',
+                                    'rgb(161, 178, 216)',
+                                    'rgb(140, 199, 229)'
+                                    ],
+                    borderColor: 'rgb(0, 0, 0)',
+                    hoverOffset: 4,
+                    borderWidth: 1
+                        }]
+                    },
+                    options: {
+                    scales: {
+                    y: {
+                        beginAtZero: true
+                        }
+                        }
+                    }
+                });
+
+            const cty = document.getElementById('myChart2');
+            new Chart(cty, {
+            type: 'bar',
+            data: {
+                    labels: <?php echo json_encode($namaBar2); ?>,
+                    datasets: [{
+                    label: 'Grafik Status Berkas',
+                    data: <?php echo json_encode($jumlahBar2); ?>,
+                    backgroundColor: 'rgba(106, 185, 225, 0.2)',
+                    borderColor: 'rgb(36, 28, 149)',
+                    borderWidth: 1
+                        }]
+                    },
+                    options: {
+                    scales: {
+                    y: {
+                        beginAtZero: true
+                        }
+                        }
+                    }
+                });
+        </script>  
 
     <!-- AlpineJS -->
     <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script>
     <!-- Font Awesome -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/js/all.min.js" integrity="sha256-KzZiKy0DWYsnwMF+X1DvQngQ2/FxF7MF3Ff72XcpuPs=" crossorigin="anonymous"></script>
+    <!-- JQuery -->
+    <script
+    src="https://code.jquery.com/jquery-3.6.1.min.js"
+    integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ="
+    crossorigin="anonymous"></script>
+    <!-- Server -->
+    <script src="/fetch/script.js"></script>
 </body>
 
 </html>

@@ -125,7 +125,7 @@ if ( isset($_POST["delete"]) ){
                 Kelola User
             </a>
         </nav>
-        <a href="cekakun.php?id=<?= $_SESSION['id_user'] ?>" class="absolute w-full upgrade-btn bottom-0 active-nav-link text-white flex items-center justify-center py-4">
+        <a href="logout.php" class="absolute w-full upgrade-btn bottom-0 active-nav-link text-white flex items-center justify-center py-4">
             <i class="fas fa-arrow-alt-circle-left mr-3"></i>
             Log Out
         </a>
@@ -136,11 +136,11 @@ if ( isset($_POST["delete"]) ){
         <header class="w-full items-center bg-white py-2 px-6 hidden sm:flex">
             <div class="w-1/2">
             <form action="" method="post" class="flex gap-2">
-            <input type="text" id="keyword" name="keyword" autofocus autocomplete="off" placeholder="Cari Data.." class="rounded-lg bg-slate-100 block px-3 py-1 w-96 outline-none">
-            <button type="submit" name="search">
-              <img src="../../dist/images/search.png" alt="cari" width="30px">
-            </button>
-          </form>
+                <input type="text" id="keyword" name="keyword" autofocus autocomplete="off" placeholder="Cari Data.." class="rounded-lg bg-slate-100 block px-3 py-1 w-96 outline-none">
+                <button type="submit" name="search">
+                <img src="../../dist/images/search.png" alt="cari" width="30px">
+                </button>
+            </form>
             </div>
             <div x-data="{ isOpen: false }" class="relative w-1/2 flex justify-end">
                 <button @click="isOpen = !isOpen" class="realtive z-10 w-12 h-12 rounded-full overflow-hidden border-4 border-gray-400 hover:border-gray-300 focus:border-gray-300 focus:outline-none">
@@ -203,7 +203,7 @@ if ( isset($_POST["delete"]) ){
 
                 <?php foreach( $datas as $data ) : ?>
                 <div class="flex flex-col mt-4 mb-4 mx-8">
-                    <div class="flex flex-wrap w-full bg-gray-300 rounded-lg h-20 mt-4">
+                    <div class="flex flex-wrap w-full bg-gray-300 rounded-lg h-20 mt-2">
                         <div class="flex-1 p-5 ">
                             <div class="flex flex-wrap justify-start ">
                                 <div class="flex-0 rounded-full">

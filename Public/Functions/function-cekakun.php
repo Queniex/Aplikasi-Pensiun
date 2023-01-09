@@ -11,6 +11,17 @@ function query($query) {
     return $rows;
 }
 
+function deletes($data) {
+    global $conn;
+
+    $id = $data["id"];
+    
+    $query = "DELETE FROM user WHERE id_user = $id"; 
+
+    mysqli_query($conn, $query);
+    return mysqli_affected_rows($conn);
+}
+
 function upload() {
 
     $fileName = $_FILES['foto']['name'];
@@ -102,6 +113,14 @@ function debug_to_console($data) {
         $output = implode(',', $output);
 
     echo "<script>console.log('Debug Objects: " . $output . "' );</script>";
+}
+
+function find($keyword) {
+    $query = "SELECT id_user, nama, email, no_telp, alamat, foto FROM user
+                WHERE
+                nama LIKE '%$keyword%'";
+                
+    return query($query);
 }
 
 ?>

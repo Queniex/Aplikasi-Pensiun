@@ -44,6 +44,7 @@ function add2($data) {
     global $conn;
 
     // upload file
+    $nf = $data["nf"];
     $id = $data["id_user"];
     $skpl = upload("skpl");
     $skcp = upload("skcp");
@@ -55,7 +56,7 @@ function add2($data) {
 
     $query = "INSERT INTO pelampiran_file 
                 VALUES
-               ('$id', '$skpl', '$skcp', '$skcltn', '$skpi')"; 
+               ('$nf', '$id', '$skpl', '$skcp', '$skcltn', '$skpi')"; 
     mysqli_query($conn, $query);
 
     return mysqli_affected_rows($conn);
@@ -110,14 +111,6 @@ function upload($a) {
     move_uploaded_file($tmpName, '../../dist/files/' . $newFileName);
 
     return $newFileName;
-
-}
-
-function deletes($id) {
-    global $conn;
-    mysqli_query($conn, "DELETE FROM rusialdi WHERE id_nama = $id");
-
-    return mysqli_affected_rows($conn);
 }
 
 function edit($data) {
@@ -170,49 +163,27 @@ function edit($data) {
 function edit2($data) {
     global $conn;
 
-    $nf = $data["nf"];
-    $oldskpl = htmlspecialchars($data["skpl2"]);
-    $oldskcp = htmlspecialchars($data["skcp2"]);
-    $oldskcltn = htmlspecialchars($data["skcltn2"]);
-    $oldskpi = htmlspecialchars($data["skpi2"]);
+    $nf = $data['nf'];
+    $oldskpl = htmlspecialchars($data["Gambar"]);
+    $oldskpl = htmlspecialchars($data["Gambar"]);
+    $oldskpl = htmlspecialchars($data["Gambar"]);
+    $oldskpl = htmlspecialchars($data["Gambar"]);
 
     // check if user choosing a new picture
-    if($_FILES['skpl']['error'] === 4) {
-        $skpl = $oldskpl;
-    } else{
-        $skpl = upload("skpl");
+    if( $_FILES['Gambar']['error'] === 4 ) {
+        $gambar = $oldPicture;
+    } else {
+        $gambar = upload();
     }
 
-    if($_FILES['skcp']['error'] === 4) {
-        $skcp = $oldskcp;
-    } else{
-        $skcp = upload("skcp");
-    }
-
-    if($_FILES['skcltn']['error'] === 4) {
-        $skcltn = $oldskcltn; 
-    } else{
-        $skcltn = upload("skcltn");
-    }
-
-    if($_FILES['skpi']['error'] === 4) {
-        $skpi = $oldskpi;       
-    } else{
-        $skpi = upload("skpi");
-    }
-
-    if( !$skpl && !$skcp && !$skcltn && !$skpi ) {
-        return false;
-    }
-    
-    $query = "UPDATE pelampiran_file SET
-               skpl = '$skpl',
-               skcp = '$skcp',
-               skcltn = '$skcltn',
-               skpi = '$skpi'
-               WHERE nf = '$nf'"; 
+    $query = "UPDATE mahasiswa SET
+               Nama = '$nama',
+               Nim = '$nim',
+               Gambar = '$gambar'
+               WHERE Id = $id"; 
 
     mysqli_query($conn, $query);
+
     return mysqli_affected_rows($conn);
 }
 

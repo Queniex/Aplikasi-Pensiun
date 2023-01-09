@@ -1,3 +1,11 @@
+<?php
+
+require '../Functions/function-saldo.php';
+
+$id = 1005; //harus diganti pake id_user
+$data = query("SELECT data_diri.nama AS 'nama', data_diri.golongan AS 'golongan', dana.total_dana AS 'total_dana' FROM data_diri LEFT JOIN dana ON data_diri.golongan = dana.golongan WHERE data_diri.id_user");
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -134,12 +142,19 @@
                     <form class="p-10 bg-white rounded shadow-xl container">
 
                         <div class="container">
+                            <?php foreach ($data as $data) : ?>
                                 <div class="row">
                                     <div class="col-sm-2">
                                         Nama <br />
                                         Golongan <br />
                                         Dana Pengsiun <br /><br>
                                     </div>
+                                    <div class="col-sm-5">
+                                        : <?= $data["nama"]; ?> <br />
+                                        : <?= $data["golongan"]; ?> <br />
+                                        : <?= $data["total_dana"]; ?>
+                                    </div>
+                                <?php endforeach; ?>
                                 </div>
                         </div>
                     </form>

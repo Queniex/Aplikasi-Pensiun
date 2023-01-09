@@ -12,12 +12,14 @@ $data = query("SELECT data_diri.nama AS 'nama', data_diri.golongan AS 'golongan'
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tailwind Admin Template</title>
+    <title>Cek Saldo</title>
     <meta name="author" content="David Grzyb">
     <meta name="description" content="">
 
     <!-- Link tailwind -->
     <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
 
     <script>
         tailwind.config = {
@@ -47,9 +49,14 @@ $data = query("SELECT data_diri.nama AS 'nama', data_diri.golongan AS 'golongan'
         .active-nav-link { background: #1947ee; }
         .nav-item:hover { background: #1947ee; }
         .account-link:hover { background: #3d68ff; }
-        /* *{
+          /* *{
           border: 1px red solid;
         } */
+        .modal-body {
+            justify-content: left;
+            justify-items: left;
+        }
+
     </style>
 </head>
 
@@ -214,19 +221,131 @@ $data = query("SELECT data_diri.nama AS 'nama', data_diri.golongan AS 'golongan'
                             </div>
                         </div>
                     </div>
+
+                    <div class="col">
+                        <div class="p-5 btn btn-light border border-info-subtle rounded-3" data-bs-toggle="modal" data-bs-target="#modal2">
+                            <img src="https://www.svgrepo.com/show/345379/bandage-medicine-protection-medical-healthcare-health-care.svg" alt="Jaminan Kematian">
+                            <br><br><i class="icon-tab icon-program-1">Jaminan Kematian</i>
+                        </div>
+                        <!-- Modal -->
+                        <div class="modal fade" id="modal2" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h1 class="modal-title fs-5" id="exampleModalLabel">Kriteria Pengajuan Klaim Kantor Cabang</h1>
+                                    </div>
+                                    <div class="modal-body">
+                                        <div class="row">
+                                            <div>
+                                                <img src="https://i.postimg.cc/zvxzz6S1/1.png" alt="Pengajuan Klaim Kantor Cabang">
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Close</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col">
+                        <div class="p-5 btn btn-light border border-warning-subtle rounded-3" data-bs-toggle="modal" data-bs-target="#modal3">
+                            <img src="https://www.svgrepo.com/show/345385/consultation-consulting-laptop-doctor-healthy-medical-care.svg" alt="Jaminan Kecelakaan Kerja">
+                            <br><i class="icon-tab icon-program-1">Jaminan Kecelakaan Kerja</i>
+                        </div>
+                        <!-- Modal -->
+                        <div class="modal fade" id="modal3" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h1 class="modal-title fs-5" id="exampleModalLabel">Dokumen Pengajuan Klaim</h1>
+                                    </div>
+                                    <div class="modal-body">
+                                        <div class="row">
+                                            <div>
+                                                <img src="https://i.postimg.cc/yNp2NK2j/2.png" alt="Dokumen Pengajuan Klaim">
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Close</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col">
+                        <div class="p-5 btn btn-light border border-danger-subtle rounded-3" data-bs-toggle="modal" data-bs-target="#modal4">
+                            <img src="https://www.svgrepo.com/show/345387/health-message-text-mail-medical-inbox-hospital.svg" alt="Jaminan Hari Tua">
+                            <br><br><i class="icon-tab icon-program-1">Jaminan Pensiun</i>
+                        </div>
+                        <!-- Modal -->
+                        <div class="modal fade" id="modal4" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h1 class="modal-title fs-5" id="exampleModalLabel">Dokumen Pengajuan Klaim Layanan Manual</h1>
+                                    </div>
+                                    <div class="modal-body">
+                                        <div class="row">
+                                            <div>
+                                                <img src="https://i.postimg.cc/6qXcW16z/3.png" alt="Pengajuan Klaim Layanan Manual">
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Close</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col" data-bs-toggle="modal" data-bs-target="#modal5">
+                        <div class="p-5 btn btn-light border border-success-subtle rounded-3">
+                            <img src="https://www.svgrepo.com/show/345400/mobile-phone-chat-health-device-telephone-smartphone.svg" alt="Jaminan Kehilangan Pekerjaan">
+                            <br><i class="icon-tab icon-program-1">Jaminan Kehilangan Pekerjaan</i>
+                        </div>
+                        <!-- Modal -->
+                        <div class="modal fade" id="modal5" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h1 class="modal-title fs-5" id="exampleModalLabel">Dokumen Pengajuan Klaim (JKP)</h1>
+                                    </div>
+                                    <div class="modal-body">
+                                        <div class="row">
+                                            <div>
+                                                <img src="https://i.postimg.cc/KvYLPyWB/4.png" alt="Pengajuan Klaim (JKP)">
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Close</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
-        </form>
-    </div>
-    </main><br>
+        </form> <br>
+        </main><br>
 
-    <footer class="w-full bg-white text-center p-4">
-        Copyright to <a target="_blank" href="https://github.com/Queniex/Aplikasi-Pensiun" class="underline text-[#152A38] hover:text-blue-500">Kelompok 3</a><br>
-        All Right Reserved
-    </footer>
+        <footer class="w-full bg-white text-right p-4">
+            &#169; Copyright to <a target="_blank" href="https://github.com/Queniex/Aplikasi-Pensiun" class="underline text-[#152A38] hover:text-blue-500">Kelompok 3</a>.
+        </footer>
     </div>
 
     </div>
+
+    <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css" />
 
     <!-- AlpineJS -->
     <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script>

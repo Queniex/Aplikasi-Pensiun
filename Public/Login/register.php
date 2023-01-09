@@ -11,8 +11,6 @@ if( isset($_POST['submit']) ){
         $username = stripslashes($_POST['username']);
         //cara sederhana mengamankan dari sql injection
         $username = mysqli_real_escape_string($conn, $username);
-        $name     = stripslashes($_POST['name']);
-        $name     = mysqli_real_escape_string($conn, $name);
         $email    = stripslashes($_POST['email']);
         $email    = mysqli_real_escape_string($conn, $email);
         $password = stripslashes($_POST['password']);
@@ -20,7 +18,9 @@ if( isset($_POST['submit']) ){
         $repass   = stripslashes($_POST['repassword']);
         $repass   = mysqli_real_escape_string($conn, $repass);
         //cek apakah nilai yang diinputkan pada form ada yang kosong atau tidak
-        if(!empty(trim($name)) && !empty(trim($username)) && !empty(trim($email)) && !empty(trim($password)) && !empty(trim($repass))){
+        if(!empty(trim($username)) && !empty(trim($email)) && !empty(trim($password)) && !empty(trim($repass))){
+            $occupation = stripslashes($_POST['occupation']);
+            $occupation = mysqli_real_escape_string($conn, $occupation);
             //mengecek apakah password yang diinputkan sama dengan re-password yang diinputkan kembali
             if($password == $repass){
                 //memanggil method cek_nama untuk mengecek apakah user sudah terdaftar atau belum
@@ -28,22 +28,25 @@ if( isset($_POST['submit']) ){
                     //hashing password sebelum disimpan didatabase
                     $pass  = password_hash($password, PASSWORD_DEFAULT);
                     //insert data ke database
-                    $query = "INSERT INTO user (username,name,email, password, occupation ) VALUES ('$username','$name','$email','$pass')";
+                    $query = "INSERT INTO user (username,password, email, role ) VALUES ('$username','$pass','$email','$occupation')";
                     $result   = mysqli_query($conn, $query);
                     //jika insert data berhasil maka akan diredirect ke halaman index.php serta menyimpan data username ke session
                     if ($result) {
-                        $_SESSION['username'] = $username;
+                        require_once('../Functions/function-krip.php');
+                        $sql = query("SELECT * FROM user WHERE username = '$username'")[0];
+                        $_SESSION['username'] = $sql['username'];
+                        $_SESSION['id_user'] = $sql['id_user']; 
                         if($_POST['occupation'] == 'Admin') {
                           echo
                           "<script>
                           alert('Selamat Datang')
-                          document.location.href = '../Admin/index.html'
+                          document.location.href = '../Admin/index.php'
                           </script>";
                         }else{
                           echo
                           "<script>
                           alert('Selamat Datang')
-                          document.location.href = '../User/index.html'
+                          document.location.href = '../User/index.php'
                           </script>";
                         }
                     //jika gagal maka akan menampilkan pesan error
@@ -123,16 +126,19 @@ if( isset($_POST['submit']) ){
   <header>
     <div class="py-8 bg-tema">
       <div class="flex text-white relative"> 
-        <h1 class="font-family-inter font-semibold text-2xl pl-24">Dana Pensiun PT Asep Makmur</h1>
+        <h1 class="font-family-inter font-semibold text-2xl pl-24">Dana Pensiun PT Makmur</h1>
         <a href="login.php" class="absolute right-12"><button class="bg-yellow-600 px-5 py-2 rounded-full text-slate-800 font-semibold font-family-inter block mx-auto hover:text-slate-900 hover:bg-yellow-500 active:bg-yellow-600 focus:ring focus:ring-sky-900">Login</button></a>
       </div>
     </div>
   </header>
   <div class="flex h-screen items-center">
-    <div class="w-[60%] px-32 bg-tema-abu h-screen">
+    <div class="lg:w-[60%] w-[100%] px-32 bg-tema-abu h-screen">
       
-      <form action="login.php" class="relative mt-20" method="POST">
+      <form action="register.php" class="relative mt-20" method="POST">
         <p class="font-family-inter font-bold text-2xl mb-4 text-center text-slate-600">Register</p>
+        <?php if($error != ''){ ?>
+          <div class="text-pink-700 font-semibold"><?= $error; ?></div>
+        <?php } ?>
         <label for="username">
           <span class="block font-semibold mt-4 text-slate-700 border-0">Username</span>
           <input type="text" name="username" id="username" placeholder="Username" class="px-3 py-2 border shadow rounded w-full block text-sm placeholder:text-slate-400 focus:outline-none focus:ring-1 focus:ring-sky-500 focus:border-sky-500 invalid:text-pink-700 invalid:focus:ring-pink-700 invalid:focus:border-pink-700 peer"/>
@@ -164,7 +170,7 @@ if( isset($_POST['submit']) ){
       </form>
     </div>
 
-    <div class="flex w-[40%] items-center h-screen"">
+    <div class="lg:flex lg:w-[40%] lg:items-center lg:h-screen lg:visible hidden">
         <div class="mx-auto">
           <img src="../../dist/images/pensiun.png">
         </div>

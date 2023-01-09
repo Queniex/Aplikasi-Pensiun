@@ -53,7 +53,6 @@ if ( isset($_POST["refused"]) ){
   }
 }
 
-require '../Functions/function-cekakun.php';
 $id = $_SESSION['id_user']; 
 $data_foto = query("SELECT * FROM user WHERE id_user  = $id")[0];
 

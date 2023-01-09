@@ -16,7 +16,6 @@ $nf = $_GET["nf"];
 $data = query("SELECT * FROM data_diri WHERE np = $id")[0]; //
 $datas = query("SELECT * FROM pelampiran_file WHERE nf = $nf")[0];
 
-require '../Functions/function-cekakun.php';
 $id = $_SESSION['id_user']; 
 $data_foto = query("SELECT * FROM user WHERE id_user  = $id")[0];
 ?>

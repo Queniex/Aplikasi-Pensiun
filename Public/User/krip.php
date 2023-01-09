@@ -13,9 +13,8 @@
   require_once('../Functions/function-krip.php');
 
   $id = $_SESSION['id_user']; //harus diganti pake id_user
-  $data = query("SELECT np, nama, nip, tempat_lahir, tanggal_lahir, agama, jenis_kelamin, alamat, no_telp, email, status_keluarga, instansi, tgl_pegawai, data_diri.golongan, dana.total_dana, jabatan, usia_pensiun, iuran_perbulan, status_berkas FROM data_diri JOIN dana ON data_diri.golongan = dana.golongan WHERE data_diri.np = $id AND status_berkas = 'approve'");
+  $data = query("SELECT np, nama, nip, tempat_lahir, tanggal_lahir, agama, jenis_kelamin, alamat, no_telp, email, status_keluarga, instansi, tgl_pegawai, data_diri.golongan, dana.total_dana, jabatan, usia_pensiun, iuran_perbulan, status_berkas FROM data_diri JOIN dana ON data_diri.golongan = dana.golongan WHERE data_diri.id_user = $id AND status_berkas = 'approve'");
 
-  require '../Functions/function-cekakun.php';
   $id = $_SESSION['id_user']; 
   $data_foto = query("SELECT * FROM user WHERE id_user  = $id")[0];
 ?>
@@ -82,25 +81,25 @@
   <body class="bg-gray-100 font-family-inter flex">
     <aside class="relative bg-[#152A38] h-screen w-64 hidden sm:block shadow-xl">
       <div class="p-6 bg-[#0A161E]">
-        <a href="index.php?id=<?= $_SESSION['id_user'] ?>" class="text-white text-3xl font-semibold uppercase hover:text-gray-300">User</a>
+        <a href="index.php?id=<?= $_SESSION['id_user'] ?>&role=<?= $_SESSION['role'] ?>" class="text-white text-3xl font-semibold uppercase hover:text-gray-300">User</a>
         <button class="w-full bg-white cta-btn font-semibold py-2 mt-5 rounded-br-lg rounded-bl-lg rounded-tr-lg shadow-lg hover:shadow-xl hover:bg-gray-300 flex items-center justify-center">
           <i class="fas fa-plus mr-3"></i> New Report
         </button>
       </div>
       <nav class="text-white text-base font-semibold pt-0">
-        <a href="index.php?id=<?= $_SESSION['id_user'] ?>" class="flex items-center text-white py-4 pl-6 nav-item">
+        <a href="index.php?id=<?= $_SESSION['id_user'] ?>&role=<?= $_SESSION['role'] ?>" class="flex items-center text-white py-4 pl-6 nav-item">
           <i class="fas fa-tachometer-alt mr-3"></i>
           Dashboard
         </a>
-        <a href="daftar.php?id=<?= $_SESSION['id_user'] ?>" class="flex items-center text-white opacity-75 hover:opacity-100 py-4 pl-6 nav-item">
+        <a href="daftar.php?id=<?= $_SESSION['id_user'] ?>&role=<?= $_SESSION['role'] ?>" class="flex items-center text-white opacity-75 hover:opacity-100 py-4 pl-6 nav-item">
           <i class="fas fa-sticky-note mr-3"></i>
           Daftar Berkas
         </a>
-        <a href="krip.php?id=<?= $_SESSION['id_user'] ?>" class="flex items-center active-nav-link text-white opacity-75 hover:opacity-100 py-4 pl-6 nav-item">
+        <a href="krip.php?id=<?= $_SESSION['id_user'] ?>&role=<?= $_SESSION['role'] ?>" class="flex items-center active-nav-link text-white opacity-75 hover:opacity-100 py-4 pl-6 nav-item">
           <i class="fas fa-book-reader mr-3"></i>
           KRIP
         </a>
-        <a href="saldo.php?id=<?= $_SESSION['id_user'] ?>" class="flex items-center text-white opacity-75 hover:opacity-100 py-4 pl-6 nav-item">
+        <a href="saldo.php?id=<?= $_SESSION['id_user'] ?>&role=<?= $_SESSION['role'] ?>" class="flex items-center text-white opacity-75 hover:opacity-100 py-4 pl-6 nav-item">
           <i class="fas fa-money-bill mr-3"></i>
           Cek Saldo
         </a>
@@ -125,7 +124,7 @@
           </button>
           <button x-show="isOpen" @click="isOpen = false" class="h-full w-full fixed inset-0 cursor-default"></button>
           <div x-show="isOpen" class="absolute w-32 bg-white rounded-lg shadow-lg py-2 mt-16">
-            <a href="cekakun.php?id=<?= $_SESSION['id_user'] ?>" class="block px-4 py-2 account-link hover:text-white">Account</a>
+            <a href="cekakun.php?id=<?= $_SESSION['id_user'] ?>&role=<?= $_SESSION['role'] ?>" class="block px-4 py-2 account-link hover:text-white">Account</a>
           </div>
         </div>
       </header>
@@ -133,7 +132,7 @@
       <!-- Mobile Header & Nav -->
       <header x-data="{ isOpen: false }" class="bg-[#152A38] w-full bg-sidebar py-5 px-6 sm:hidden">
         <div class="flex items-center justify-between">
-          <a href="index.php?id=<?= $_SESSION['id_user'] ?>" class="text-white text-3xl font-semibold uppercase hover:text-gray-300">User</a>
+          <a href="index.php?id=<?= $_SESSION['id_user'] ?>&role=<?= $_SESSION['role'] ?>" class="text-white text-3xl font-semibold uppercase hover:text-gray-300">User</a>
           <button @click="isOpen = !isOpen" class="text-white text-3xl focus:outline-none">
             <i x-show="!isOpen" class="fas fa-bars"></i>
             <i x-show="isOpen" class="fas fa-times"></i>
@@ -142,19 +141,19 @@
 
         <!-- Dropdown Nav -->
         <nav :class="isOpen ? 'flex': 'hidden'" class="flex flex-col pt-4">
-          <a href="index.php?id=<?= $_SESSION['id_user'] ?>" class="flex items-center text-white py-2 pl-4 nav-item">
+          <a href="index.php?id=<?= $_SESSION['id_user'] ?>&role=<?= $_SESSION['role'] ?>" class="flex items-center text-white py-2 pl-4 nav-item">
             <i class="fas fa-tachometer-alt mr-3"></i>
             Dashboard
           </a>
-          <a href="daftar.php?id=<?= $_SESSION['id_user'] ?>" class="flex items-center text-white opacity-75 hover:opacity-100 py-2 pl-4 nav-item">
+          <a href="daftar.php?id=<?= $_SESSION['id_user'] ?>&role=<?= $_SESSION['role'] ?>" class="flex items-center text-white opacity-75 hover:opacity-100 py-2 pl-4 nav-item">
             <i class="fas fa-sticky-note mr-3"></i>
             Daftar Berkas
           </a>
-          <a href="krip.php?id=<?= $_SESSION['id_user'] ?>" class="flex items-center active-nav-link text-white opacity-75 hover:opacity-100 py-2 pl-4 nav-item">
+          <a href="krip.php?id=<?= $_SESSION['id_user'] ?>&role=<?= $_SESSION['role'] ?>" class="flex items-center active-nav-link text-white opacity-75 hover:opacity-100 py-2 pl-4 nav-item">
             <i class="fas fa-book-reader mr-3"></i>
             KRIP
           </a>
-          <a href="saldo.php?id=<?= $_SESSION['id_user'] ?>" class="flex items-center text-white opacity-75 hover:opacity-100 py-2 pl-4 nav-item">
+          <a href="saldo.php?id=<?= $_SESSION['id_user'] ?>&role=<?= $_SESSION['role'] ?>" class="flex items-center text-white opacity-75 hover:opacity-100 py-2 pl-4 nav-item">
             <i class="fas fa-money-bill mr-3"></i>
             Cek Saldo
           </a>
@@ -226,7 +225,6 @@
             </div>
             <div class="relative h-10 mt-7 flex items-center gap-4">
             <h1 class="font-bold text-sm">Kartu ini harus dicetak untuk melakukan pencairan dana*</h1>
-            <button type="submit" value="submit" class="right-0 bottom-1 bg-cyan-700 hover:bg-cyan-800 px-4 py-1 text-white rounded">Cetak</button>
           </div>
           <?php endif; ?>
         </main>

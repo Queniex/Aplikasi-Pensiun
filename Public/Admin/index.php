@@ -17,7 +17,6 @@ $berkas_belum = query("SELECT COUNT(status_berkas) AS 'berkas_belum' FROM data_d
 $akun = query("SELECT COUNT(id_user) AS 'akun' FROM user WHERE role = 'Peserta'")[0];
 //var_dump($berkas);
 
-require '../Functions/function-cekakun.php';
 $id = $_SESSION['id_user']; 
 $data_foto = query("SELECT * FROM user WHERE id_user  = $id")[0];
 ?>

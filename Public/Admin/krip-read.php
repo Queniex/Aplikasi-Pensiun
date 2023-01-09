@@ -15,7 +15,6 @@
   $id = $_GET['np'];
   $data = query("SELECT np, nama, nip, tempat_lahir, tanggal_lahir, agama, jenis_kelamin, alamat, no_telp, email, status_keluarga, instansi, tgl_pegawai, data_diri.golongan, dana.total_dana, jabatan, usia_pensiun, iuran_perbulan, status_berkas FROM data_diri JOIN dana ON data_diri.golongan = dana.golongan WHERE data_diri.np = $id")[0];
 
-  require '../Functions/function-cekakun.php';
   $id = $_SESSION['id_user']; 
   $data_foto = query("SELECT * FROM user WHERE id_user  = $id")[0];
 ?>

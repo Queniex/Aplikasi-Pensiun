@@ -28,7 +28,6 @@ if ( isset($_POST["submit"]) ){
   debug_to_console("Test");
   }
 
-  require '../Functions/function-cekakun.php';
   $id = $_SESSION['id_user']; 
   $data_foto = query("SELECT * FROM user WHERE id_user  = $id")[0];
 }

@@ -34,7 +34,6 @@ if (isset($_POST['search'])) {
   $data = query("SELECT * FROM data_diri WHERE status_berkas = 'approve' LIMIT $posisi,$batas");
 }
 
-require '../Functions/function-cekakun.php';
 $id = $_SESSION['id_user']; 
 $data_foto = query("SELECT * FROM user WHERE id_user  = $id")[0];
 ?>

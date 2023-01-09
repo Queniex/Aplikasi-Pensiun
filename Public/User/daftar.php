@@ -35,6 +35,7 @@ if (isset($_POST['submit']) ){
 
 $id = $_SESSION['id_user']; 
 $data = query("SELECT * FROM data_diri WHERE id_user = $id AND status_berkas = 'checked'");
+$datax = query("SELECT * FROM data_diri WHERE id_user = $id AND status_berkas = 'approve'");
 $datas = query("SELECT * FROM data_diri WHERE id_user = $id AND status_berkas = 'refuse'");
   if(isset($_POST['coba'])){
     $query = "UPDATE data_diri SET status_berkas = 'try' WHERE id_user = $id";
@@ -53,7 +54,6 @@ $datas = query("SELECT * FROM data_diri WHERE id_user = $id AND status_berkas = 
         "; 
       }
     }
-    require '../Functions/function-cekakun.php';
     $data_foto = query("SELECT * FROM user WHERE id_user  = $id")[0];
 ?>
 
@@ -111,7 +111,7 @@ $datas = query("SELECT * FROM data_diri WHERE id_user = $id AND status_berkas = 
 
     <aside class="relative bg-[#152A38] h-screen w-64 hidden sm:block shadow-xl">
         <div class="p-6 bg-[#0A161E]">
-            <a href="index.php?id=<?= $_SESSION['id_user'] ?>" class="text-white text-3xl font-semibold uppercase hover:text-gray-300">User</a>
+            <a href="index.php?id=<?= $_SESSION['id_user'] ?>&role=<?= $_SESSION['role'] ?>" class="text-white text-3xl font-semibold uppercase hover:text-gray-300">User</a>
             <button class="w-full bg-white cta-btn font-semibold py-2 mt-5 rounded-br-lg rounded-bl-lg rounded-tr-lg shadow-lg hover:shadow-xl hover:bg-gray-300 flex items-center justify-center">
                 <i class="fas fa-plus mr-3"></i> New Report
             </button>
@@ -198,7 +198,7 @@ $datas = query("SELECT * FROM data_diri WHERE id_user = $id AND status_berkas = 
             <main class="w-full flex-grow p-6">
 
                 <!-- Sudah Pernah Daftar Berkas -->
-                <?php if($data > [0] && $datas < [0]): ?>
+                <?php if($data > [0]): ?>
                       <div class="flex justify-center">
                         <div class="flex-col mt-24">
                           <center>
@@ -212,7 +212,7 @@ $datas = query("SELECT * FROM data_diri WHERE id_user = $id AND status_berkas = 
                 </div> 
                 <!-- End Daftar Berkas -->
 
-                <?php elseif($data < [0] && $datas <[0]): ?>
+                <?php elseif($data < [0] && $datas < [0] && $datax < [0]): ?>
                 <h1 class="text-3xl text-black ml-6">Klaim Dana Pensiun</h1>
                 <h3 class="pb-3 ml-6">Lengkapi form berikut untuk melakukan pengajuan permintaan klaim dana pensiun</h3>
 
@@ -476,6 +476,20 @@ $datas = query("SELECT * FROM data_diri WHERE id_user = $id AND status_berkas = 
 
                   <button name="submit" type="submit" class="btn btn-outline bg-[#152A38] mx-2">Kirim</button>
                 </form>
+
+                <!-- Berhasil DiApprove -->
+                <?php elseif($datax > [0]): ?>
+                  <div class="flex justify-center">
+                    <div class="flex-col mt-24">
+                      <center>
+                        <img src="../../dist/images/checked.png" width="100" height="100" alt="">
+                        <h1 class="text-black text-3xl font-bold">Request Berhasil!</h1>
+                        <p>Pendaftaran anda sudah diterima, silahkan unduh KRIP.</p>
+                        <a href="index.php" class="bg-[#152A38] text-white pl-3 pr-3 rounded-2xl mt-6 hover:bg-slate-400 hover:text-black">Kembali Ke Dashboard</a>
+                      </center>
+                    </div>
+                  </div> 
+                <!-- End Berhasil DiApprove -->
 
                 <!-- Gagal Pendaftaran Berkas -->
                 <?php elseif($datas > [0]):  ?>

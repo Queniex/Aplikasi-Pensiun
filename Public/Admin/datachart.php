@@ -2,6 +2,18 @@
 
 require '../Functions/function-datachart.php';
 
+
+// pagination configuration
+$totalDataPage = 5;
+$totalData = count(query("SELECT nama, golongan, status_berkas FROM data_diri "));
+$totalPage = ceil($totalData / $totalDataPage);
+$activePage = (isset($_GET["page"])) ? $_GET["page"] : 1;
+$data = ($totalDataPage * $activePage) - $totalDataPage;
+$datas = query("SELECT nama, golongan, status_berkas FROM data_diri LIMIT $data, $totalDataPage ");
+
+if (isset($_POST["cari"])) {
+    $datas = find($_POST["keyword"]);
+}
 ?>
 
 <!DOCTYPE html>
@@ -10,7 +22,7 @@ require '../Functions/function-datachart.php';
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tailwind Admin Template</title>
+    <title>Data Chart</title>
     <meta name="author" content="David Grzyb">
     <meta name="description" content="">
 
@@ -91,10 +103,17 @@ require '../Functions/function-datachart.php';
     <div class="w-full flex flex-col h-screen overflow-y-hidden">
         <!-- Desktop Header -->
         <header class="w-full items-center bg-white py-2 px-6 hidden sm:flex">
-            <div class="w-1/2"></div>
+            <div class="w-1/2">
+                <form method="post" class="flex gap-2">
+                    <input type="search" id="default-search" name="keyword" autofocus autocomplete="off" placeholder="Cari Data.." class="rounded-lg bg-slate-100 block px-3 py-1 w-96 outline-none">
+                    <button type="submit" name="cari">
+                        <img src="../../dist/images/search.png" alt="cari" width="30px">
+                    </button>
+                </form>
+            </div>
             <div x-data="{ isOpen: false }" class="relative w-1/2 flex justify-end">
                 <button @click="isOpen = !isOpen" class="realtive z-10 w-12 h-12 rounded-full overflow-hidden border-4 border-gray-400 hover:border-gray-300 focus:border-gray-300 focus:outline-none">
-                    <img src="../../dist/images/Profile.png">
+                    <img src="../../dist/images/Profile.png" />
                 </button>
                 <button x-show="isOpen" @click="isOpen = false" class="h-full w-full fixed inset-0 cursor-default"></button>
                 <div x-show="isOpen" class="absolute w-32 bg-white rounded-lg shadow-lg py-2 mt-16">

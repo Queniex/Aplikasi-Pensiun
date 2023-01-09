@@ -160,6 +160,63 @@ $data = query("SELECT data_diri.nama AS 'nama', data_diri.golongan AS 'golongan'
                     </form>
                 </div>
         </div><br>
+
+        <form class="p-20 bg-white rounded shadow-xl container">
+            <div class="container">
+                <div class="row row-cols-2 row-cols-lg-5 g-2 g-lg-3">
+
+                    <div class="col">
+                        <div class="p-5 btn btn-light bg-subtle border border-primary-subtle rounded-3 " data-bs-toggle="modal" data-bs-target="#modal1">
+                            <img src="https://www.svgrepo.com/show/345389/file-document-data-health-result-archive-folder.svg" alt="Jaminan Hari Tua">
+                            <br><br><i class="icon-tab icon-program-1">Jaminan Hari Tua</i>
+                        </div>
+                        <!-- Modal -->
+                        <div class="modal fade" id="modal1" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h1 class="modal-title fs-5" id="exampleModalLabel">Kriteria Pengajuan Klaim</h1>
+                                    </div>
+                                    <div class="modal-body">
+                                        <div class="row">
+                                            <div class="col-sm-1">
+                                                a. <br />
+                                                b. <br />
+                                                c. <br />
+                                                d. <br />
+                                                e. <br />
+                                                f. <br />
+                                                g. <br />
+                                                h. <br />
+                                                i. <br />
+                                                j. <br />
+                                                k.
+                                            </div>
+                                            <div class="col-sm-7">
+                                                Usia Pensiun 56 Tahun <br />
+                                                Usia Pensiun Perjanjian <br />
+                                                Perjanjian Kerja Waktu Tertentu <br />
+                                                Berhenti usaha <br />
+                                                Mengundurkan diri <br />
+                                                Pemutusan Hubungan Kerja <br />
+                                                Meninggalkan Indonesia selamanya <br />
+                                                Cacat total tetap <br />
+                                                Meninggal dunia <br />
+                                                Klaim (JHT) 10% <br />
+                                                Klaim (JHT) 30% <br />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Close</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
     </div>
     </main><br>
 

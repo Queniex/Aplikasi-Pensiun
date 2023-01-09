@@ -5,12 +5,13 @@ $error = '';
 $validate = '';
 //mengecek apakah sesssion username tersedia atau tidak jika tersedia maka akan diredirect ke halaman index
 if( isset($_SESSION['username']) ) {
-  if ($_SESSION['role'] == 'Admin') {
-    header('Location: ../Admin/index.html');
-  }else {
-    header('Location: ../User/index.html');
+    if ($_SESSION['role'] == 'Admin') {
+      header('Location: ../Admin/index.php');
+      var_dump($sql);
+    }else {
+      header('Location: ../User/index.php');
+    }
   }
-} 
 //mengecek apakah form disubmit atau tidak
 if( isset($_POST['submit']) ){
          
@@ -18,12 +19,13 @@ if( isset($_POST['submit']) ){
         $username = mysqli_real_escape_string($conn, $username);
         $password = stripslashes($_POST['password']);
         $password = mysqli_real_escape_string($conn, $password);
-        $occupation = htmlspecialchars($_POST['occupation']);
         $captcha = $_POST['kodecaptcha'];
         
         //cek apakah nilai yang diinputkan pada form ada yang kosong atau tidak
-        if(!empty(trim($username)) && !empty(trim($password)) && !empty(trim($occupation))){
-            //select data berdasarkan username dari database
+        if(!empty(trim($username)) && !empty(trim($password))){
+            $occupation = htmlspecialchars($_POST['occupation']);
+            if(!empty(trim($password))){
+              //select data berdasarkan username dari database
             $query      = "SELECT * FROM user WHERE username = '$username'";
             $result     = mysqli_query($conn, $query);
             $rows       = mysqli_num_rows($result);
@@ -34,28 +36,31 @@ if( isset($_POST['submit']) ){
                     if ($_SESSION['code'] != $captcha) {
                         $error = 'Kode Captcha Salah!';
                     } else { // jika captcha benar, maka perintah yang bawah akan dijalankan
-                        $_SESSION['username'] = $username;
+                        require_once('../Functions/function-krip.php');
+                        $sql = query("SELECT * FROM user WHERE username = '$username'")[0];
+                        $_SESSION['username'] = $sql['username'];
+                        $_SESSION['id_user'] = $sql['id_user']; 
+                          if($_POST['occupation'] == 'Admin') {
+                            $_SESSION['role'] = 'Admin';
+                            echo
+                            "<script>
+                            alert('Selamat Datang')
+                            document.location.href = '../Admin/index.php'
+                            </script>";
+                          }else{
+                            echo
+                            "<script>
+                            alert('Selamat Datang')
+                            document.location.href = '../User/index.php'
+                            </script>";
+                           
+                          }
 
-                        if($_POST['occupation'] == 'Admin') {
-                          echo
-                          "<script>
-                          alert('Selamat Datang')
-                          document.location.href = '../Admin/index.html'
-                          </script>";
-                        }else{
-                          echo
-                          "<script>
-                          alert('Selamat Datang')
-                          document.location.href = '../User/index.html'
-                          </script>";
-                        }
-                        
                         // header('Location: index.php');
                     }
-                
                     // header('Location: index.php');
-                }
-                             
+                } 
+            }          
             //jika gagal maka akan menampilkan pesan error
             } else {
                 $error =  'Username atau Password Salah!';
@@ -112,28 +117,25 @@ if( isset($_POST['submit']) ){
         .active-nav-link { background: #1947ee; }
         .nav-item:hover { background: #1947ee; }
         .account-link:hover { background: #3d68ff; }
-        /* *{
-          border: 1px red solid;
-        } */
     </style>
 </head>
 <body>
-  <header>
+  <header clas>
     <div class="py-8 bg-tema">
       <div class="flex text-white relative"> 
-        <h1 class="font-family-inter font-semibold text-2xl pl-24">Dana Pensiun PT Asep Makmur</h1>
+        <h1 class="font-family-inter font-semibold text-2xl pl-24">Dana Pensiun PT Makmur</h1>
         <a href="register.php" class="absolute right-12"><button class="bg-yellow-600 px-5 py-2 rounded-full text-slate-800 font-semibold font-family-inter block mx-auto hover:text-slate-900 hover:bg-yellow-500 active:bg-yellow-600 focus:ring focus:ring-sky-900">Register</button></a>
       </div>
     </div>
   </header>
-  <div class="flex h-screen items-center">
-    <div class="w-[60%] px-32 bg-tema-abu h-screen">
-      
-      <form action="login.php" class="relative mt-20" method="POST">
-        <p class="font-family-inter font-bold text-2xl mb-4 text-center text-slate-600">Sign In</p>
+  <div class="lg:flex h-screen items-center bg-tema-abu">
+    <div class="lg:w-[60%] md:w-[100%] sm:w-[100%] px-32 h-screen">
+      <div class="h-32 w-full lg:hidden"></div>
+      <form action="login.php" class="relative lg:mt-20" method="POST">
+        <p class="font-family-inter font-bold text-2xl mb-4 text-center text-slate-600 lg:mt-0">Sign In</p>
         <?php if($error != ''){ ?>
-                        <div><?= $error; ?></div>
-                    <?php } ?>
+          <div class="text-pink-700 font-semibold"><?= $error; ?></div>
+        <?php } ?>
         <label for="username">
           <span class="block font-semibold mt-4 text-slate-700 border-0">Username</span>
           <input type="text" name="username" id="username" placeholder="Username" class="px-3 py-2 border shadow rounded w-full block text-sm placeholder:text-slate-400 focus:outline-none focus:ring-1 focus:ring-sky-500 focus:border-sky-500 invalid:text-pink-700 invalid:focus:ring-pink-700 invalid:focus:border-pink-700 peer"/>
@@ -163,9 +165,9 @@ if( isset($_POST['submit']) ){
       </form>
     </div>
 
-    <div class="flex w-[40%] items-center h-screen">
-        <div class="mx-auto">
-          <img src="../../dist/images/logo_pensiun1.jpg">
+    <div class="lg:flex lg:w-[40%] lg:visible hidden lg:items-center lg:h-[100%]">
+        <div class="mx-auto mr-16">
+          <img class="rounded-3xl" src="../../dist/images/logo_pensiun1.jpg">
         </div>
         <p></p>
     </div>

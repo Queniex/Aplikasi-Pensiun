@@ -13,6 +13,7 @@ function query($query) {
 
 function add($data) {
     global $conn;
+    $id = $data["id_user"];
     $nama = htmlspecialchars($data["nama"]);
     $nip = htmlspecialchars($data["nip"]);
     $tempat_lahir = htmlspecialchars($data["tempat_lahir"]);
@@ -29,11 +30,11 @@ function add($data) {
     $jabatan = htmlspecialchars($data["jabatan"]);
     $usia_pensiun = htmlspecialchars($data["usia_pensiun"]);
     $iuran_perbulan = htmlspecialchars($data["iuran_perbulan"]);
-    $status_berkas = "Checked";
+    $status_berkas = "checked";
     
     $query = "INSERT INTO data_diri
                 VALUES
-               ('', '$nama', '$nip', '$tempat_lahir', '$tanggal_lahir', '$agama', '$jenis_kelamin', '$alamat', '$no_telp', '$email', '$status_keluarga', '$instansi', '$tgl_pegawai', '$golongan', '$jabatan', '$usia_pensiun', '$iuran_perbulan', '$status_berkas')"; 
+               ('', '$id', '$nama', '$nip', '$tempat_lahir', '$tanggal_lahir', '$agama', '$jenis_kelamin', '$alamat', '$no_telp', '$email', '$status_keluarga', '$instansi', '$tgl_pegawai', '$golongan', '$jabatan', '$usia_pensiun', '$iuran_perbulan', '$status_berkas')"; 
     mysqli_query($conn, $query);
 
     return mysqli_affected_rows($conn);
@@ -43,6 +44,7 @@ function add2($data) {
     global $conn;
 
     // upload file
+    $id = $data["id_user"];
     $skpl = upload("skpl");
     $skcp = upload("skcp");
     $skcltn = upload("skcltn");
@@ -53,7 +55,7 @@ function add2($data) {
 
     $query = "INSERT INTO pelampiran_file 
                 VALUES
-               ('4', '$skpl', '$skcp', '$skcltn', '$skpi')"; 
+               ('$id', '$skpl', '$skcp', '$skcltn', '$skpi')"; 
     mysqli_query($conn, $query);
 
     return mysqli_affected_rows($conn);
@@ -122,6 +124,7 @@ function edit($data) {
     global $conn;
 
     $np = $data["np"];
+    $id = $data["id_user"];
     $nama = htmlspecialchars($data["nama"]);
     $nip = htmlspecialchars($data["nip"]);
     $tempat_lahir = htmlspecialchars($data["tempat_lahir"]);
@@ -158,7 +161,7 @@ function edit($data) {
                usia_pensiun = '$usia_pensiun',
                iuran_perbulan = '$iuran_perbulan',
                status_berkas = '$status_berkas'
-               WHERE np = $np"; 
+               WHERE np = '$np'"; 
 
     mysqli_query($conn, $query);
     return mysqli_affected_rows($conn);
@@ -167,47 +170,47 @@ function edit($data) {
 function edit2($data) {
     global $conn;
 
-    $np = $data["np"];
+    $nf = $data["nf"];
     $oldskpl = htmlspecialchars($data["skpl2"]);
     $oldskcp = htmlspecialchars($data["skcp2"]);
     $oldskcltn = htmlspecialchars($data["skcltn2"]);
     $oldskpi = htmlspecialchars($data["skpi2"]);
 
     // check if user choosing a new picture
-    if($data["skpl"] == '') {
+    if($_FILES['skpl']['error'] === 4) {
         $skpl = $oldskpl;
     } else{
         $skpl = upload("skpl");
     }
 
-    if($data["skcp"] == '') {
+    if($_FILES['skcp']['error'] === 4) {
         $skcp = $oldskcp;
     } else{
         $skcp = upload("skcp");
     }
 
-    if($data["skcltn"] == '') {
+    if($_FILES['skcltn']['error'] === 4) {
         $skcltn = $oldskcltn; 
     } else{
         $skcltn = upload("skcltn");
     }
 
-    if($data["skpi"] == '') {
+    if($_FILES['skpi']['error'] === 4) {
         $skpi = $oldskpi;       
     } else{
         $skpi = upload("skpi");
     }
 
-    // if( !$skpl && !$skcp && !$skcltn && !$skpi ) {
-    //     return false;
-    // }
+    if( !$skpl && !$skcp && !$skcltn && !$skpi ) {
+        return false;
+    }
     
     $query = "UPDATE pelampiran_file SET
                skpl = '$skpl',
                skcp = '$skcp',
                skcltn = '$skcltn',
                skpi = '$skpi'
-               WHERE np = $np"; 
+               WHERE nf = '$nf'"; 
 
     mysqli_query($conn, $query);
     return mysqli_affected_rows($conn);

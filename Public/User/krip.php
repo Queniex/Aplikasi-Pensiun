@@ -1,8 +1,15 @@
 <?php 
+  session_start();
+  if( !isset($_SESSION['username']) ) {
+    header("Location: ../Login/login.php");
+    exit;
+  }
+  
   require_once('../Functions/function-krip.php');
 
-  $id = 1004; //harus diganti pake id_user
+  $id = $_SESSION['id_user']; //harus diganti pake id_user
   $data = query("SELECT np, nama, nip, tempat_lahir, tanggal_lahir, agama, jenis_kelamin, alamat, no_telp, email, status_keluarga, instansi, tgl_pegawai, data_diri.golongan, dana.total_dana, jabatan, usia_pensiun, iuran_perbulan, status_berkas FROM data_diri JOIN dana ON data_diri.golongan = dana.golongan WHERE data_diri.np = $id AND status_berkas = 'approve'");
+  
 
   // var_dump(query("SELECT np, nama, nip, tempat_lahir, tanggal_lahir, agama, jenis_kelamin, alamat, no_telp, email, status_keluarga, instansi, tgl_pegawai, data_diri.golongan, dana.total_dana, jabatan, usia_pensiun, iuran_perbulan, status_berkas FROM data_diri JOIN dana ON data_diri.golongan = dana.golongan WHERE data_diri.id_user = $id AND status_berkas = 'approved'"));
   // die;
@@ -71,30 +78,30 @@
   <body class="bg-gray-100 font-family-inter flex">
     <aside class="relative bg-[#152A38] h-screen w-64 hidden sm:block shadow-xl">
       <div class="p-6 bg-[#0A161E]">
-        <a href="index.php" class="text-white text-3xl font-semibold uppercase hover:text-gray-300">User</a>
+        <a href="index.php?id=<?= $_SESSION['id_user'] ?>" class="text-white text-3xl font-semibold uppercase hover:text-gray-300">User</a>
         <button class="w-full bg-white cta-btn font-semibold py-2 mt-5 rounded-br-lg rounded-bl-lg rounded-tr-lg shadow-lg hover:shadow-xl hover:bg-gray-300 flex items-center justify-center">
           <i class="fas fa-plus mr-3"></i> New Report
         </button>
       </div>
       <nav class="text-white text-base font-semibold pt-0">
-        <a href="index.php" class="flex items-center text-white py-4 pl-6 nav-item">
+        <a href="index.php?id=<?= $_SESSION['id_user'] ?>" class="flex items-center text-white py-4 pl-6 nav-item">
           <i class="fas fa-tachometer-alt mr-3"></i>
           Dashboard
         </a>
-        <a href="daftar.php" class="flex items-center text-white opacity-75 hover:opacity-100 py-4 pl-6 nav-item">
+        <a href="daftar.php?id=<?= $_SESSION['id_user'] ?>" class="flex items-center text-white opacity-75 hover:opacity-100 py-4 pl-6 nav-item">
           <i class="fas fa-sticky-note mr-3"></i>
           Daftar Berkas
         </a>
-        <a href="krip.php" class="flex items-center active-nav-link text-white opacity-75 hover:opacity-100 py-4 pl-6 nav-item">
+        <a href="krip.php?id=<?= $_SESSION['id_user'] ?>" class="flex items-center active-nav-link text-white opacity-75 hover:opacity-100 py-4 pl-6 nav-item">
           <i class="fas fa-book-reader mr-3"></i>
           KRIP
         </a>
-        <a href="saldo.php" class="flex items-center text-white opacity-75 hover:opacity-100 py-4 pl-6 nav-item">
+        <a href="saldo.php?id=<?= $_SESSION['id_user'] ?>" class="flex items-center text-white opacity-75 hover:opacity-100 py-4 pl-6 nav-item">
           <i class="fas fa-money-bill mr-3"></i>
           Cek Saldo
         </a>
       </nav>
-      <a href="#" class="absolute w-full upgrade-btn bottom-0 active-nav-link text-white flex items-center justify-center py-4">
+      <a href="../Login/logout.php"class="absolute w-full upgrade-btn bottom-0 active-nav-link text-white flex items-center justify-center py-4">
         <i class="fas fa-arrow-alt-circle-left mr-3"></i>
         Log Out
       </a>
@@ -118,7 +125,7 @@
       <!-- Mobile Header & Nav -->
       <header x-data="{ isOpen: false }" class="bg-[#152A38] w-full bg-sidebar py-5 px-6 sm:hidden">
         <div class="flex items-center justify-between">
-          <a href="index.php" class="text-white text-3xl font-semibold uppercase hover:text-gray-300">User</a>
+          <a href="index.php?id=<?= $_SESSION['id_user'] ?>" class="text-white text-3xl font-semibold uppercase hover:text-gray-300">User</a>
           <button @click="isOpen = !isOpen" class="text-white text-3xl focus:outline-none">
             <i x-show="!isOpen" class="fas fa-bars"></i>
             <i x-show="isOpen" class="fas fa-times"></i>
@@ -127,30 +134,28 @@
 
         <!-- Dropdown Nav -->
         <nav :class="isOpen ? 'flex': 'hidden'" class="flex flex-col pt-4">
-          <a href="index.php" class="flex items-center text-white py-2 pl-4 nav-item">
+          <a href="index.php?id=<?= $_SESSION['id_user'] ?>" class="flex items-center text-white py-2 pl-4 nav-item">
             <i class="fas fa-tachometer-alt mr-3"></i>
             Dashboard
           </a>
-          <a href="daftar.php" class="flex items-center text-white opacity-75 hover:opacity-100 py-2 pl-4 nav-item">
+          <a href="daftar.php?id=<?= $_SESSION['id_user'] ?>" class="flex items-center text-white opacity-75 hover:opacity-100 py-2 pl-4 nav-item">
             <i class="fas fa-sticky-note mr-3"></i>
             Daftar Berkas
           </a>
-          <a href="krip.php" class="flex items-center active-nav-link text-white opacity-75 hover:opacity-100 py-2 pl-4 nav-item">
+          <a href="krip.php?id=<?= $_SESSION['id_user'] ?>" class="flex items-center active-nav-link text-white opacity-75 hover:opacity-100 py-2 pl-4 nav-item">
             <i class="fas fa-book-reader mr-3"></i>
             KRIP
           </a>
-          <a href="saldo.php" class="flex items-center text-white opacity-75 hover:opacity-100 py-2 pl-4 nav-item">
+          <a href="saldo.php?id=<?= $_SESSION['id_user'] ?>" class="flex items-center text-white opacity-75 hover:opacity-100 py-2 pl-4 nav-item">
             <i class="fas fa-money-bill mr-3"></i>
             Cek Saldo
           </a>
-          <button class="w-full bg-white cta-btn font-semibold py-2 mt-3 rounded-lg shadow-lg hover:shadow-xl hover:bg-gray-300 flex items-center justify-center">
+          <a href="../Login/logout.php" class="w-full bg-white cta-btn font-semibold py-2 mt-3 rounded-lg shadow-lg hover:shadow-xl hover:bg-gray-300 flex items-center justify-center">
             <i class="fas fa-arrow-alt-circle-left mr-3"></i>
-            Log Out
-          </button>
+              Log Out
+          </a>
         </nav>
       </header>
-
-      <!-- ----------------------------------------------------->
 
       <div class="w-full h-screen overflow-x-hidden border-t flex flex-col">
         <main class="w-full flex-grow p-6">

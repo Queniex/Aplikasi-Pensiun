@@ -1,4 +1,10 @@
 <?php 
+session_start();
+if( !isset($_SESSION['username']) ) {
+  header("Location: ../Login/login.php");
+  exit;
+}
+
 require_once("../Functions/function-krip.php");
 
 $data = query("SELECT * FROM data_diri WHERE status_berkas = 'approve'");
@@ -82,40 +88,40 @@ if (isset($_POST['search'])) {
       }
       /* *{
           border: 1px red solid;
-        } */
+      } */
     </style>
   </head>
   <body class="bg-gray-100 font-family-inter flex">
     <aside class="relative bg-[#152A38] h-screen w-64 hidden sm:block shadow-xl">
       <div class="p-6 bg-[#0A161E]">
-        <a href="index.php" class="text-white text-3xl font-semibold uppercase hover:text-gray-300">Admin</a>
+        <a href="index.php?id=<?= $_SESSION['id_user'] ?>" class="text-white text-3xl font-semibold uppercase hover:text-gray-300">Admin</a>
         <button class="w-full bg-white cta-btn font-semibold py-2 mt-5 rounded-br-lg rounded-bl-lg rounded-tr-lg shadow-lg hover:shadow-xl hover:bg-gray-300 flex items-center justify-center">
           <i class="fas fa-plus mr-3"></i> New Report
         </button>
       </div>
       <nav class="text-white text-base font-semibold pt-0">
-        <a href="index.php" class="flex items-center text-white py-4 pl-6 nav-item">
+        <a href="index.php?id=<?= $_SESSION['id_user'] ?>" class="flex items-center text-white py-4 pl-6 nav-item">
           <i class="fas fa-tachometer-alt mr-3"></i>
           Dashboard
         </a>
-        <a href="datachart.php" class="flex items-center text-white opacity-75 hover:opacity-100 py-4 pl-6 nav-item">
+        <a href="datachart.php?id=<?= $_SESSION['id_user'] ?>" class="flex items-center text-white opacity-75 hover:opacity-100 py-4 pl-6 nav-item">
           <i class="fas fa-chart-bar mr-3"></i>
           Data Chart
         </a>
-        <a href="validasi.php" class="flex items-center text-white opacity-75 hover:opacity-100 py-4 pl-6 nav-item">
+        <a href="validasi.php?id=<?= $_SESSION['id_user'] ?>" class="flex items-center text-white opacity-75 hover:opacity-100 py-4 pl-6 nav-item">
           <i class="fas fa-sticky-note mr-3"></i>
           Validasi Berkas
         </a>
-        <a href="krip.php" class="flex items-center active-nav-link text-white opacity-75 hover:opacity-100 py-4 pl-6 nav-item">
+        <a href="krip.php?id=<?= $_SESSION['id_user'] ?>" class="flex items-center active-nav-link text-white opacity-75 hover:opacity-100 py-4 pl-6 nav-item">
           <i class="fas fa-book-reader mr-3"></i>
           KRIP
         </a>
-        <a href="user.php" class="flex items-center text-white opacity-75 hover:opacity-100 py-4 pl-6 nav-item">
+        <a href="user.php?id=<?= $_SESSION['id_user'] ?>" class="flex items-center text-white opacity-75 hover:opacity-100 py-4 pl-6 nav-item">
           <i class="fas fa-user-cog mr-3"></i>
           Kelola User
         </a>
       </nav>
-      <a href="#" class="absolute w-full upgrade-btn bottom-0 active-nav-link text-white flex items-center justify-center py-4">
+      <a href="../Login/logout.php" class="absolute w-full upgrade-btn bottom-0 active-nav-link text-white flex items-center justify-center py-4">
         <i class="fas fa-arrow-alt-circle-left mr-3"></i>
         Log Out
       </a>
@@ -146,7 +152,7 @@ if (isset($_POST['search'])) {
       <!-- Mobile Header & Nav -->
       <header x-data="{ isOpen: false }" class="bg-[#152A38] w-full bg-sidebar py-5 px-6 sm:hidden">
         <div class="flex items-center justify-between">
-          <a href="index.php" class="text-white text-3xl font-semibold uppercase hover:text-gray-300">Admin</a>
+          <a href="index.php?id=<?= $_SESSION['id_user'] ?>" class="text-white text-3xl font-semibold uppercase hover:text-gray-300">Admin</a>
           <button @click="isOpen = !isOpen" class="text-white text-3xl focus:outline-none">
             <i x-show="!isOpen" class="fas fa-bars"></i>
             <i x-show="isOpen" class="fas fa-times"></i>
@@ -155,47 +161,47 @@ if (isset($_POST['search'])) {
 
         <!-- Dropdown Nav -->
         <nav :class="isOpen ? 'flex': 'hidden'" class="flex flex-col pt-4">
-          <a href="index.php" class="flex items-center text-white py-2 pl-4 nav-item">
+          <a href="index.php?id=<?= $_SESSION['id_user'] ?>" class="flex items-center text-white py-2 pl-4 nav-item">
             <i class="fas fa-tachometer-alt mr-3"></i>
             Dashboard
           </a>
-          <a href="datachart.php" class="flex items-center text-white opacity-75 hover:opacity-100 py-2 pl-4 nav-item">
+          <a href="datachart.php?id=<?= $_SESSION['id_user'] ?>" class="flex items-center text-white opacity-75 hover:opacity-100 py-2 pl-4 nav-item">
             <i class="fas fa-chart-bar mr-3"></i>
             Data Chart
           </a>
-          <a href="validasi.php" class="flex items-center text-white opacity-75 hover:opacity-100 py-2 pl-4 nav-item">
+          <a href="validasi.php?id=<?= $_SESSION['id_user'] ?>" class="flex items-center text-white opacity-75 hover:opacity-100 py-2 pl-4 nav-item">
             <i class="fas fa-sticky-note mr-3"></i>
             Validasi Berkas
           </a>
-          <a href="krip.php" class="flex items-center active-nav-link text-white opacity-75 hover:opacity-100 py-2 pl-4 nav-item">
+          <a href="krip.php?id=<?= $_SESSION['id_user'] ?>" class="flex items-center active-nav-link text-white opacity-75 hover:opacity-100 py-2 pl-4 nav-item">
             <i class="fas fa-book-reader mr-3"></i>
             KRIP
           </a>
-          <a href="user.php" class="flex items-center text-white opacity-75 hover:opacity-100 py-2 pl-4 nav-item">
+          <a href="user.php?id=<?= $_SESSION['id_user'] ?>" class="flex items-center text-white opacity-75 hover:opacity-100 py-2 pl-4 nav-item">
             <i class="fas fa-user-cog mr-3"></i>
             Kelola User
           </a>
-          <button class="w-full bg-white cta-btn font-semibold py-2 mt-3 rounded-lg shadow-lg hover:shadow-xl hover:bg-gray-300 flex items-center justify-center">
+          <a href="../Login/logout.php" class="w-full bg-white cta-btn font-semibold py-2 mt-3 rounded-lg shadow-lg hover:shadow-xl hover:bg-gray-300 flex items-center justify-center">
             <i class="fas fa-arrow-alt-circle-left mr-3"></i>
             Log Out
-          </button>
+          </a>
         </nav>
       </header>
 
       <div class="w-full h-screen overflow-x-hidden border-t flex flex-col">
         <main class="w-full flex-grow p-6 relative">
-          <h1 class="text-xl font-bold text-black underline underline-offset-4">KARIP</h1>
+          <h1 class="text-xl font-bold text-black underline underline-offset-4 mb-5">KARIP</h1>
 
           <?php if($data < [0]) : ?>
             <h1 class="italic text-3xl mt-5 text-red-700 text-center">Unknown data Available</h1>
           <?php else : ?>
             <?php foreach ($data as $row) : ?>
-            <div class="w-full h-16 rounded bg-slate-300 mt-5 p-3 pl-5 relative">
-              <div class="absolute">
-                <h2 class="font-bold capitalize"><?= $row['nama'] ?></h2>
-                <p><?= $row['np'] ?></p>
+            <div class="w-full h-20 rounded bg-[#152A38] hover:bg-[#22466d] mt-2 p-3 pl-5 relative">
+              <div class="absolute mt-1">
+                <h2 class="capitalize text-white">Nama : <?= $row['nama'] ?></h2>
+                <p class="text-white">Nomor Pensiun : <?= $row['np'] ?></p>
               </div>
-              <div class="absolute right-0 flex gap-3 mr-10">
+              <div class="absolute right-0 mt-1 flex gap-3 mr-10">
                 <a href="krip-read.php?np=<?= $row['np'] ?>" class="bg-blue-500 p-1 rounded hover:bg-blue-700">
                   <img src="../../dist/images/icon-read.png" alt="read" />
                 </a>
@@ -214,9 +220,9 @@ if (isset($_POST['search'])) {
             <ul class="text-center absolute bottom-2 right-1/2">
               <?php for($i = 1; $i <= $banyaknyahalaman; $i++): ?>
                 <?php if($i == $halaman): ?>
-                  <li class="inline-block"><a href="?halaman=<?= $i ?>" class="bg-cyan-800 p-2 text-white rounded"><?= $i ?></a></li>
+                  <li class="inline-block"><a href="?halaman=<?= $i ?>" class="bg-[#152A38] hover:bg-[#22466d] p-2 text-white rounded"><?= $i ?></a></li>
                 <?php else: ?>
-                  <li class="inline-block"><a href="?halaman=<?= $i ?>" class="border border-cyan-800 p-2 text-cyan-800 rounded"><?= $i ?></a></li>
+                  <li class="inline-block"><a href="?halaman=<?= $i ?>" class="border bg-[#152A38] hover:bg-[#22466d] p-2 text-white rounded"><?= $i ?></a></li>
                 <?php endif; ?>
               <?php endfor; ?>
             </ul>

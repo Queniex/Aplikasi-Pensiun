@@ -1,3 +1,12 @@
+<?php
+session_start();
+if( !isset($_SESSION['username']) ) {
+  header("Location: ../Login/login.php");
+  exit;
+}
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -52,30 +61,30 @@
 
     <aside class="relative bg-[#152A38] h-screen w-64 hidden sm:block shadow-xl">
         <div class="p-6 bg-[#0A161E]">
-            <a href="index.php" class="text-white text-3xl font-semibold uppercase hover:text-gray-300">User</a>
+            <a href="index.php?id=<?= $_SESSION['id_user'] ?>" class="text-white text-3xl font-semibold uppercase hover:text-gray-300">User</a>
             <button class="w-full bg-white cta-btn font-semibold py-2 mt-5 rounded-br-lg rounded-bl-lg rounded-tr-lg shadow-lg hover:shadow-xl hover:bg-gray-300 flex items-center justify-center">
                 <i class="fas fa-plus mr-3"></i> New Report
             </button>
         </div>
         <nav class="text-white text-base font-semibold pt-0">
-            <a href="index.php" class="flex items-center active-nav-link text-white py-4 pl-6 nav-item">
+            <a href="index.php?id=<?= $_SESSION['id_user'] ?>" class="flex items-center active-nav-link text-white py-4 pl-6 nav-item">
                 <i class="fas fa-tachometer-alt mr-3"></i>
                 Dashboard
             </a>
-            <a href="daftar.php" class="flex items-center text-white opacity-75 hover:opacity-100 py-4 pl-6 nav-item">
+            <a href="daftar.php?id=<?= $_SESSION['id_user'] ?>" class="flex items-center text-white opacity-75 hover:opacity-100 py-4 pl-6 nav-item">
                 <i class="fas fa-sticky-note mr-3"></i>
                 Daftar Berkas
             </a>
-            <a href="krip.php" class="flex items-center text-white opacity-75 hover:opacity-100 py-4 pl-6 nav-item">
+            <a href="krip.php?id=<?= $_SESSION['id_user'] ?>" class="flex items-center text-white opacity-75 hover:opacity-100 py-4 pl-6 nav-item">
               <i class="fas fa-book-reader mr-3"></i>
               KRIP
             </a>
-            <a href="saldo.php" class="flex items-center text-white opacity-75 hover:opacity-100 py-4 pl-6 nav-item">
+            <a href="saldo.php?id=<?= $_SESSION['id_user'] ?>" class="flex items-center text-white opacity-75 hover:opacity-100 py-4 pl-6 nav-item">
               <i class="fas fa-money-bill mr-3"></i>
               Cek Saldo
             </a>
         </nav>
-        <a href="#" class="absolute w-full upgrade-btn bottom-0 active-nav-link text-white flex items-center justify-center py-4">
+        <a href="../Login/logout.php"class="absolute w-full upgrade-btn bottom-0 active-nav-link text-white flex items-center justify-center py-4">
             <i class="fas fa-arrow-alt-circle-left mr-3"></i>
             Log Out
         </a>
@@ -99,7 +108,7 @@
         <!-- Mobile Header & Nav -->
         <header x-data="{ isOpen: false }" class="bg-[#152A38] w-full bg-sidebar py-5 px-6 sm:hidden">
             <div class="flex items-center justify-between">
-                <a href="index.php" class="text-white text-3xl font-semibold uppercase hover:text-gray-300">User</a>
+                <a href="index.php?id=<?= $_SESSION['id_user'] ?>" class="text-white text-3xl font-semibold uppercase hover:text-gray-300">User</a>
                 <button @click="isOpen = !isOpen" class="text-white text-3xl focus:outline-none">
                     <i x-show="!isOpen" class="fas fa-bars"></i>
                     <i x-show="isOpen" class="fas fa-times"></i>
@@ -108,34 +117,34 @@
 
             <!-- Dropdown Nav -->
             <nav :class="isOpen ? 'flex': 'hidden'" class="flex flex-col pt-4">
-                <a href="index.php" class="flex items-center active-nav-link text-white py-2 pl-4 nav-item">
+                <a href="index.php?id=<?= $_SESSION['id_user'] ?>" class="flex items-center active-nav-link text-white py-2 pl-4 nav-item">
                   <i class="fas fa-tachometer-alt mr-3"></i>
                   Dashboard
                 </a>
-                <a href="daftar.php" class="flex items-center text-white opacity-75 hover:opacity-100 py-2 pl-4 nav-item">
+                <a href="daftar.php?id=<?= $_SESSION['id_user'] ?>" class="flex items-center text-white opacity-75 hover:opacity-100 py-2 pl-4 nav-item">
                   <i class="fas fa-sticky-note mr-3"></i>
                   Daftar Berkas
                 </a>
-                <a href="krip.php" class="flex items-center text-white opacity-75 hover:opacity-100 py-2 pl-4 nav-item">
+                <a href="krip.php?id=<?= $_SESSION['id_user'] ?>" class="flex items-center text-white opacity-75 hover:opacity-100 py-2 pl-4 nav-item">
                   <i class="fas fa-book-reader mr-3"></i>
                   KRIP
                 </a>
-                <a href="saldo.php" class="flex items-center text-white opacity-75 hover:opacity-100 py-2 pl-4 nav-item">
+                <a href="saldo.php?id=<?= $_SESSION['id_user'] ?>" class="flex items-center text-white opacity-75 hover:opacity-100 py-2 pl-4 nav-item">
                     <i class="fas fa-money-bill mr-3"></i>
                     Cek Saldo
                 </a>
-                <button class="w-full bg-white cta-btn font-semibold py-2 mt-3 rounded-lg shadow-lg hover:shadow-xl hover:bg-gray-300 flex items-center justify-center">
+                <a href="../Login/logout.php" class="w-full bg-white cta-btn font-semibold py-2 mt-3 rounded-lg shadow-lg hover:shadow-xl hover:bg-gray-300 flex items-center justify-center">
                   <i class="fas fa-arrow-alt-circle-left mr-3"></i>
                   Log Out
-                </button>
+                </a>
             </nav>
         </header>
     
         <div class="w-full overflow-x-hidden border-t flex flex-col">
             <main class="w-full flex-grow p-6">
-                <h1 class="text-3xl text-black pb-6 underline underline-offset-4">Dashboard</h1>
+                <h1 class="text-3xl text-black pb-4 underline underline-offset-4 font-bold">Dashboard</h1>
     
-                <div class="flex flex-wrap mt-4">
+                <div class="flex flex-wrap mt-2">
                     <div class="w-full lg:w-1/2 pr-0 lg:pr-2">
                         <div id="carouselExampleIndicators" class="carousel slide relative" data-bs-ride="carousel">
                             <div class="carousel-indicators absolute right-0 bottom-0 left-0 flex justify-center p-0 mb-4">
@@ -146,24 +155,24 @@
 
                             <div class="carousel-inner relative w-full overflow-hidden">
                               <div class="carousel-item active float-left w-full">
-                                <img src="https://mdbcdn.b-cdn.net/img/new/slides/041.webp" class="block w-full" alt="Wild Landscape"/>
+                                <img src="../../dist/images/test3.jpg" class="block w-full" alt="Wild Landscape"/>
                               </div>
                               <div class="carousel-item float-left w-full">
-                                <img src="https://mdbcdn.b-cdn.net/img/new/slides/042.webp" class="block w-full" alt="Camera"/>
+                                <img src="../../dist/images/test2.jpg" class="block w-full" alt="Camera"/>
                               </div>
                               <div class="carousel-item float-left w-full">
-                                <img src="https://mdbcdn.b-cdn.net/img/new/slides/043.webp" class="block w-full" alt="Exotic Fruits"/>
+                                <img src="../../dist/images/test5.jpg" class="block w-full" alt="Exotic Fruits"/>
                               </div>
                             </div>
 
                             <button
-                              class="carousel-control-prev absolute top-0 bottom-0 flex items-center justify-center p-0 text-center border-0 hover:outline-none hover:no-underline focus:outline-none focus:no-underline left-0"
+                              class="bg-blue-300 hover:bg-blue-400 carousel-control-prev absolute top-0 bottom-0 flex items-center justify-center p-0 text-center border-0 hover:outline-none hover:no-underline focus:outline-none focus:no-underline left-0"
                               type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
                               <span class="carousel-control-prev-icon inline-block bg-no-repeat" aria-hidden="true"></span>
                               <span class="visually-hidden">Previous</span>
                             </button>
                             <button
-                              class="carousel-control-next absolute top-0 bottom-0 flex items-center justify-center p-0 text-center border-0 hover:outline-none hover:no-underline focus:outline-none focus:no-underline right-0"
+                              class="bg-blue-300 hover:bg-blue-400 carousel-control-next absolute top-0 bottom-0 flex items-center justify-center p-0 text-center border-0 hover:outline-none hover:no-underline focus:outline-none focus:no-underline right-0"
                               type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
                               <span class="carousel-control-next-icon inline-block bg-no-repeat" aria-hidden="true"></span>
                               <span class="visually-hidden">Next</span>
@@ -171,21 +180,58 @@
                         </div>
                     </div>
 
-                    <div class="w-full lg:w-1/2 pr-0 lg:pr-2">
-                        <h3 class="underline underline-offset-4 mt-4">Tentang Kami</h1>
-                        <div class="flex justify-center">
-                            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Provident officiis quod dolore porro, itaque debitis excepturi? Recusandae, perspiciatis minus odit quaerat cum vitae accusantium. Repellendus ad harum obcaecati fugit ab quisquam ratione quas in numquam enim doloremque, exercitationem quae nostrum debitis quibusdam laboriosam, illum placeat nulla, officiis dolorum nemo. Reprehenderit!
+                    <div class="w-full lg:w-1/2 pr-0 lg:pr-2 bg-blue-300">
+                        <h3 class="underline underline-offset-4 mt-6 sm:mb-2 md:mb-2 ml-3 font-medium">Tentang Kami : </h1>
+                        <div class="flex justify-center text-justify ml-3 mr-3">
+                          Dana Pensiun Pemberi Kerja adalah dana Pensiun yang dibentuk oleh orang atau badan yang mempekerjakan karyawan, selaku pendiri, untuk menyelenggarakan Program Pensiun Manfaat Pasti atau Program Pensiun Iuran Pasti, bagi kepentingan sebagian atau seluruh karyawannya sebagai peserta, dan yang menimbulkan kewajiban terhadap Pemberi Kerja.
                         </div>
                     </div>
                 </div>
     
                 <div class="w-full mt-9">
-                    <p class="text-xl pb-3 flex items-center">
-                        <i class="fas fa-list mr-3"></i> Proses Pencairan Dana Pensiun
+                  <div class="pb-3 flex items-center bg-blue-200">
+                    <p class="text-xl mt-2 ml-2 font-medium">
+                      <i class="fas fa-list"></i> Proses Pencairan Dana Pensiun [ Pemberi Kerja ]
                     </p>
+                  </div>
                     <div class="bg-white overflow-auto">
                         <div class="min-w-full">
-                            <div class="bg-blue-300 h-[40vh]"></div>
+                            <div class="h-[30vh]">
+                              <div class="flex flex-row md:flex-wrap gap-4 justify-center">
+                                <div class="h-32 w-32 mt-8">
+                                  <div class="h-4/5 "><center><img src="../../dist/images/berkas.gif" width="100" height="100" alt=""></div></center>
+                                  <div class="h-1/5"><p class="text-center">Daftar Berkas</p></div>
+                                </div>
+
+                                <div class="h-32 w-32 mt-8">
+                                  <img src="../../dist/images/arrow.png" alt="">
+                                </div>
+
+                                <div class="h-32 w-32 mt-8">
+                                  <div class="h-4/5"><center><img src="../../dist/images/validasi.gif" width="100" height="100"  alt=""></div></center>
+                                  <div class="h-1/5"><p class="text-center">Validasi Berkas</p></div>
+                                </div>
+
+                                <div class="h-32 w-32 mt-8">
+                                  <img src="../../dist/images/arrow.png" alt="">
+                                </div>
+
+                                <div class="h-32 w-32 mt-8">
+                                  <div class="h-4/5"><center><img src="../../dist/images/krip.gif" width="100" height="100"  alt=""></div></center>
+                                  <div class="h-1/5"><p class="text-center">Cek KRIP</p></div>
+                                </div>
+
+                                <div class="h-32 w-32 mt-8">
+                                  <img src="../../dist/images/arrow.png" alt="">
+                                </div>
+
+                                <div class="h-32 w-32 mt-8">
+                                  <div class="h-4/5"><center><img src="../../dist/images/cetak.gif" width="100" height="100"  alt=""></div></center>
+                                  <div class="h-1/5"><p class="text-center">Cetak KRIP</p></div>
+                                </div>
+
+                              </div>
+                            </div>
                         </div>
                     </div>
                 </div>

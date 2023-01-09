@@ -1,6 +1,6 @@
 <?php
 require '../Functions/function-cekakun.php';
-$id = 100;
+$id = 2;
 //$_GET["id"];
 $data = query("SELECT * FROM user WHERE id_user  = $id")[0];
 
@@ -17,8 +17,7 @@ if ( isset($_POST["submit"]) ){
   debug_to_console("Test");
   }
 }
-
-
+// var_dump($data['foto'] < 0);
 ?>
 
 <!DOCTYPE html>
@@ -199,10 +198,10 @@ if ( isset($_POST["submit"]) ){
                             <div class="flex flex-col items-center text-center">
                                 <div class="border-2 border-gray-600 rounded-full">
                                   <?php if ($data["foto"] > 0) : ?>
-                                    <img class="rounded-full" width="300px" src="../../dist/images/<?= $data["foto"]; ?>">   
+                                    <img class="rounded-full" width="300px" src="../../dist/<?= $data["foto"]; ?>">   
                                   <?php else : ?>
                                     <img class="rounded-full" width="300px" src="../../dist/images/Profile.png">   
-                                  <?php endif ?>
+                                  <?php endif; ?>
                                 </div>
                                 <div class="my-10 border-2 border-gray-600 rounded-full">
                                     <label for="changephoto" class="cursor-pointer text-black p-10">Change Photo

@@ -1,10 +1,17 @@
 <?php
+session_start();
+if( !isset($_SESSION['username']) ) {
+  header("Location: ../Login/login.php");
+  exit;
+}
+
 require '../Functions/function-daftar.php';
-$id = $_GET["id"];
+$id = $_GET["np"];
+$nf = $_GET["nf"];
 $data = query("SELECT * FROM data_diri WHERE np = $id")[0]; 
-$datas = query("SELECT * FROM pelampiran_file WHERE np = $id")[0];
-//$a = $datas['skpl'];
-//var_dump($a == '');
+$datas = query("SELECT * FROM pelampiran_file WHERE nf = $nf")[0];
+// $a = $datas['skpl'];
+// var_dump($a == '');
 if ( isset($_POST["submit"]) ){
   if( edit($_POST) > 0 ){
     if( edit2($_POST) > 0){
@@ -16,13 +23,13 @@ if ( isset($_POST["submit"]) ){
     }
     else {
       die('invalid Query : ' . mysqli_error($conn));
-      echo mysqli_error($conn);
-      debug_to_console("Test");
+      // echo mysqli_error($conn);
+      //debug_to_console("Test");
     }
   } else {
   die('invalid Query : ' . mysqli_error($conn));
-  echo mysqli_error($conn);
-  debug_to_console("Test");
+  // echo mysqli_error($conn);
+  //debug_to_console("Test123");
   }
 }
 
@@ -83,34 +90,34 @@ if ( isset($_POST["submit"]) ){
 
 <aside class="relative bg-[#152A38] h-screen w-64 hidden sm:block shadow-xl">
         <div class="p-6 bg-[#0A161E]">
-            <a href="index.php" class="text-white text-3xl font-semibold uppercase hover:text-gray-300">Admin</a>
+            <a href="index.php?id=<?= $_SESSION['id_user'] ?>" class="text-white text-3xl font-semibold uppercase hover:text-gray-300">Admin</a>
             <button class="w-full bg-white cta-btn font-semibold py-2 mt-5 rounded-br-lg rounded-bl-lg rounded-tr-lg shadow-lg hover:shadow-xl hover:bg-gray-300 flex items-center justify-center">
                 <i class="fas fa-plus mr-3"></i> New Report
             </button>
         </div>
         <nav class="text-white text-base font-semibold pt-0">
-            <a href="index.php" class="flex items-center text-white py-4 pl-6 nav-item">
+            <a href="index.php?id=<?= $_SESSION['id_user'] ?>" class="flex items-center text-white py-4 pl-6 nav-item">
                 <i class="fas fa-tachometer-alt mr-3"></i>
                 Dashboard
             </a>
-            <a href="datachart.php" class="flex items-center text-white opacity-75 hover:opacity-100 py-4 pl-6 nav-item">
+            <a href="datachart.php?id=<?= $_SESSION['id_user'] ?>" class="flex items-center text-white opacity-75 hover:opacity-100 py-4 pl-6 nav-item">
               <i class="fas fa-chart-bar mr-3"></i>
                 Data Chart
             </a>
-            <a href="validasi.php" class="flex items-center active-nav-link text-white opacity-75 hover:opacity-100 py-4 pl-6 nav-item">
+            <a href="validasi.php?id=<?= $_SESSION['id_user'] ?>" class="flex items-center active-nav-link text-white opacity-75 hover:opacity-100 py-4 pl-6 nav-item">
                 <i class="fas fa-sticky-note mr-3"></i>
                 Validasi Berkas
             </a>
-            <a href="krip.php" class="flex items-center text-white opacity-75 hover:opacity-100 py-4 pl-6 nav-item">
+            <a href="krip.php?id=<?= $_SESSION['id_user'] ?>" class="flex items-center text-white opacity-75 hover:opacity-100 py-4 pl-6 nav-item">
               <i class="fas fa-book-reader mr-3"></i>
               KRIP
             </a>
-            <a href="user.php" class="flex items-center text-white opacity-75 hover:opacity-100 py-4 pl-6 nav-item">
+            <a href="user.php?id=<?= $_SESSION['id_user'] ?>" class="flex items-center text-white opacity-75 hover:opacity-100 py-4 pl-6 nav-item">
                 <i class="fas fa-user-cog mr-3"></i>
                 Kelola User
             </a>
         </nav>
-      <a href="#" class="absolute w-full upgrade-btn bottom-0 active-nav-link text-white flex items-center justify-center py-4">
+      <a href="../Login/logout.php" class="absolute w-full upgrade-btn bottom-0 active-nav-link text-white flex items-center justify-center py-4">
         <i class="fas fa-arrow-alt-circle-left mr-3"></i>
         Log Out
       </a>
@@ -134,7 +141,7 @@ if ( isset($_POST["submit"]) ){
         <!-- Mobile Header & Nav -->
         <header x-data="{ isOpen: false }" class="bg-[#152A38] w-full bg-sidebar py-5 px-6 sm:hidden">
             <div class="flex items-center justify-between">
-                <a href="index.php" class="text-white text-3xl font-semibold uppercase hover:text-gray-300">Admin</a>
+                <a href="index.php?id=<?= $_SESSION['id_user'] ?>" class="text-white text-3xl font-semibold uppercase hover:text-gray-300">Admin</a>
                 <button @click="isOpen = !isOpen" class="text-white text-3xl focus:outline-none">
                     <i x-show="!isOpen" class="fas fa-bars"></i>
                     <i x-show="isOpen" class="fas fa-times"></i>
@@ -143,30 +150,30 @@ if ( isset($_POST["submit"]) ){
 
             <!-- Dropdown Nav -->
             <nav :class="isOpen ? 'flex': 'hidden'" class="flex flex-col pt-4">
-                <a href="index.php" class="flex items-center text-white py-2 pl-4 nav-item">
+                <a href="index.php?id=<?= $_SESSION['id_user'] ?>" class="flex items-center text-white py-2 pl-4 nav-item">
                   <i class="fas fa-tachometer-alt mr-3"></i>
                   Dashboard
                 </a>
-                <a href="validasi.php" class="flex items-center active-nav-link text-white opacity-75 hover:opacity-100 py-2 pl-4 nav-item">
+                <a href="validasi.php?id=<?= $_SESSION['id_user'] ?>" class="flex items-center active-nav-link text-white opacity-75 hover:opacity-100 py-2 pl-4 nav-item">
                   <i class="fas fa-sticky-note mr-3"></i>
                   Validasi Berkas
                 </a>
-                <a href="datachart.php" class="flex items-center text-white opacity-75 hover:opacity-100 py-2 pl-4 nav-item">
+                <a href="datachart.php?id=<?= $_SESSION['id_user'] ?>" class="flex items-center text-white opacity-75 hover:opacity-100 py-2 pl-4 nav-item">
                   <i class="fas fa-chart-bar mr-3"></i>
                     Data Chart
                 </a>
-                <a href="krip.php" class="flex items-center text-white opacity-75 hover:opacity-100 py-2 pl-4 nav-item">
+                <a href="krip.php?id=<?= $_SESSION['id_user'] ?>" class="flex items-center text-white opacity-75 hover:opacity-100 py-2 pl-4 nav-item">
                   <i class="fas fa-book-reader mr-3"></i>
                   KRIP
                 </a>
-                <a href="user.php" class="flex items-center text-white opacity-75 hover:opacity-100 py-2 pl-4 nav-item">
+                <a href="user.php?id=<?= $_SESSION['id_user'] ?>" class="flex items-center text-white opacity-75 hover:opacity-100 py-2 pl-4 nav-item">
                     <i class="fas fa-user-cog mr-3"></i>
                     Kelola User
                 </a>
-                <button class="w-full bg-white cta-btn font-semibold py-2 mt-3 rounded-lg shadow-lg hover:shadow-xl hover:bg-gray-300 flex items-center justify-center">
+                <a href="../Login/logout.php" class="w-full bg-white cta-btn font-semibold py-2 mt-3 rounded-lg shadow-lg hover:shadow-xl hover:bg-gray-300 flex items-center justify-center">
                   <i class="fas fa-arrow-alt-circle-left mr-3"></i>
                   Log Out
-                </button>
+                </a>
             </nav>
         </header>
     
@@ -185,7 +192,13 @@ if ( isset($_POST["submit"]) ){
                       <form method="POST" enctype="multipart/form-data">
                           <div class="form-control w-full">
                           <input type="hidden" name="np" value="<?= $data["np"]; ?>">
-
+                          <input type="hidden" name="nf" value="<?= $data["nf"]; ?>">
+                          <input type="hidden" name="skpl2" value="<?= $datas["skpl"]; ?>">
+                          <input type="hidden" name="skcp2" value="<?= $datas["skcp"]; ?>">
+                          <input type="hidden" name="skcltn2" value="<?= $datas["skcltn"]; ?>">
+                          <input type="hidden" name="skpi2" value="<?= $datas["skpi"]; ?>">
+                          
+                          <input name="id_user" value="<?= $_SESSION['id_user'] ?>" type="hidden" class="input input-bordered w-full" />
                             <label class="label">
                               <span class="label-text">NAMA LENGKAP :</span>
                             </label>
@@ -408,7 +421,6 @@ if ( isset($_POST["submit"]) ){
                                 <span class="label-text">SKPL*</span>
                               </label>
                               <input name="skpl" type="file" class="file-input file-input-bordered w-full" />
-                              <input type="hidden" name="skpl2" value="<?= $datas["skpl"]; ?>">
                             </div>
 
                             <div class="form-control md:w-1/2 px-3">
@@ -416,7 +428,6 @@ if ( isset($_POST["submit"]) ){
                                 <span class="label-text">SKCP*</span>
                               </label>
                               <input name="skcp" type="file" class="file-input file-input-bordered w-full" />
-                              <input type="hidden" name="skcp2" value="<?= $datas["skcp"]; ?>">
                             </div>
                           </div>  
 
@@ -426,7 +437,6 @@ if ( isset($_POST["submit"]) ){
                                 <span class="label-text">SKCLTN*</span>
                               </label>
                               <input name="skcltn" type="file" class="file-input file-input-bordered w-full" />
-                              <input type="hidden" name="skcltn2" value="<?= $datas["skcltn"]; ?>">
                             </div>
 
                             <div class="form-control md:w-1/2 px-3">
@@ -434,7 +444,6 @@ if ( isset($_POST["submit"]) ){
                                 <span class="label-text">SKPI*</span>
                               </label>
                               <input name="skpi" type="file"  class="file-input file-input-bordered w-full" />
-                              <input type="hidden" name="skpi2" value="<?= $datas["skpi"]; ?>">
                             </div>
                           </div>  
                           

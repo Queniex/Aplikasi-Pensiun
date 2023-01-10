@@ -37,19 +37,21 @@ if( isset($_POST['submit']) ){
                         $_SESSION['id_user'] = $sql['id_user']; 
                         if($_POST['occupation'] == 'Admin') {
                           if($_POST['secret'] == 'adminonly'){
+                            $_SESSION['role'] = 'Admin';
                             echo
                             "<script>
                             alert('Selamat Datang')
-                            document.location.href = '../Admin/index.php'
+                            document.location.href = 'login.php'
                             </script>";
                           } else{
                             $error =  'Secret code Salah !!';
                           }
                         }else{
+                          $_SESSION['role'] = 'Peserta';
                           echo
                           "<script>
                           alert('Selamat Datang')
-                          document.location.href = '../User/index.php'
+                          document.location.href = 'login.php'
                           </script>";
                         }
                     //jika gagal maka akan menampilkan pesan error

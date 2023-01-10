@@ -437,14 +437,14 @@ $datas = query("SELECT * FROM data_diri WHERE id_user = $id AND status_berkas = 
                           <div class="flex -mx-3">
                             <div class="form-control md:w-1/2 px-3">
                               <label class="label">
-                                <span class="label-text">SKPL*</span>
+                                <span class="label-text">SKPL* <span class="text-rose-500">Format .pdf</span></span>
                               </label>
                               <input name="skpl" type="file" accept="application/pdf" class="file-input file-input-bordered w-full" />
                             </div>
 
                             <div class="form-control md:w-1/2 px-3">
                               <label class="label">
-                                <span class="label-text">SKCP*</span>
+                                <span class="label-text">SKCP* <span class="text-rose-500">Format .pdf</span></span>
                               </label>
                               <input name="skcp" type="file" accept="application/pdf" class="file-input file-input-bordered w-full" />
                             </div>
@@ -453,14 +453,14 @@ $datas = query("SELECT * FROM data_diri WHERE id_user = $id AND status_berkas = 
                           <div class="flex -mx-3">
                             <div class="form-control md:w-1/2 px-3">
                               <label class="label">
-                                <span class="label-text">SKCLTN*</span>
+                                <span class="label-text">SKCLTN* <span class="text-rose-500">Format .pdf</span></span>
                               </label>
                               <input name="skcltn" type="file" accept="application/pdf" class="file-input file-input-bordered w-full" />
                             </div>
 
                             <div class="form-control md:w-1/2 px-3">
                               <label class="label">
-                                <span class="label-text">SKPI*</span>
+                                <span class="label-text">SKPI* <span class="text-rose-500">Format .pdf</span></span>
                               </label>
                               <input name="skpi" type="file" accept="application/pdf" class="file-input file-input-bordered w-full" />
                             </div>

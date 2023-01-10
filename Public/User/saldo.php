@@ -14,7 +14,7 @@ require '../Functions/function-saldo.php';
 
 $id = $_GET['id']; 
 $data = query("SELECT data_diri.nama AS 'nama', data_diri.golongan AS 'golongan', dana.total_dana AS 'total_dana' FROM data_diri LEFT JOIN dana ON data_diri.golongan = dana.golongan WHERE data_diri.id_user = $id");
-
+$data2 = query("SELECT dana.total_dana AS 'total_dana' FROM data_diri LEFT JOIN dana ON data_diri.golongan = dana.golongan WHERE data_diri.id_user = $id AND data_diri.status_berkas = 'approve'");
 $id = $_GET['id']; 
 $data_foto = query("SELECT * FROM user WHERE id_user  = $id")[0];
 ?>
@@ -163,7 +163,23 @@ $data_foto = query("SELECT * FROM user WHERE id_user  = $id")[0];
             <main class="w-full flex-grow p-6">
                 <div class="flex flex-wrap">
 
-        <form class="p-20 bg-white rounded shadow-xl container">
+                <div class="flex flex-wrap">
+                <form class="p-20 bg-white rounded shadow-xl container">
+                <img src="https://i.postimg.cc/YC973dNv/Cara-1.png" alt="cara klaim saldo">
+                <br><br>
+
+                <p class="fs-5 fw-bold">Qui facilis alias 33 omnis optio. </p>
+                <p class="lh-lg">Lorem ipsum dolor sit amet. Qui quod reprehenderit At quia itaque quo harum doloremque et quibusdam autem non officia dolorem quo consequatur quibusdam aut recusandae rerum. Qui voluptate incidunt ab amet vero non consequuntur consectetur hic explicabo aliquam ut voluptas excepturi ut quos laborum. Hic officiis libero est laborum odio est ipsam nesciunt ut officia explicabo. Aut ratione incidunt qui explicabo voluptas sit vero voluptatibus id explicabo dolor est earum dolor non ducimus fugiat. Est reiciendis omnis cum quas consequatur ut nihil impedit. Id eaque cumque rem commodi atque quo doloremque provident et minus dolore ut maxime fugiat At doloremque corporis et voluptas dolor. Et nihil ipsa ut accusamus consectetur est minima eligendi vel illum consequatur At sequi accusamus. </p><br>
+                <p class="fs-5 fw-bold ">Aut molestias mollitia sed velit incidunt et ratione neque. </p>
+                <p class="lh-lg">Et sint inventore ea expedita maxime eum consectetur inventore aut sunt molestiae non ipsam dolore eum illum omnis ut voluptates libero. Cum molestiae autem quo unde ipsa ut incidunt fugit. Ut facilis nesciunt est totam quos aut perspiciatis harum sed nihil minima ut iste doloremque. Ut minus omnis et quasi quia At voluptatem explicabo eum consectetur ducimus. Quo officia modi et minus delectus et dignissimos saepe id eveniet totam et ipsa animi hic maiores obcaecati aut obcaecati accusamus. Sit eligendi odit ex blanditiis sapiente aut explicabo ullam aut debitis culpa et distinctio velit ut odio quae et veritatis adipisci. Est quos nulla et rerum maxime in similique omnis. </p><br>
+                <p class="fs-5 fw-bold">Et libero rerum eos temporibus aliquid aut quibusdam eaque? </p>
+                <p class="lh-lg">Quo ipsa autem eum deserunt rerum aut modi ipsa. Non aliquam soluta hic consectetur minus est perspiciatis esse quo dignissimos beatae! Hic voluptates quod est aspernatur repudiandae nam reiciendis galisum non rerum quia eum iusto corporis. Est harum unde non iure modi est quas consequatur ut unde sunt ex dolore molestias vel rerum dolorem sed laudantium esse. Qui galisum rerum non quod culpa qui voluptas exercitationem. 33 corporis vitae ut dolore sequi ut consequuntur eveniet vel iste quia est voluptas accusamus ab eius facere. Eos consequatur saepe At sequi galisum qui magni excepturi ex reprehenderit Quis ut nulla voluptatibus 33 voluptatum odio. </p><br>
+                <p class="fs-5 fw-bold">In galisum pariatur est enim labore. </p>
+                <p class="lh-lg">Qui minus nulla in optio quia ut corporis dolore. At quas enim est eveniet maiores ad voluptas quis est autem suscipit qui consequuntur tempore. In expedita officiis ut voluptatem minus sit iusto deserunt et laboriosam aspernatur est velit animi. Aut quos voluptatem est galisum neque in incidunt laboriosam et cumque similique. Sit velit totam est natus enim et laboriosam cupiditate et minus reiciendis sit aperiam dolorem qui quisquam magnam. </p>
+                  </form>
+                </div>        
+
+        <form class="p-20 mt-10 bg-white rounded shadow-xl container">
             <div class="container">
                 <div class="row row-cols-2 row-cols-lg-5 g-3 g-lg-3">
 
@@ -344,18 +360,22 @@ $data_foto = query("SELECT * FROM user WHERE id_user  = $id")[0];
                                     <div class="col-sm-5">
                                         : <?= $data["nama"]; ?> <br />
                                         : <?= $data["golongan"]; ?> <br />
-                                        <?php if ($data["total_dana"] > 0) : ?>
-                                        : Rp. <?= number_format($data["total_dana"]); ?>
+                                        <?php if ($data2 > [0]) : ?>
+                                        <?php foreach ($data2 as $data2) : ?>
+                                            : Rp. <?= number_format($data2["total_dana"]); ?>
+                                        <?php endforeach; ?>
                                         <?php else : ?>
-                                        : Rp. -
-                                        <?php endif ?>
+                                            : Rp. -
+                                        <?php endif; ?>
                                     </div>
-                                <?php endforeach; ?>
                                 </div>
+                            <?php endforeach; ?>
                         </div>
                     </form>
                 </div>
         </div><br>
+
+        
 
         
         </main><br>

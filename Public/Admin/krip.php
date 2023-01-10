@@ -144,7 +144,7 @@ $data_foto = query("SELECT * FROM user WHERE id_user  = $id")[0];
         <header class="w-full items-center bg-white py-2 px-6 hidden sm:flex">
             <div class="w-1/2">
             <form action="" method="post" class="flex gap-2">
-                <input type="text" id="keyword" name="keyword" autofocus autocomplete="off" placeholder="Cari Data.." class="rounded-lg bg-slate-100 block px-3 py-1 w-96 outline-none">
+                <input type="text" id="keyword" name="keyword" autofocus autocomplete="off" placeholder="Cari Data.." class="rounded-lg bg-slate-100 block px-3 py-1 w-96 outline-none" required>
                 <button type="submit" name="search">
                 <img src="../../dist/images/search.png" alt="cari" width="30px">
                 </button>

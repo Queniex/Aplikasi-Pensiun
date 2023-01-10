@@ -19,7 +19,7 @@ if ( isset($_POST["submit"]) ){
   if( edit($_POST) > 0 ){
       echo "
           <script>
-              document.location.href = 'cekakun.php'
+              document.location.href = 'cekakun.php?id=$id'
           </script>
      "; 
   } else {

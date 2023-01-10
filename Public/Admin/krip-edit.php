@@ -193,7 +193,6 @@ $data_foto = query("SELECT * FROM user WHERE id_user  = $id")[0];
           </div>
           <div class="mt-4 bg-gray-300 p-4 rounded relative">
             <form action="" method="post">
-              <input name="id_user" value="<?= $_SESSION['id_user'] ?>" type="hidden" class="input input-bordered w-full" />
               <label for="np">
                 <span class="text-slate-700">Nomor Pensiun</span>
                 <input type="number" name="np" id="np" disabled class="block rounded-md w-full p-1 focus:outline-none focus:ring-2 ring-sky-500 mt-1 mb-3 bg-slate-50" value="<?= $data['np']; ?>">

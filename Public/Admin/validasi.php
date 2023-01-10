@@ -15,11 +15,11 @@ require '../Functions/function-daftar.php';
 
 // pagination configuration
 $totalDataPage = 5;
-$totalData = count(query("SELECT np, nama, nip, instansi, status_berkas, pelampiran_file.nf AS 'nf' FROM data_diri LEFT JOIN pelampiran_file ON data_diri.id_user WHERE status_berkas = 'checked'"));
+$totalData = count(query("SELECT DISTINCT np, nama, nip, instansi, status_berkas, pelampiran_file.nf = pelampiran_file.id_user AS 'nf' FROM data_diri LEFT JOIN pelampiran_file ON data_diri.id_user WHERE status_berkas = 'checked'"));
 $totalPage = ceil($totalData / $totalDataPage);
 $activePage = ( isset($_GET["page"]) ) ? $_GET["page"] : 1;
 $data = ($totalDataPage * $activePage ) - $totalDataPage;
-$datas = query("SELECT np, nama, nip, instansi, status_berkas, pelampiran_file.nf AS 'nf' FROM data_diri LEFT JOIN pelampiran_file ON data_diri.id_user WHERE status_berkas = 'checked' LIMIT $data, $totalDataPage ");
+$datas = query("SELECT DISTINCT np, nama, nip, instansi, status_berkas, pelampiran_file.nf AS 'nf' FROM data_diri LEFT JOIN pelampiran_file ON data_diri.id_user = pelampiran_file.id_user WHERE status_berkas = 'checked' LIMIT $data, $totalDataPage ");
 
 if ( isset($_POST["cari"]) ){
   $datas = find($_POST["keyword"]);

@@ -30,6 +30,7 @@ if( isset($_POST['submit']) ){
             $query      = "SELECT * FROM user WHERE username = '$username'";
             $result     = mysqli_query($conn, $query);
             $rows       = mysqli_num_rows($result);
+
             if ($rows != 0) {
                 $hash   = mysqli_fetch_assoc($result)['password'];
                 if(password_verify($password, $hash)){
@@ -62,13 +63,14 @@ if( isset($_POST['submit']) ){
                     }
                     // header('Location: index.php');
                 } 
+                   else {
+                    $error =  'Username atau Password Salah!';
+                }
+              }
             }          
             //jika gagal maka akan menampilkan pesan error
-            } else {
-                $error =  'Username atau Password Salah!';
-            }
              
-        }else {
+        } else {
             $error =  'Data tidak boleh kosong!';
         }
     } 

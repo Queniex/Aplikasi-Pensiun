@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 09 Jan 2023 pada 12.40
+-- Waktu pembuatan: 10 Jan 2023 pada 14.41
 -- Versi server: 10.4.24-MariaDB
 -- Versi PHP: 7.4.29
 
@@ -76,7 +76,8 @@ CREATE TABLE `data_diri` (
 
 INSERT INTO `data_diri` (`np`, `id_user`, `nama`, `nip`, `tempat_lahir`, `tanggal_lahir`, `agama`, `jenis_kelamin`, `alamat`, `no_telp`, `email`, `status_keluarga`, `instansi`, `tgl_pegawai`, `golongan`, `jabatan`, `usia_pensiun`, `iuran_perbulan`, `status_berkas`) VALUES
 (1011, 2, 'nama', 2107411030, 'tempat', '2023-01-01', 'agama', 'Gender', 'alamat', '081232144', 'email@email', 'status', 'instansi', '2023-01-03', 1, 'jabatan', 58, 12312345, 'checked'),
-(1013, 1, 'Quenie Salbiyah', 2107411033, 'Pekanbaru', '2023-01-01', 'islam', 'perempuan', 'Jl Mekar Sari', '23423492347', 'a@a', 'Belum Nikah', 'PNJ', '2023-01-04', 1, 'Pratama', 58, 40000, 'checked');
+(1013, 1, 'Quenie Salbiyah', 2107411033, 'Pekanbaru', '2023-01-01', 'islam', 'perempuan', 'Jl Mekar Sari', '23423492347', 'a@a', 'Belum Nikah', 'PNJ', '2023-01-04', 1, 'Pratama', 58, 40000, 'approve'),
+(1023, 6, 'testing enam', 21313, 'awdawdawd', '2023-01-02', 'islam', 'laki-laki', 'awdwadwad', '312413423', 'a@a', 'Belum Nikah', 'awdwad', '2023-01-08', 1, 'Pratama', 65, 234324, 'Checked');
 
 -- --------------------------------------------------------
 
@@ -92,6 +93,33 @@ CREATE TABLE `pelampiran_file` (
   `skcltn` varchar(100) NOT NULL,
   `skpi` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data untuk tabel `pelampiran_file`
+--
+
+INSERT INTO `pelampiran_file` (`nf`, `id_user`, `skpl`, `skcp`, `skcltn`, `skpi`) VALUES
+(5, 3, '63bce5cead71f.pdf', '63bce5ceadd93.pdf', '63bce5ceb0545.pdf', '63bce5ceb0d2e.pdf');
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `status_berkas`
+--
+
+CREATE TABLE `status_berkas` (
+  `id_status` int(11) NOT NULL,
+  `status_berkas` varchar(100) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data untuk tabel `status_berkas`
+--
+
+INSERT INTO `status_berkas` (`id_status`, `status_berkas`) VALUES
+(1, 'checked'),
+(2, 'approve'),
+(3, 'refuse');
 
 -- --------------------------------------------------------
 
@@ -117,9 +145,11 @@ CREATE TABLE `user` (
 --
 
 INSERT INTO `user` (`id_user`, `username`, `password`, `email`, `nama`, `no_telp`, `tanggal_lahir`, `alamat`, `foto`, `role`) VALUES
-(1, 'Quenie', '$2y$10$YZh/ykyd7oYuqEmZnVg6meu/0Jy56doGlxrrjbTSjmt.P6CxwUy.a', 'a@a', 'Quenie', '', '1970-01-01', 'Jl Cobain Dehh', '63bbc57fd0660.png', 'Peserta'),
+(1, 'Quenie', '$2y$10$YZh/ykyd7oYuqEmZnVg6meu/0Jy56doGlxrrjbTSjmt.P6CxwUy.a', 'a@a', 'Quenie Salbiyah', '', '1970-01-01', 'Jl Cobain Dehh', '63bbc57fd0660.png', 'Peserta'),
 (2, 'Salbiyah', '$2y$10$kU0aIUOXzEgGrYNHK5ZxJ..Fd078LAf2W1KYQcdPLLW9tlbPHQkx.', 'Salbiyah@gmail.com', 'Quenie Salbiyah', '0812312331', '2011-06-11', 'Jalan Mekar Sari', '', 'Peserta'),
-(3, 'Fildzah Marissa', '$2y$10$nEeBAZ3x1tf.gqbeYwzYQOnbehIyYgs8dZ7K9ZuBxCPy36b8grOq.', 'Fildzah@gmail.com', '', '', '1970-01-01', '', '', 'Admin');
+(3, 'Fildzah Marissa', '$2y$10$nEeBAZ3x1tf.gqbeYwzYQOnbehIyYgs8dZ7K9ZuBxCPy36b8grOq.', 'Fildzah@gmail.com', '', '', '1970-01-01', '', '', 'Admin'),
+(6, 'testing2', '$2y$10$YUEp7CkXiRU2/ezEx2FFvurs2jnac7K/ocruI4A.dKb5SwzRo9UKK', 'testing2@gmail.com', NULL, NULL, NULL, NULL, NULL, 'Peserta'),
+(7, 'Marissa', '$2y$10$bC3KkoeCf.vfJYVwSrgtouf8vTfRr1t0SVlocXiPeV8Vgcmi.Dw9W', 'marissa@gmail.com', NULL, NULL, NULL, NULL, NULL, 'Admin');
 
 --
 -- Indexes for dumped tables
@@ -146,6 +176,12 @@ ALTER TABLE `pelampiran_file`
   ADD KEY `id_user` (`id_user`);
 
 --
+-- Indeks untuk tabel `status_berkas`
+--
+ALTER TABLE `status_berkas`
+  ADD PRIMARY KEY (`id_status`);
+
+--
 -- Indeks untuk tabel `user`
 --
 ALTER TABLE `user`
@@ -159,19 +195,25 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT untuk tabel `data_diri`
 --
 ALTER TABLE `data_diri`
-  MODIFY `np` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1019;
+  MODIFY `np` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1024;
 
 --
 -- AUTO_INCREMENT untuk tabel `pelampiran_file`
 --
 ALTER TABLE `pelampiran_file`
-  MODIFY `nf` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `nf` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+--
+-- AUTO_INCREMENT untuk tabel `status_berkas`
+--
+ALTER TABLE `status_berkas`
+  MODIFY `id_status` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT untuk tabel `user`
 --
 ALTER TABLE `user`
-  MODIFY `id_user` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id_user` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

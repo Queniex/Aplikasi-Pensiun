@@ -80,9 +80,10 @@ if( isset($_POST['submit']) ){
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Test Tailwind</title>
+    <title>Logout</title>
     <!-- Link tailwind -->
     <script src="https://cdn.tailwindcss.com"></script>
+
     <script>
       tailwind.config = {
         theme: {
@@ -135,7 +136,7 @@ if( isset($_POST['submit']) ){
     </div>
   </header>
   <div class="flex h-screen items-center">
-    <div class="lg:w-[60%] w-[100%] px-32 bg-tema-abu h-screen">
+    <div class="lg:w-[60%] w-[100vw] px-32 bg-tema-abu h-screen">
       
       <form action="register.php" class="relative mt-20" method="POST">
         <p class="font-family-inter font-bold text-2xl mb-4 text-center text-slate-600">Register</p>
@@ -162,16 +163,16 @@ if( isset($_POST['submit']) ){
           <div class="form-control w-3/5">
             <label for="occupation">
               <span class="block font-semibold mt-4 text-slate-700 border-0">Occupation</span>
-              <select id="occupation" name="occupation" class="px-3 py-2 border shadow rounded w-full block text-sm placeholder:text-slate-400 focus:outline-none focus:ring-1 focus:ring-sky-500 focus:border-sky-500 invalid:text-pink-700 invalid:focus:ring-pink-700 invalid:focus:border-pink-700 peer">
+              <select id="occupation" name="occupation" class="px-3 py-2 border shadow rounded w-full block text-sm placeholder:text-slate-400 focus:outline-none focus:ring-1 focus:ring-sky-500 focus:border-sky-500 invalid:text-pink-700 invalid:focus:ring-pink-700 invalid:focus:border-pink-700 peer" onClick="check(this.id)">
                 <option value="#" disabled selected>Pilih :</option>
                 <option value="Peserta">Peserta</option>
-                <option value="Admin">Admin</option>
+                <option id="secret" value="Admin">Admin</option>
               </select>
             </label>  
           </div>
-          <div class="form-control w-2/5 mt-12 ml-5">
+          <div id="occupations" class="form-control w-2/5 mt-12 ml-5 hidden">
             <div class="input-group">
-              <input type="text" name="secret" placeholder=" Enter the Secret Code" class="input input-bordered bg-slate-500 text-black pl-2" />
+              <input type="text" name="secret" placeholder=" Enter the Secret Code" class="input border-2 border-black input-bordered bg-slate-500 text-black pl-2" />
               <button class="btn btn-square">
               </button>
             </div>
@@ -191,6 +192,22 @@ if( isset($_POST['submit']) ){
         <p></p>
     </div>
   </div>
+
+   <script>
+    function check(clicked_id)
+  {
+      var click = document.getElementById("occupation");
+      console.log(click.selectedIndex);
+      if(click.selectedIndex == 2) {
+        var element = document.getElementById("occupations")
+        element.classList.remove("hidden");
+      } else {
+        var element = document.getElementById("occupations")
+        element.classList.add("hidden");
+      }
+  }
+   </script>       
+
   <footer class="w-full bg-white text-center p-4">
       Copyright to <a target="_blank" href="https://github.com/Queniex/Aplikasi-Pensiun" class="underline text-[#152A38] hover:text-blue-500">Kelompok 3</a><br>
       All Right Reserved

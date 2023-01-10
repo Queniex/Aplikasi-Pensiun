@@ -14,30 +14,29 @@ require '../Functions/function-daftar.php';
 $id = $_GET["np"];
 $nf = $_GET["nf"];
 $data = query("SELECT * FROM data_diri WHERE np = $id")[0]; 
-$datas = query("SELECT * FROM pelampiran_file WHERE nf = $nf")[0];
+//$datas = query("SELECT * FROM pelampiran_file WHERE nf = $nf")[0];
 // $a = $datas['skpl'];
 // var_dump($a == '');
 if ( isset($_POST["submit"]) ){
   if( edit($_POST ) > 0 ){
-    if( edit2($_POST ) > 0){
+    if( edit3($_POST) > 0 ){
+      if( add2($_POST ) > 0){
         echo "
           <script>
               document.location.href = 'validasi.php'
           </script>
         "; 
-        }
-      else {
-        die('invalid Query : ' . mysqli_error($conn));
-        // echo mysqli_error($conn);
-        //debug_to_console("Test");
+        } else {
+          echo "
+          Gagal Update
+          "; 
       }
+    }
   } else {
   die('invalid Query : ' . mysqli_error($conn));
-  // echo mysqli_error($conn);
-  //debug_to_console("Test123");
+  echo mysqli_error($conn);
   }
 }
-
   $id = $_SESSION['id_user']; 
   $data_foto = query("SELECT * FROM user WHERE id_user  = $id")[0];
 ?>
@@ -48,8 +47,6 @@ if ( isset($_POST["submit"]) ){
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Daftar Berkas</title>
-    <meta name="author" content="David Grzyb">
-    <meta name="description" content="">
 
     <!-- Link tailwind -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -202,11 +199,7 @@ if ( isset($_POST["submit"]) ){
                       <form method="POST" enctype="multipart/form-data">
                           <div class="form-control w-full">
                           <input type="hidden" name="np" value="<?= $data["np"]; ?>">
-                          <input type="hidden" name="nf" value="<?= $data["nf"]; ?>">
-                          <input type="hidden" name="skpl2" value="<?= $datas["skpl"]; ?>">
-                          <input type="hidden" name="skcp2" value="<?= $datas["skcp"]; ?>">
-                          <input type="hidden" name="skcltn2" value="<?= $datas["skcltn"]; ?>">
-                          <input type="hidden" name="skpi2" value="<?= $datas["skpi"]; ?>">
+                          <input type="hidden" name="nf" value="<?= $nf; ?>">
                           
                           <input name="id_user" value="<?= $_SESSION['id_user'] ?>" type="hidden" class="input input-bordered w-full" />
                             <label class="label">

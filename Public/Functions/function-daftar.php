@@ -154,8 +154,17 @@ function edit($data) {
                usia_pensiun = '$usia_pensiun',
                iuran_perbulan = '$iuran_perbulan',
                status_berkas = '$status_berkas'
-               WHERE np = '$np'"; 
+               WHERE np = $np"; 
 
+    mysqli_query($conn, $query);
+    return mysqli_affected_rows($conn);
+}
+
+function edit3($data){
+    global $conn;
+
+    $nf = $data["nf"];
+    $query = "DELETE FROM pelampiran_file WHERE nf = $nf";
     mysqli_query($conn, $query);
     return mysqli_affected_rows($conn);
 }
@@ -164,23 +173,42 @@ function edit2($data) {
     global $conn;
 
     $nf = $data['nf'];
-    $oldskpl = htmlspecialchars($data["Gambar"]);
-    $oldskpl = htmlspecialchars($data["Gambar"]);
-    $oldskpl = htmlspecialchars($data["Gambar"]);
-    $oldskpl = htmlspecialchars($data["Gambar"]);
+    $oldskpl = htmlspecialchars($data["skpl"]);
+    $oldskcp = htmlspecialchars($data["skcp"]);
+    $oldskcltn = htmlspecialchars($data["skcltn"]);
+    $oldskpi = htmlspecialchars($data["skpi"]);
 
     // check if user choosing a new picture
-    if( $_FILES['Gambar']['error'] === 4 ) {
-        $gambar = $oldPicture;
+    if( $_FILES['skpl']['error'] === 4 ) {
+        $skpl = $oldskpl;
     } else {
-        $gambar = upload();
+        $skpl = upload("skpl");
     }
 
-    $query = "UPDATE mahasiswa SET
-               Nama = '$nama',
-               Nim = '$nim',
-               Gambar = '$gambar'
-               WHERE Id = $id"; 
+    if( $_FILES['skcp']['error'] === 4 ) {
+        $skcp = $oldskcp;
+    } else {
+        $skcp = upload("skcp");
+    }
+
+    if( $_FILES['skcltn']['error'] === 4 ) {
+        $skcltn = $oldskcltn;
+    } else {
+        $skcltn = upload("skcltn");
+    }
+
+    if( $_FILES['skpi']['error'] === 4 ) {
+        $skpi = $oldskpi;
+    } else {
+        $skpi = upload("skpi");
+    }
+
+    $query = "UPDATE pelampiran_file SET
+               skpl = '$skpl',
+               skcp = '$skcp',
+               skcltn = '$skcltn',
+               skpi = '$skpi'
+               WHERE nf = '$nf'"; 
 
     mysqli_query($conn, $query);
 

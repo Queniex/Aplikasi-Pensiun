@@ -21,8 +21,6 @@ $data_foto = query("SELECT * FROM user WHERE id_user  = $id")[0];
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard</title>
-    <meta name="author" content="David Grzyb">
-    <meta name="description" content="">
 
     <!-- Link tailwind -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />

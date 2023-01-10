@@ -63,8 +63,6 @@ $datas = query("SELECT * FROM data_diri WHERE id_user = $id AND status_berkas = 
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Daftar Berkas</title>
-    <meta name="author" content="David Grzyb">
-    <meta name="description" content="">
 
     <!-- Link tailwind -->
     <script src="https://cdn.tailwindcss.com"></script>

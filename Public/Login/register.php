@@ -1,4 +1,4 @@
-<?php
+<!-- <?php
 //menyertakan file program koneksi.php pada register
 require('../Functions/koneksi.php');
 //inisialisasi session
@@ -36,11 +36,15 @@ if( isset($_POST['submit']) ){
                         $sql = query("SELECT * FROM user WHERE username = '$username'")[0];
                         $_SESSION['id_user'] = $sql['id_user']; 
                         if($_POST['occupation'] == 'Admin') {
-                          echo
-                          "<script>
-                          alert('Selamat Datang')
-                          document.location.href = '../Admin/index.php'
-                          </script>";
+                          if($_POST['secret'] == 'adminonly'){
+                            echo
+                            "<script>
+                            alert('Selamat Datang')
+                            document.location.href = '../Admin/index.php'
+                            </script>";
+                          } else{
+                            $error =  'Secret code Salah !!';
+                          }
                         }else{
                           echo
                           "<script>
@@ -69,7 +73,7 @@ if( isset($_POST['submit']) ){
         $query = "SELECT * FROM user WHERE username = '$nama'";
         if( $result = mysqli_query($conn, $query) ) return mysqli_num_rows($result);
     }
-?>
+?> -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -154,14 +158,25 @@ if( isset($_POST['submit']) ){
           <span class="block font-semibold mt-4 text-slate-700 border-0">Re-Password</span>
           <input type="password" name="repassword" id="repassword" placeholder="Re-Password" class="px-3 py-2 border shadow rounded w-full block text-sm placeholder:text-slate-400 focus:outline-none focus:ring-1 focus:ring-sky-500 focus:border-sky-500 invalid:text-pink-700 invalid:focus:ring-pink-700 invalid:focus:border-pink-700 peer"/>
         </label>
-        <label for="occupation">
-          <span class="block font-semibold mt-4 text-slate-700 border-0">Occupation</span>
-          <select id="occupation" name="occupation" class="px-3 py-2 border shadow rounded w-full block text-sm placeholder:text-slate-400 focus:outline-none focus:ring-1 focus:ring-sky-500 focus:border-sky-500 invalid:text-pink-700 invalid:focus:ring-pink-700 invalid:focus:border-pink-700 peer">
-            <option value="#" disabled selected>Pilih :</option>
-            <option value="Peserta">Peserta</option>
-            <option value="Admin">Admin</option>
-          </select>
-        </label>
+        <div class="flex flex-row">
+          <div class="form-control w-3/5">
+            <label for="occupation">
+              <span class="block font-semibold mt-4 text-slate-700 border-0">Occupation</span>
+              <select id="occupation" name="occupation" class="px-3 py-2 border shadow rounded w-full block text-sm placeholder:text-slate-400 focus:outline-none focus:ring-1 focus:ring-sky-500 focus:border-sky-500 invalid:text-pink-700 invalid:focus:ring-pink-700 invalid:focus:border-pink-700 peer">
+                <option value="#" disabled selected>Pilih :</option>
+                <option value="Peserta">Peserta</option>
+                <option value="Admin">Admin</option>
+              </select>
+            </label>  
+          </div>
+          <div class="form-control w-2/5 mt-12 ml-5">
+            <div class="input-group">
+              <input type="text" name="secret" placeholder=" Enter the Secret Code" class="input input-bordered bg-slate-500 text-black pl-2" />
+              <button class="btn btn-square">
+              </button>
+            </div>
+          </div>
+        </div>
 
         <div class="flex mt-6 absolute right-0">
         <button type="submit" name="submit" class="bg-slate-300 px-5 py-2 rounded-full text-slate-800 font-semibold font-family-inter block  hover:text-slate-900 hover:bg-slate-100 active:bg-slate-300 focus:ring focus:ring-sky-900">Register</button>

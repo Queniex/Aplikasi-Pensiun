@@ -64,6 +64,7 @@ function add2($data) {
     }
 }
 
+
 function upload($a) {
 
     $fileName = $_FILES[$a]['name'];
@@ -178,7 +179,7 @@ function edit3($data){
 
 function check_exist($nf){
     global $conn;
-    
+
     $query = "SELECT * FROM pelampiran_file WHERE nf = $nf";
     mysqli_query($conn, $query);
     return mysqli_affected_rows($conn);

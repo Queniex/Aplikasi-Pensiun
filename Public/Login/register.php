@@ -41,7 +41,7 @@ if( isset($_POST['submit']) ){
                             echo
                             "<script>
                             alert('Selamat Datang')
-                            document.location.href = 'login.php'
+                            document.location.href = '../Admin/index.php'
                             </script>";
                           } else{
                             $error =  'Secret code Salah !!';
@@ -51,7 +51,7 @@ if( isset($_POST['submit']) ){
                           echo
                           "<script>
                           alert('Selamat Datang')
-                          document.location.href = 'login.php'
+                          document.location.href = '../User/index.php'
                           </script>";
                         }
                     //jika gagal maka akan menampilkan pesan error

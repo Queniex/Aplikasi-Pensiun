@@ -44,22 +44,24 @@ function add2($data) {
     global $conn;
 
     // upload file
-    $nf = $data["nf"];
-    $id = $data["id_user"];
+    $id = $data["id"];
     $skpl = upload("skpl");
     $skcp = upload("skcp");
     $skcltn = upload("skcltn");
     $skpi = upload("skpi");
+    
     if( !$skpl && !$skcp && !$skcltn && !$skpi ) {
         return false;
-    }
-
-    $query = "INSERT INTO pelampiran_file 
+    } elseif( $skpl == false || $skcp == false || $skcltn == false || $skpi == false ){
+        return false;
+    } else {
+        $query = "INSERT INTO pelampiran_file 
                 VALUES
-               ('$nf', '$id', '$skpl', '$skcp', '$skcltn', '$skpi')"; 
-    mysqli_query($conn, $query);
+               ('', '$id', '$skpl', '$skcp', '$skcltn', '$skpi')"; 
+        mysqli_query($conn, $query);
 
-    return mysqli_affected_rows($conn);
+        return mysqli_affected_rows($conn);
+    }
 }
 
 function upload($a) {
@@ -164,7 +166,20 @@ function edit3($data){
     global $conn;
 
     $nf = $data["nf"];
-    $query = "DELETE FROM pelampiran_file WHERE nf = $nf";
+
+    if( check_exist($nf) > 0 ){
+        $query = "DELETE FROM pelampiran_file WHERE nf = $nf";
+        mysqli_query($conn, $query);
+        return mysqli_affected_rows($conn);
+    } else {
+        return 1;
+    }
+}
+
+function check_exist($nf){
+    global $conn;
+    
+    $query = "SELECT * FROM pelampiran_file WHERE nf = $nf";
     mysqli_query($conn, $query);
     return mysqli_affected_rows($conn);
 }

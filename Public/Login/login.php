@@ -31,32 +31,37 @@ if( isset($_POST['submit']) ){
             $result     = mysqli_query($conn, $query);
             $rows       = mysqli_num_rows($result);
 
+            require_once('../Functions/function-krip.php');
+            $sql = query("SELECT * FROM user WHERE username = '$username'")[0];
+            $role = $sql['role'];
             if ($rows != 0) {
                 $hash   = mysqli_fetch_assoc($result)['password'];
                 if(password_verify($password, $hash)){
                     // $_SESSION['username'] = $username;
                     if ($_SESSION['code'] != $captcha) {
                         $error = 'Kode Captcha Salah!';
-                    } else { // jika captcha benar, maka perintah yang bawah akan dijalankan
-                        require_once('../Functions/function-krip.php');
-                        $sql = query("SELECT * FROM user WHERE username = '$username'")[0];
-                        $_SESSION['username'] = $sql['username'];
-                        $_SESSION['id_user'] = $sql['id_user']; 
-                        if($_POST['occupation'] == 'Admin') {
-                          $_SESSION['role'] = 'Admin';
-                          echo
-                          "<script>
-                          alert('Selamat Datang')
-                          document.location.href = '../Admin/index.php'
-                          </script>";
+                    } else { // jika captcha benar, maka perintah yang bawah akan dijalankan                    
+                        $roles = $_POST['occupation'];
+                        if($role == $roles) {
+                          $_SESSION['username'] = $sql['username'];
+                          $_SESSION['id_user'] = $sql['id_user']; 
+                          if($_POST['occupation'] == 'Admin'){
+                            $_SESSION['role'] = 'Admin';
+                            echo
+                            "<script>
+                            alert('Selamat Datang')
+                            document.location.href = '../Admin/index.php'
+                            </script>";
+                          }else {
+                            $_SESSION['role'] = 'Peserta';
+                            echo
+                            "<script>
+                            alert('Selamat Datang')
+                            document.location.href = '../User/index.php'
+                            </script>";
+                          }
                         }else{
-                          $_SESSION['role'] = 'Peserta';
-                          echo
-                          "<script>
-                          alert('Selamat Datang')
-                          document.location.href = '../User/index.php'
-                          </script>";
-                    
+                          $error = "Role Tidak Sesuai!";
                         }
 
                         // header('Location: index.php');

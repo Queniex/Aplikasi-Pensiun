@@ -10,6 +10,8 @@ if( $_SESSION['role'] != 'Admin') {
   exit;
 }
 
+$error = '';
+
 require '../Functions/function-daftar.php';
 $id = $_GET["np"];
 $nf = $_GET["nf"];
@@ -26,15 +28,14 @@ if ( isset($_POST["submit"]) ){
               document.location.href = 'validasi.php'
           </script>
         "; 
-        } else {
-          echo "
-          Gagal Update
-          "; 
-      }
+          } else {
+            $error = "Gagal Update File";
+        }
+      } else {
+        $error = "Gagal Update";
     }
   } else {
-  die('invalid Query : ' . mysqli_error($conn));
-  echo mysqli_error($conn);
+    $error = "Gagal Update Data Diri";
   }
 }
   $id = $_SESSION['id_user']; 
@@ -189,6 +190,10 @@ if ( isset($_POST["submit"]) ){
                 <h1 class="text-3xl text-black ml-6">Data Dana Pensiun Pegawai</h1>
                 <h3 class="pb-3 ml-6">Form Pengajuan Permintan Dana Pensiun Pegawai</h3>
 
+                <?php if($error != ''){ ?>
+                  <div class="text-pink-700 font-semibold"><?= $error; ?></div>
+                <?php } ?>
+
                 <!-- Start Data Diri -->
                 <div class="flex flex-wrap mt-4 pl-1 mb-14">
                   <div class="w-full pr-0">
@@ -199,6 +204,7 @@ if ( isset($_POST["submit"]) ){
                       <form method="POST" enctype="multipart/form-data">
                           <div class="form-control w-full">
                           <input type="hidden" name="np" value="<?= $data["np"]; ?>">
+                          <input type="hidden" name="id" value="<?= $data["id_user"]; ?>">
                           <input type="hidden" name="nf" value="<?= $nf; ?>">
                           
                           <input name="id_user" value="<?= $_SESSION['id_user'] ?>" type="hidden" class="input input-bordered w-full" />

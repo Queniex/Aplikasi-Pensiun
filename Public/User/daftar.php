@@ -9,27 +9,22 @@ if( $_SESSION['role'] != 'Peserta') {
   header("Location: ../Login/login.php");
   exit;
 }
-
+$error = "";
 
 require '../Functions/function-daftar.php';
 if (isset($_POST['submit']) ){
-    if( add($_POST) > 0 ){
-      if( add2($_POST) > 0){
-        echo "
-            <script>
-                document.location.href = 'daftar.php'
-            </script>
-       "; 
-      } else {
-        echo "
-            <script>
-                document.location.href = 'daftarGagal.php'
-            </script>
-       "; 
+    if( add2($_POST) > 0 ){
+      if( add($_POST) > 0){
+          echo "
+              <script>
+                  document.location.href = 'daftar.php'
+              </script>
+        "; 
+        } else {
+          $error = "Terjadi Kesalahan input Data Diri!";
       }
     } else {
-    die('invalid Query : ' . mysqli_error($conn));
-    echo mysqli_error($conn);
+      $error = "Terjadi Kesalahan input data File!";
     }
 }
 
@@ -38,9 +33,11 @@ $data = query("SELECT * FROM data_diri WHERE id_user = $id AND status_berkas = '
 $datax = query("SELECT * FROM data_diri WHERE id_user = $id AND status_berkas = 'approve'");
 $datas = query("SELECT * FROM data_diri WHERE id_user = $id AND status_berkas = 'refuse'");
   if(isset($_POST['coba'])){
-    $query = "UPDATE data_diri SET status_berkas = 'try' WHERE id_user = $id";
+    $query = "DELETE FROM data_diri WHERE id_user = $id";
     $result = mysqli_query($conn, $query);
-    if($result){
+    $query2 = "DELETE FROM pelampiran_file WHERE id_user = $id";
+    $result2 = mysqli_query($conn, $query2);
+    if($result && $result2){
       echo "
               <script>
                   document.location.href = 'daftar.php'
@@ -55,6 +52,7 @@ $datas = query("SELECT * FROM data_diri WHERE id_user = $id AND status_berkas = 
       }
     }
     $data_foto = query("SELECT * FROM user WHERE id_user  = $id")[0];
+
 ?>
 
 <!DOCTYPE html>
@@ -214,6 +212,10 @@ $datas = query("SELECT * FROM data_diri WHERE id_user = $id AND status_berkas = 
                 <h1 class="text-3xl text-black ml-6">Klaim Dana Pensiun</h1>
                 <h3 class="pb-3 ml-6">Lengkapi form berikut untuk melakukan pengajuan permintaan klaim dana pensiun</h3>
 
+                <?php if($error != ''){ ?>
+                  <div class="text-pink-700 font-semibold"><?= $error; ?></div>
+                <?php } ?>  
+
                 <!-- Start Data Diri -->
                 <div class="flex flex-wrap mt-4 pl-1 mb-14">
                   <div class="w-full pr-0">
@@ -222,6 +224,8 @@ $datas = query("SELECT * FROM data_diri WHERE id_user = $id AND status_berkas = 
                       <div class="pt-1 ml-6 mr-6">
                         
                         <form method="POST" enctype="multipart/form-data">
+                          <input type="hidden" name="id" value="<?= $id; ?>">
+
                           <input name="id_user" value="<?= $_SESSION['id_user'] ?>" type="hidden" class="input input-bordered w-full" />
                           <div class="form-control w-full">
                             <label class="label">
